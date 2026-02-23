@@ -1,0 +1,65 @@
+name: Repository Scout - Discover Vulnerable Web Apps
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  scout:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6
+      
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405  # v6
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install PyGithub==2.1.1 requests==2.31.0 python-dateutil==2.8.2
+      
+      - name: Run Repository Scout
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python .github/workflows/scripts/scout.py
+      
+      - name: Create Issue with Findings
+        if: success()
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd  # v8
+        with:
+          script: |
+            const fs = require('fs');
+            
+            if (!fs.existsSync('scout-results.json')) {
+              console.log('No new repositories found');
+              return;
+            }
+            
+            const results = JSON.parse(fs.readFileSync('scout-results.json', 'utf8'));
+            
+            if (results.repositories.length === 0) {
+              console.log('No new repositories found');
+              return;
+            }
+            
+            const issueBody = fs.readFileSync('scout-issue-body.md', 'utf8');
+            
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🔍 Scout Report - ${results.scan_date}`,
+              body: issueBody,
+              labels: ['new app']
+            });
+            
+            console.log(`Created issue with ${results.repositories.length} new repositories`);
