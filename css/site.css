@@ -1,15 +1,82 @@
-/* OWASP VWAD GitHub Pages — standalone styles */
+/* OWASP VWAD — aligned with owasp.community
+   Design tokens from: https://www.owasp.community/_next/static/chunks/ (community CSS) */
 
 :root {
-  --owasp-orange: #e8652e;
-  --owasp-orange-hover: #d45a26;
-  --bg-dark: #1a1a1a;
-  --bg-card: #242424;
-  --text: #e6e6e6;
-  --text-muted: #999;
-  --border: #333;
-  --radius: 8px;
-  --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  /* Community design system (neutral-1, blue-3, accent-blue-4, accent-gold-4, blue-7) */
+  --neutral-1: #101820;
+  --neutral-3: #757575;
+  --blue-7: #f1f6fe;
+  --blue-3: #003594;
+  --accent-blue-4: #00a7e1;
+  --accent-gold-4: #ffb81b;
+  /* First header: dark blue (bg-[#101820]/95) */
+  --header-bg: var(--neutral-1);
+  --header-text: #ffffff;
+  --header-text-muted: rgba(255, 255, 255, 0.8);
+  /* Standard links: dark blue */
+  --link: var(--blue-3);
+  --link-hover: #004bbb;
+  /* Cyan accent */
+  --accent-cyan: var(--accent-blue-4);
+  /* Yellow: footer "Make a Donation" only */
+  --btn-yellow: var(--accent-gold-4);
+  --btn-yellow-hover: #ffc947;
+  --btn-yellow-text: var(--neutral-1);
+  /* Primary blue buttons */
+  --btn-primary-start: var(--blue-3);
+  --btn-primary-end: #004bbb;
+  --btn-primary-hover-start: #004bbb;
+  --btn-primary-hover-end: #0056cc;
+  /* Secondary header gradient — matches live (from-[#1a237e] via-[#303f9f] to-[#42a5f5]) */
+  --gradient-band: linear-gradient(to bottom right, #1a237e 0%, #303f9f 50%, #42a5f5 100%);
+  --bg-page: #ffffff;
+  --bg-alt: var(--blue-7);
+  --bg-card: #ffffff;
+  --text: var(--neutral-1);
+  --text-muted: var(--neutral-3);
+  --border: #e2e5e9;
+  --border-focus: var(--accent-cyan);
+  --radius: 0.5rem; /* community uses .5rem (rounded-lg) */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  /* Barlow (headings, weight 500), Poppins (body) — from community CSS */
+  --font-body: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-heading: "Barlow", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-logo: "Barlow", sans-serif;
+}
+
+/* Dark mode — main content area (preference stored in localStorage, no tracking) */
+[data-theme="dark"] {
+  --bg-page: #1a1d23;
+  --bg-alt: #252830;
+  --bg-card: #252830;
+  --text: #e6e8eb;
+  --text-muted: #9ca3af;
+  --border: #3d424a;
+  --link: #00a7e1;
+  --link-hover: #33b8eb;
+  --link-visited: #00a7e1; /* keep visited links readable on dark bg (no dark purple) */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .site-main a:visited,
+[data-theme="dark"] .footer-standalone a:visited {
+  color: var(--link-visited);
+}
+
+/* "Browse the directory" and other .not-found links: explicit color so visited state is readable (no purple) */
+[data-theme="dark"] .not-found a,
+[data-theme="dark"] .not-found a:visited {
+  color: #00a7e1;
+}
+[data-theme="dark"] .not-found a:hover {
+  color: #33b8eb;
+}
+
+[data-theme="dark"] .project-header {
+  /* Same gradient as light so header matches live site */
+  background: linear-gradient(to bottom right, #1a237e 0%, #303f9f 50%, #42a5f5 100%);
 }
 
 *,
@@ -25,10 +92,75 @@ html {
 
 body {
   margin: 0;
-  font-family: var(--font);
-  background: var(--bg-dark);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.32px; /* body-16r from community */
+  background: var(--bg-page);
   color: var(--text);
-  line-height: 1.6;
+}
+
+/* Skip link — visible on focus for keyboard users */
+.skip-link {
+  position: absolute;
+  top: -3rem;
+  left: 0.75rem;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  background: var(--bg-card);
+  color: var(--link);
+  font-weight: 600;
+  text-decoration: none;
+  border: 2px solid var(--border-focus);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0.75rem;
+  outline: none;
+}
+
+/* Focus visible — clear outline for keyboard navigation */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* External link — icon and spacing */
+.ext-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.ext-link::after {
+  content: '';
+  width: 0.75em;
+  height: 0.75em;
+  flex-shrink: 0;
+  background-color: currentColor;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E");
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+}
+
+/* Headings: Barlow weight 500, negative letter-spacing (community heading-h1–h7) */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  letter-spacing: -0.02em;
 }
 
 .container {
@@ -37,78 +169,335 @@ body {
   padding: 0 1.25rem;
 }
 
-/* Header */
-.site-header {
-  background: var(--bg-card);
-  border-bottom: 1px solid var(--border);
-  padding: 1rem 0;
+.container-wide {
+  max-width: 1200px;
 }
 
-.site-header .container {
+/* Browse section: wider container so the applications table fills better when full-screened */
+#browse .container {
+  max-width: 1200px;
+}
+
+/* Header inner: match owasp.community max-width and padding scale */
+.site-header .container-wide {
+  max-width: 1440px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .site-header .container-wide { padding-left: 1.5rem; padding-right: 1.5rem; }
+}
+@media (min-width: 768px) {
+  .site-header .container-wide { padding-left: 2rem; padding-right: 2rem; }
+}
+@media (min-width: 1024px) {
+  .site-header .container-wide { padding-left: 3rem; padding-right: 3rem; }
+}
+@media (min-width: 1280px) {
+  .site-header .container-wide { padding-left: 4rem; padding-right: 4rem; }
+}
+@media (min-width: 1536px) {
+  .site-header .container-wide { padding-left: 120px; padding-right: 120px; }
+}
+
+/* Primary header — match owasp.community: sticky, backdrop-blur, bg #101820/95, h-20, border-white/10, shadow-sm */
+.site-header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 50;
+  background: rgba(16, 24, 32, 0.95);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  min-height: 5rem;
+  padding: 0;
+  transition: transform 0.3s ease-out;
+}
+
+.site-header .container,
+.site-header .container-wide {
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  min-height: 5rem;
 }
 
+/* Logo: OWASP header SVG — h-10 (2.5rem), fixed width, shrink-0, hover opacity 90% (community) */
 .logo {
+  display: block;
+  flex-shrink: 0;
+  height: 2.5rem;
+  width: 132.894px;
   text-decoration: none;
-  font-weight: 700;
-  font-size: 1.25rem;
 }
 
-.logo-owasp {
-  color: var(--owasp-orange);
+.logo.logo-wasp {
+  width: 2.5rem;
+  height: 2.5rem;
+  transition: opacity 0.2s ease;
 }
 
-.logo-vwad {
-  color: var(--text);
-  margin-left: 0.25rem;
+/* Left-side brand: wasp logo + VWAD wordmark SVG. Sizing: wasp and VWAD both 2.5rem height (viewBox 40×40 and 72×40). */
+.header-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: var(--header-text);
+  flex-shrink: 0;
+}
+
+.header-brand:hover {
+  opacity: 0.9;
+}
+
+.header-brand-name {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+  color: inherit;
+}
+
+/* VWAD wordmark: inline SVG with viewBox 0 0 72 40 (extra right padding so D does not clip on small screens); height matches wasp (2.5rem). */
+.header-brand-name .vwad-wordmark {
+  display: block;
+  height: 2.5rem;
+  width: auto;
+}
+
+/* OWASP wordmark in nav: viewBox 44 0 90 40 (letterforms + left padding so O not clipped); 2.5rem to match VWAD/wasp. */
+.site-nav .owasp-wordmark {
+  display: block;
+  height: 2.5rem;
+  width: auto;
+  color: inherit;
+}
+
+.logo:hover {
+  opacity: 0.9;
+}
+
+.header-logo {
+  display: block;
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  color: var(--header-text);
+}
+
+/* OWASP logo wasp wing flap on hover (from owasp.community) */
+@keyframes owaspWingFlap {
+  0%   { transform: rotate(0); }
+  20%  { transform: rotate(-12deg); }
+  40%  { transform: rotate(9deg); }
+  60%  { transform: rotate(-6deg); }
+  100% { transform: rotate(0); }
+}
+
+.owasp-logo #wasp-wings {
+  transform-origin: 52% 34%;
+  transform-box: fill-box;
+  will-change: transform;
+}
+
+.owasp-logo:hover #wasp-wings {
+  animation: 0.9s ease-in-out owaspWingFlap;
 }
 
 .site-nav {
   display: flex;
-  gap: 1.5rem;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .site-nav a {
-  color: var(--text-muted);
+  color: var(--header-text-muted);
   text-decoration: none;
   font-weight: 500;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
 }
 
 .site-nav a:hover {
-  color: var(--owasp-orange);
+  color: var(--header-text);
 }
 
-/* Hero */
-.hero {
-  padding: 3rem 0;
-  text-align: center;
+/* Create Account: outline button (community) — border #757575, hover cyan */
+.site-nav a.nav-create-account {
+  color: var(--header-text);
+  border: 2px solid var(--neutral-3);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: border-color 0.3s, background-color 0.3s, color 0.3s;
 }
 
-.hero h1 {
-  margin: 0 0 1rem;
-  font-size: clamp(1.75rem, 4vw, 2.25rem);
-  font-weight: 700;
+.site-nav a.nav-create-account:hover {
+  border-color: rgba(0, 167, 225, 0.6);
+  background: rgba(0, 167, 225, 0.1);
+  color: var(--accent-cyan);
 }
 
-.hero-tagline {
-  font-size: 1.125rem;
-  color: var(--text-muted);
-  max-width: 42ch;
-  margin: 0 auto 1.5rem;
+.site-nav a.nav-cta {
+  color: var(--header-text);
+  background: linear-gradient(to right, var(--btn-primary-start), var(--btn-primary-end));
+  padding: 0.35rem 0.75rem;
+  border-radius: 0.5rem; /* rounded-lg to match community */
+  font-size: 0.875rem;
+  font-weight: 600;
 }
 
-.hero-note {
-  font-size: 0.9rem;
-  color: var(--text-muted);
+.site-nav a.nav-cta:hover {
+  background: linear-gradient(to right, var(--btn-primary-hover-start), var(--btn-primary-hover-end));
+  color: var(--header-text);
+  box-shadow: 0 10px 15px -3px rgba(0, 53, 148, 0.3), 0 4px 6px -4px rgba(0, 53, 148, 0.3);
 }
 
-.hero-note code {
-  background: var(--bg-card);
-  padding: 0.2em 0.5em;
-  border-radius: 4px;
-  font-size: 0.9em;
+.theme-toggle {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.35rem 0.5rem;
+  margin: 0;
+  border: none;
+  background: none;
+  color: var(--header-text-muted);
+  cursor: pointer;
+  border-radius: var(--radius);
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.theme-toggle:hover {
+  color: var(--header-text);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+  outline-offset: 2px;
+}
+
+.theme-toggle-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+.theme-toggle-icon {
+  display: block;
+  flex-shrink: 0;
+}
+
+.theme-toggle-label {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+}
+
+/* Secondary header — gradient matches live (from-[#1a237e] via-[#303f9f] to-[#42a5f5]) */
+.project-header {
+  background: var(--gradient-band);
+  padding: clamp(1rem, 2vw, 1.25rem) 0 clamp(1.25rem, 2.5vw, 1.5rem);
+  margin-bottom: 0;
+}
+
+.project-header .container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem 0;
+}
+
+.project-header-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  width: 100%;
+}
+
+.project-title {
+  margin: 0;
+  font-size: clamp(1.35rem, 3.5vw, 1.85rem);
+  font-weight: 600;
+  font-family: var(--font-heading);
+  color: #fff;
+  letter-spacing: -0.03em;
+  width: 100%;
+  line-height: 1.3;
+}
+
+.project-header-top .project-title {
+  width: auto;
+}
+
+.project-subtitle {
+  margin: 0;
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  color: rgba(255, 255, 255, 0.85);
+  font-family: var(--font-body);
+  text-align: right;
+}
+
+/* Tagline on gradient: light text like title (#fff) and subtitle (white/0.85) */
+.project-header .project-tagline {
+  margin: 0;
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: var(--font-body);
+  max-width: 56ch;
+}
+
+/* View on GitHub — white button, same blue in light/dark (no theme shift) */
+.btn-github {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #ffffff !important;
+  color: #003594 !important;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.btn-github:hover {
+  background: rgba(255, 255, 255, 0.95) !important;
+  color: #004bbb !important;
+}
+
+.btn-github .icon-github {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex-shrink: 0;
+}
+
+/* Footer: View on GitHub ~20% smaller */
+.site-footer .btn-github--footer {
+  font-size: 0.8em;
+  padding: 0.4rem 0.8rem;
+  gap: 0.4rem;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+.site-footer .btn-github--footer .icon-github {
+  width: 0.9rem;
+  height: 0.9rem;
 }
 
 /* Sections */
@@ -117,13 +506,15 @@ body {
 }
 
 .section-alt {
-  background: var(--bg-card);
+  background: var(--bg-alt);
 }
 
 .section h2 {
   margin: 0 0 1rem;
   font-size: 1.5rem;
   font-weight: 600;
+  font-family: var(--font-heading);
+  color: var(--text);
 }
 
 .section p {
@@ -155,7 +546,7 @@ body {
 }
 
 .collection-list a {
-  color: var(--owasp-orange);
+  color: var(--link);
   text-decoration: none;
   font-weight: 500;
 }
@@ -164,30 +555,509 @@ body {
   text-decoration: underline;
 }
 
-/* Footer */
+/* Footer — owasp.community specifics: bg #101820, logo card #151515, link hover #ffb81b, buttons */
 .site-footer {
-  border-top: 1px solid var(--border);
-  padding: 1.5rem 0;
-  margin-top: 2rem;
+  background: var(--neutral-1);
+  padding: 2rem 1rem 2rem;
+  margin-top: 0;
 }
 
-.site-footer p {
-  margin: 0;
-  font-size: 0.9rem;
-  color: var(--text-muted);
+.site-footer .footer-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
 }
 
-.site-footer a {
-  color: var(--owasp-orange);
+@media (min-width: 640px) {
+  .site-footer { padding-left: 1.5rem; padding-right: 1.5rem; padding-top: 2.5rem; padding-bottom: 2.5rem; }
+}
+@media (min-width: 768px) {
+  .site-footer { padding-left: 2rem; padding-right: 2rem; }
+}
+@media (min-width: 1024px) {
+  .site-footer { padding: 3rem 3rem 3rem; }
+  .site-footer .footer-inner { gap: 3rem; }
+}
+@media (min-width: 1280px) {
+  .site-footer { padding-left: 4rem; padding-right: 4rem; padding-top: 4rem; padding-bottom: 4rem; }
+  .site-footer .footer-inner { gap: 4rem; }
+}
+@media (min-width: 1536px) {
+  .site-footer { padding-left: 120px; padding-right: 120px; }
+}
+
+/* Standalone footer: project identity + one OWASP link */
+.footer-standalone {
+  background: #151515;
+  padding: 1.5rem 1.5rem 1.25rem;
+  width: 100%;
+}
+
+.footer-standalone .footer-logo {
+  margin-bottom: 0.75rem;
+}
+
+.footer-standalone .footer-tagline {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: none;
+}
+
+.footer-standalone .footer-tagline a {
+  color: #00A7E1;
   text-decoration: none;
 }
 
-.site-footer a:hover {
+.footer-standalone .footer-tagline a:hover {
   text-decoration: underline;
 }
 
-.site-footer a + a {
-  margin-left: 0.5rem;
+/* Footer "About OWASP" uses var(--link) in dark theme so it matches app names in main content. */
+
+/* Main row: logo card + 3 columns (legacy, when used) */
+.footer-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  align-items: stretch;
+}
+
+@media (min-width: 1024px) {
+  .footer-main {
+    flex-direction: row;
+    gap: 3rem;
+    align-items: flex-start;
+  }
+}
+
+/* Logo card — bg #151515, community left block */
+.footer-logo-card {
+  background: #151515;
+  padding: 1.5rem;
+  width: 100%;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@media (min-width: 640px) {
+  .footer-logo-card { padding: 2rem; }
+}
+@media (min-width: 1024px) {
+  .footer-logo-card { width: 480px; min-height: 300px; flex-shrink: 0; }
+}
+
+.footer-logo {
+  display: block;
+  text-decoration: none;
+  margin-bottom: 1rem;
+  width: 160px;
+  height: 3rem;
+  flex-shrink: 0;
+}
+
+.footer-logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: left center;
+}
+
+@media (min-width: 640px) {
+  .footer-logo { width: 186px; height: 3.5rem; }
+}
+@media (min-width: 1024px) {
+  .footer-logo { margin-bottom: 0; width: 213px; height: 4rem; }
+}
+
+.footer-logo:hover {
+  opacity: 0.9;
+}
+
+.footer-tagline {
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 18px;
+  color: #fff;
+  margin: 0;
+  max-width: 40ch;
+}
+
+@media (min-width: 640px) {
+  .footer-tagline { font-size: 14px; line-height: 20px; }
+}
+
+/* Three columns */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .footer-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+}
+
+@media (min-width: 1024px) {
+  .footer-grid { flex: 1; }
+}
+
+.footer-block {
+  margin: 0;
+}
+
+.footer-heading {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.28px;
+  line-height: 20px;
+  color: rgba(244, 244, 244, 0.5);
+}
+
+@media (min-width: 640px) {
+  .footer-heading { font-size: 16px; letter-spacing: -0.32px; line-height: 24px; }
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.footer-links li {
+  margin: 0;
+}
+
+.footer-links a {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: -0.32px;
+  line-height: 22px;
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: var(--accent-gold-4);
+}
+
+@media (min-width: 640px) {
+  .footer-links a { font-size: 18px; letter-spacing: -0.36px; line-height: 24px; }
+}
+@media (min-width: 1024px) {
+  .footer-links a { font-size: 20px; letter-spacing: -0.4px; line-height: 26px; }
+}
+
+/* CTA row — Make a Donation (yellow), Join Now (outline) */
+.footer-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+  align-items: stretch;
+}
+
+@media (min-width: 640px) {
+  .footer-cta { flex-direction: row; align-items: center; width: auto; }
+}
+
+.footer-cta .btn-donate,
+.footer-cta .btn-join {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.5rem;
+  padding: 0 1rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: -0.24px;
+  line-height: 18px;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  cursor: pointer;
+  border: none;
+}
+
+@media (min-width: 640px) {
+  .footer-cta .btn-donate,
+  .footer-cta .btn-join { height: 3rem; padding: 0 1.5rem; font-size: 14px; letter-spacing: -0.28px; line-height: 20px; }
+}
+
+.footer-cta .btn-donate {
+  background: var(--accent-gold-4);
+  color: var(--neutral-1);
+}
+
+.footer-cta .btn-donate:hover {
+  background: #ffc947;
+  color: var(--neutral-1);
+}
+
+.footer-cta .btn-join {
+  background: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+}
+
+.footer-cta .btn-join:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+/* Legacy .btn-primary in footer — map to .btn-donate when used */
+.site-footer .btn-primary {
+  margin: 0;
+  background: var(--accent-gold-4);
+  color: var(--neutral-1);
+  border: none;
+}
+.site-footer .btn-primary:hover {
+  background: #ffc947;
+  color: var(--neutral-1);
+}
+.site-footer .btn-secondary {
+  margin: 0;
+  background: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+}
+.site-footer .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #fff;
+  color: #fff;
+}
+
+/* Bottom row — trademark + copyright, text #d7d7d7 */
+.footer-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  align-items: flex-start;
+}
+
+@media (min-width: 1024px) {
+  .footer-bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 4rem;
+  }
+}
+
+.footer-legal {
+  font-family: var(--font-body);
+  font-size: 10px;
+  letter-spacing: -0.2px;
+  line-height: 14px;
+  color: #d7d7d7;
+  margin: 0;
+  order: 2;
+}
+
+@media (min-width: 640px) {
+  .footer-legal { font-size: 11px; letter-spacing: -0.22px; line-height: 15px; }
+}
+@media (min-width: 1024px) {
+  .footer-legal { font-size: 12px; letter-spacing: -0.24px; line-height: 16px; order: 1; flex: 1; }
+}
+
+.footer-copy {
+  font-family: var(--font-body);
+  font-size: 10px;
+  letter-spacing: -0.2px;
+  line-height: 14px;
+  color: #d7d7d7;
+  margin: 0;
+  order: 1;
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .footer-copy { font-size: 11px; letter-spacing: -0.22px; line-height: 15px; }
+}
+@media (min-width: 1024px) {
+  .footer-copy { font-size: 12px; letter-spacing: -0.24px; line-height: 16px; order: 2; }
+}
+
+.site-footer .btn {
+  margin: 0;
+}
+
+/* 404 page: body flex so main fills viewport between header and footer */
+.page-404-body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* 404 / Not found page — main fills remaining viewport, bg fills main */
+.site-main--404 {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background: #f8fafc;
+}
+
+[data-theme="dark"] .site-main--404 {
+  background: var(--bg-page);
+}
+
+@media (min-width: 640px) {
+  .site-main--404 { padding: 3rem 1.5rem; }
+}
+@media (min-width: 768px) {
+  .site-main--404 { padding: 4rem 2rem; }
+}
+@media (min-width: 1024px) {
+  .site-main--404 { padding: 5rem 2rem; min-height: 65vh; }
+}
+
+#not-found.not-found--visible,
+#not-found:not(.hidden) {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 0;
+  position: relative;
+  width: 100%;
+  max-width: min(90vw, 52rem);
+  margin: 0 auto;
+}
+
+.page-404-wrap {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 404 background: direct child of main, fills entire main area */
+.page-404-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.page-404-bg-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: #003594;
+  opacity: 0.32;
+}
+
+.page-404-bg-svg path {
+  fill: currentColor;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  fill-opacity: 0.12;
+  stroke-opacity: 0.25;
+}
+
+[data-theme="dark"] .page-404-bg-svg {
+  color: #00a7e1;
+}
+
+.page-404 {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  text-align: center;
+}
+
+.page-404 h1 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 2.25rem;
+  line-height: 1.2;
+  color: #333;
+  margin: 0 0 1rem;
+}
+
+[data-theme="dark"] .page-404 h1 {
+  color: var(--text);
+}
+
+@media (min-width: 640px) {
+  .page-404 h1 { font-size: 3rem; }
+}
+@media (min-width: 768px) {
+  .page-404 h1 { font-size: 3.75rem; }
+}
+
+.page-404 p {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #666;
+  margin: 0 0 1.5rem;
+  max-width: 40ch;
+}
+
+[data-theme="dark"] .page-404 p {
+  color: var(--text-muted);
+}
+
+.page-404 .btn-404 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.25rem;
+  padding: 12px 30px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+  color: #fff;
+  text-decoration: none;
+  border: none;
+  border-radius: 2em;
+  background: linear-gradient(to right, #003594, #42a5f5);
+  box-shadow: 0 4px 14px rgba(0, 53, 148, 0.25);
+  transition: box-shadow 0.2s, filter 0.2s;
+}
+
+.page-404 .btn-404:hover {
+  background: linear-gradient(to right, #004bbb, #00aacc);
+  box-shadow: 0 6px 18px rgba(0, 53, 148, 0.35);
+  color: #fff;
+  filter: brightness(1.05);
 }
 
 /* Utilities */
@@ -207,52 +1077,44 @@ body {
   border: 0;
 }
 
-/* Featured app */
+/* Featured app — compact card */
+#featured.section {
+  padding: 1rem 0;
+}
+
+.featured-heading-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.5rem;
+  margin: 0 0 0.6rem;
+}
+
+#featured.section .featured-heading-row h2 {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.featured-desc {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+}
+
 .featured-app {
   margin-top: 0.5rem;
 }
 
-.featured-card {
-  background: var(--bg-dark);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.5rem;
+/* Featured app title link: same color as heading, underline only (no bright link blue) */
+#featured .app-detail-title a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
 }
-
-.featured-title {
-  margin: 0 0 0.5rem;
-  font-size: 1.25rem;
-  font-weight: 600;
-}
-
-.featured-title a {
-  color: var(--text);
-  text-decoration: none;
-}
-
-.featured-title a:hover {
-  color: var(--owasp-orange);
-}
-
-.featured-meta {
-  margin: 0 0 0.5rem;
-  font-size: 0.9rem;
-  color: var(--text-muted);
-}
-
-.featured-pills {
-  margin: 0 0 0.75rem;
-}
-
-.featured-notes {
-  margin: 0 0 1rem;
-  font-size: 0.95rem;
-  color: var(--text-muted);
-  line-height: 1.5;
-}
-
-.featured-card .btn {
-  margin-top: 0;
+#featured .app-detail-title a:hover {
+  color: inherit;
 }
 
 /* Search */
@@ -283,6 +1145,12 @@ body {
   border-radius: var(--radius);
 }
 
+.search-input:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(0, 167, 225, 0.2);
+}
+
 .search-input::placeholder {
   color: var(--text-muted);
 }
@@ -298,13 +1166,84 @@ body {
   min-width: 140px;
 }
 
+.filter-select:focus,
+.filter-tech:focus {
+  outline: none;
+  border-color: var(--border-focus);
+}
+
 .result-count {
   margin: 0.5rem 0 0;
 }
 
 /* Table */
+.table-scroll-outer {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  box-shadow: var(--shadow-sm);
+}
+
 .table-wrap {
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: var(--radius);
+}
+
+/* Left/right edge fades on small viewports: show fade where more content can be revealed by scrolling.
+   JS adds .scrollable, .show-left, .show-right on .table-scroll-outer so fades update while scrolling.
+   Light mode: visible grey fade so it reads clearly on white. */
+@media (max-width: 768px) {
+  .table-scroll-outer.scrollable.show-left .table-wrap {
+    box-shadow: inset 4rem 0 2.5rem -0.5rem rgba(0, 0, 0, 0.15);
+  }
+  .table-scroll-outer.scrollable.show-right .table-wrap {
+    box-shadow: inset -4rem 0 2.5rem -0.5rem rgba(0, 0, 0, 0.15);
+  }
+  .table-scroll-outer.scrollable.show-left.show-right .table-wrap {
+    box-shadow: inset 4rem 0 2.5rem -0.5rem rgba(0, 0, 0, 0.15), inset -4rem 0 2.5rem -0.5rem rgba(0, 0, 0, 0.15);
+  }
+  [data-theme="dark"] .table-scroll-outer.scrollable.show-left .table-wrap {
+    box-shadow: inset 3.5rem 0 2rem 0 rgba(0, 0, 0, 0.5);
+  }
+  [data-theme="dark"] .table-scroll-outer.scrollable.show-right .table-wrap {
+    box-shadow: inset -3.5rem 0 2rem 0 rgba(0, 0, 0, 0.5);
+  }
+  [data-theme="dark"] .table-scroll-outer.scrollable.show-left.show-right .table-wrap {
+    box-shadow: inset 3.5rem 0 2rem 0 rgba(0, 0, 0, 0.5), inset -3.5rem 0 2rem 0 rgba(0, 0, 0, 0.5);
+  }
+}
+
+.table-toolbar {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-alt);
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.sort-clear {
+  margin: 0;
+  padding: 0.25rem 0.5rem;
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--link);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  border-radius: var(--radius);
+}
+
+.sort-clear:hover {
+  color: var(--link-hover);
+}
+
+.sort-clear:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
 }
 
 .apps-table {
@@ -320,13 +1259,66 @@ body {
   border-bottom: 1px solid var(--border);
 }
 
+.apps-table tr:last-child td {
+  border-bottom: none;
+}
+
 .apps-table th {
   font-weight: 600;
+  font-family: var(--font-heading);
   color: var(--text-muted);
+  background: var(--bg-alt);
+}
+
+.apps-table th.sortable {
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.apps-table th.sortable button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  color: inherit;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.apps-table th.sortable button:hover {
+  color: var(--text);
+}
+
+.apps-table th.sortable button::after {
+  content: '';
+  display: inline-block;
+  width: 0.4em;
+  height: 0.4em;
+  border-left: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  opacity: 0.4;
+  transform: rotate(-45deg);
+  margin-left: 0.15rem;
+}
+
+.apps-table th.sortable.sorted-asc button::after {
+  opacity: 1;
+  transform: rotate(135deg);
+}
+
+.apps-table th.sortable.sorted-desc button::after {
+  opacity: 1;
+  transform: rotate(-45deg);
 }
 
 .apps-table a {
-  color: var(--owasp-orange);
+  color: var(--link);
   text-decoration: none;
 }
 
@@ -338,19 +1330,54 @@ body {
   margin-right: 0.25rem;
 }
 
+/* Keep collection pills on one line so row height stays consistent when an app has multiple collections */
+.apps-table td:nth-child(2) {
+  white-space: nowrap;
+}
+
+/* Stars column: monospace + right-align so digits line up (Poppins tabular-nums not sufficient) */
+.apps-table th:nth-child(5),
+.apps-table td:nth-child(5) {
+  font-family: ui-monospace, "Cascadia Mono", "SF Mono", Monaco, "Segoe UI Mono", "Roboto Mono", Consolas, monospace;
+  text-align: right;
+}
+
 /* Pills */
 .pill {
   display: inline-block;
-  padding: 0.2em 0.5em;
-  font-size: 0.8em;
-  background: var(--bg-card);
+  padding: 0.08em 0.35em;
+  font-size: 0.75em;
+  line-height: 1;
+  vertical-align: middle;
+  background: var(--bg-alt);
   border-radius: 4px;
   color: var(--text-muted);
+  border: 1px solid var(--border);
 }
 
 .pill-collection {
   text-transform: capitalize;
 }
+
+/* Dark mode: higher contrast for Collection and Technology pills */
+[data-theme="dark"] .pill:not([class*="pill-updated"]) {
+  background: #3d424a;
+  color: #e6e8eb;
+  border-color: #5d636b;
+}
+
+/* Updated band pills (traffic-light style) */
+.pill-updated-lt1mo { background: #d4edda; border-color: #28a745; color: #155724; }
+.pill-updated-lt6mo { background: #cce5ff; border-color: #0d6efd; color: #084298; }
+.pill-updated-lt1y   { background: #fff3cd; border-color: #ffc107; color: #856404; }
+.pill-updated-lt2y   { background: #ffe5d0; border-color: #fd7e14; color: #984c0c; }
+.pill-updated-2y     { background: #f8d7da; border-color: #dc3545; color: #721c24; }
+
+[data-theme="dark"] .pill-updated-lt1mo { background: #1e4620; border-color: #2e7d32; color: #a5d6a7; }
+[data-theme="dark"] .pill-updated-lt6mo { background: #0d2137; border-color: #1565c0; color: #90caf9; }
+[data-theme="dark"] .pill-updated-lt1y   { background: #4a3f00; border-color: #ffa000; color: #ffe082; }
+[data-theme="dark"] .pill-updated-lt2y   { background: #4a2c00; border-color: #e65100; color: #ffcc80; }
+[data-theme="dark"] .pill-updated-2y     { background: #4a1515; border-color: #c62828; color: #ef9a9a; }
 
 /* App detail page */
 .app-view,
@@ -365,19 +1392,22 @@ body {
 
 .not-found h1 {
   font-size: 1.5rem;
+  font-family: var(--font-heading);
   margin: 0 0 0.5rem;
 }
 
 .app-detail-title {
   font-size: 1.75rem;
-  margin: 0 0 1rem;
+  margin: 0 0 0.5rem;
   font-weight: 700;
+  font-family: var(--font-heading);
+  color: var(--text);
 }
 
 .app-detail-meta {
   display: grid;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
+  gap: 0.35rem;
+  margin-bottom: 0.75rem;
 }
 
 .app-detail-row {
@@ -394,50 +1424,73 @@ body {
 }
 
 .app-detail-links {
-  margin-bottom: 1.5rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.75rem;
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
 
+/* Keep primary/secondary button text from being overridden by link color (detail + featured) */
+.app-detail-links a.btn.btn-primary,
+.app-detail-links a.btn.btn-primary:hover {
+  color: #ffffff !important;
+}
+.app-detail-links a.btn.btn-secondary {
+  color: var(--text) !important;
+}
+.app-detail-links a.btn.btn-secondary:hover {
+  color: var(--link) !important;
+}
+
+/* Buttons — owasp.community: blue primary (Donate/Register); yellow only for footer "Make a Donation" */
 .btn {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
   padding: 0.5rem 1rem;
   font: inherit;
-  font-weight: 500;
+  font-weight: 600;
+  font-family: var(--font-body);
   text-decoration: none;
   border-radius: var(--radius);
   border: none;
   cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 }
 
 .btn-primary {
-  background: var(--owasp-orange);
-  color: #fff;
+  background: linear-gradient(to right, var(--btn-primary-start), var(--btn-primary-end));
+  color: #ffffff;
 }
 
 .btn-primary:hover {
-  background: var(--owasp-orange-hover);
+  background: linear-gradient(to right, var(--btn-primary-hover-start), var(--btn-primary-hover-end));
+  color: #ffffff;
 }
+
+/* View on GitHub overrides primary to white/blue — see .btn-github above */
 
 .btn-secondary {
   background: var(--bg-card);
   color: var(--text);
-  border: 1px solid var(--border);
+  border: 2px solid #757575;
 }
 
 .btn-secondary:hover {
-  border-color: var(--owasp-orange);
-  color: var(--owasp-orange);
+  border-color: var(--accent-cyan);
+  color: var(--link);
 }
 
 .app-detail-notes {
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .app-detail-notes h2 {
   font-size: 1rem;
-  margin: 0 0 0.5rem;
+  font-family: var(--font-heading);
+  margin: 0 0 0.35rem;
   color: var(--text-muted);
 }
 
@@ -446,8 +1499,12 @@ body {
   white-space: pre-wrap;
 }
 
-.app-detail-badge {
-  margin-bottom: 1.5rem;
+.app-detail-stars-badge {
+  display: inline-block;
+  height: 1.25rem;
+  width: auto;
+  align-self: center;
+  vertical-align: middle;
 }
 
 .app-detail-back {
@@ -457,7 +1514,7 @@ body {
 }
 
 .app-detail-back a {
-  color: var(--owasp-orange);
+  color: var(--link);
   text-decoration: none;
 }
 
