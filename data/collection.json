@@ -6,6 +6,7 @@
 			"offline"
 		],
 		"technology": [
+			".NET",
 			"C#"
 		],
 		"description": "OWASP WebGoat.NET: learning platform for common web security flaws and .NET-specific lessons. Teaches web security attacks and how developers can overcome them.",
@@ -50,7 +51,8 @@
 		"technology": [
 			"Python",
 			"Vicuna LLM",
-			"LLaMA"
+			"LLaMA",
+			"AI"
 		],
 		"references": [
 			{
@@ -99,7 +101,9 @@
 		"technology": [
 			"J2EE",
 			"Java",
-			"Apache Derby"
+			"Apache Derby",
+			"OpenAPI",
+			"Swagger"
 		],
 		"description": "Sample banking J2EE web application. Shows what happens when applications are written for functionality but not security; simple platform for demonstrating and learning real-life application security issues. Standard Java & JSP; REST API with Swagger.",
 		"references": [
@@ -337,7 +341,7 @@
 			"React",
 			"Node.js",
 			"OpenAPI",
-			"OpenAPI",
+			"Swagger",
 			"GraphQL"
 		],
 		"description": "A broken application — very vulnerable. Benchmark app using modern technologies and a set of common security vulnerabilities. React web client and API; Node.js server serves the client and provides both OpenAPI and GraphQL endpoints.",
@@ -367,7 +371,9 @@
 			"Python",
 			"Flask",
 			"OpenAI API",
-			"GitHub Actions"
+			"GitHub Actions",
+			"LLM",
+			"AI"
 		],
 		"references": [
 			{
@@ -727,7 +733,8 @@
 			"Document Parsers",
 			"Python",
 			"Vector DB",
-			"PostgreSQL"
+			"PostgreSQL",
+			"AI"
 		],
 		"references": [
 			{
@@ -818,7 +825,7 @@
 				"url": "https://github.com/appsecco/dvcsharp-api/tree/master/documentation-dvcsharp-book"
 			}
 		],
-		"author": "Appsecco ",
+		"author": "Appsecco",
 		"badge": "appsecco/dvcsharp-api",
 		"stars": 79,
 		"last_contributed": "2022-12-07T07:14:10Z",
@@ -1183,7 +1190,9 @@
 		"technology": [
 			"Python",
 			"FastAPI",
-			"Docker"
+			"Docker",
+			"OpenAPI",
+			"Swagger"
 		],
 		"description": "Intentionally vulnerable Web API game for learning and training: developers can play an interactive game to find and fix vulnerabilities; ethical hackers can exploit in CTF style (escalate from low privilege to root). FastAPI, PostgreSQL, Docker; API at http://localhost:8091, Swagger/Redoc included.",
 		"notes": "Do not deploy to public or Internet-facing servers. ./start_game.sh (developers) or ./start_app.sh (hackers). GitHub Codespaces supported.",
@@ -1210,7 +1219,9 @@
 			"Docker",
 			"Docker Compose",
 			"Codespaces",
-			"REST API"
+			"REST API",
+			"OpenAPI",
+			"Swagger"
 		],
 		"references": [
 			{
@@ -1552,7 +1563,9 @@
 			"Web Services",
 			"Node.js",
 			"MongoDB",
-			"MySQL"
+			"MySQL",
+			"OpenAPI",
+			"Swagger"
 		],
 		"description": "Damn Vulnerable Web Services: vulnerable application with a web service and API for learning API/web service vulnerabilities. Covers IDOR, access control, mass assignment, XSS, NoSQL/SQL injection, SSRF, JWT brute force, CORS, XXE, command/XPATH injection, GraphQL issues, CSRF, rate-limit bypass, and more. Replacement for original DVWS.",
 		"notes": "Node 20+; MongoDB on 27017, MySQL on 3306. Manual: npm install --build-from-source, node startup_script.js, sudo npm start (port 80 or set in .env). Docker: docker-compose up. Add dvws.local to /etc/hosts for Swagger. Solutions on wiki.",
@@ -2169,6 +2182,10 @@
 		"collection": [
 			"online"
 		],
+		"technology": [
+			"ASP.NET",
+			".NET"
+		],
 		"references": [
 			{
 				"name": "guide",
@@ -2224,7 +2241,7 @@
 		"technology": [
 			".NET",
 			"JSON",
-			"Ysoserial.NET"
+			"ysoserial.net"
 		],
 		"author": "Omer Levi Hevroni",
 		"description": "A small webserver vulnerable to insecure deserialization",
@@ -2475,6 +2492,10 @@
 		"collection": [
 			"mobile"
 		],
+		"technology": [
+			"Android",
+			"iOS"
+		],
 		"description": "MAS Crackmes (UnCrackable Apps): collection of mobile reverse engineering challenges from the OWASP Mobile Application Security Testing Guide (MASTG). Android and iOS apps used as examples in the MASTG; solve for practice or fun.",
 		"notes": "Downloads: GitHub OWASP/mastg Crackmes (Android UnCrackable L1–L4, DRM; iOS UnCrackable L1–L2). Overview: https://mas.owasp.org/crackmes/.",
 		"author": "OWASP",
@@ -2491,6 +2512,14 @@
 		"name": "MSTG Hacking Playground",
 		"collection": [
 			"mobile"
+		],
+		"technology": [
+			"Android",
+			"iOS",
+			"Java",
+			"Kotlin",
+			"Swift",
+			"Ruby on Rails"
 		],
 		"description": "Collection of intentionally insecure iOS and Android apps for the OWASP MAS project. Gives practical guidance to developers, security researchers, and pentesters; vulnerabilities from MASTG; extend coverage and use in trainings.",
 		"notes": "Android: adb install from Android/MSTG-Android-Java-App or MSTG-Android-Kotlin-App (Kotlin needs Rails backend). iOS: deploy Rails backend for Swift app; IPA on releases. Wiki for test cases.",
@@ -2545,7 +2574,8 @@
 			"online"
 		],
 		"technology": [
-			"ASP.NET"
+			"ASP.NET",
+			".NET"
 		],
 		"description": "Online vulnerable ASP.NET demo application for testing Netsparker (now Invicti) web application scanner. Intentionally contains vulnerabilities for scanner evaluation and training.",
 		"references": [
@@ -3008,6 +3038,7 @@
 		"technology": [
 			"Node.js",
 			"OpenAPI",
+			"Swagger",
 			"Docker"
 		],
 		"description": "MEAN stack web app with deliberately insecure APIs. Part of OWASP DevSlop; useful for scanning and API security demos.",
@@ -3127,6 +3158,10 @@
 		"name": "Race The Web",
 		"collection": [
 			"offline"
+		],
+		"technology": [
+			"Go",
+			"REST"
 		],
 		"references": [
 			{
@@ -3272,8 +3307,10 @@
 			"Python",
 			"PHP",
 			"React",
-			"Angular/Spring",
-			"Dart/Flutter"
+			"Angular",
+			"Spring",
+			"Dart",
+			"Flutter"
 		],
 		"references": [
 			{
@@ -3372,6 +3409,9 @@
 		"name": "Security Tweets",
 		"collection": [
 			"online"
+		],
+		"technology": [
+			"HTML5"
 		],
 		"references": [
 			{
@@ -3631,7 +3671,8 @@
 			"Python",
 			"Flask",
 			"Docker",
-			"OpenAPI"
+			"OpenAPI",
+			"Swagger"
 		],
 		"description": "Vulnerable REST API (OpenAPI 3) with OWASP Top 10 for APIs. Built with Flask for evaluating API security tools and learning. Includes global on/off switch for vulnerable vs secure mode, token-based auth, Swagger UI, and Postman collection.",
 		"notes": "Call GET /createdb to create and populate the database before using endpoints. Docker: vulnerable=1/0 and tokentimetolive configurable via env.",
@@ -3755,8 +3796,10 @@
 			"JavaScript",
 			"PostgreSQL",
 			"Docker",
-			"HTML/CSS",
-			"AI/LLM"
+			"HTML",
+			"CSS",
+			"AI",
+			"LLM"
 		],
 		"url": "https://github.com/Commando-X/vuln-bank",
 		"badge": "Commando-X/vuln-bank",
@@ -3776,7 +3819,7 @@
 			"container",
 			"offline"
 		],
-		"description": "A Very Vulnerable Node.js Express.js Web Application and API. Used for testing Security tools, Application security and penetration testing. Using Swagger, Sqlite, Sequelize. ",
+		"description": "A Very Vulnerable Node.js Express.js Web Application and API. Used for testing Security tools, Application security and penetration testing. Using Swagger, Sqlite, Sequelize.",
 		"references": [
 			{
 				"name": "download",
@@ -3791,6 +3834,7 @@
 			"Node.js",
 			"Express",
 			"OpenAPI",
+			"Swagger",
 			"SQLite",
 			"Sequelize"
 		],
@@ -3895,7 +3939,8 @@
 		"technology": [
 			"Python",
 			"PHP",
-			"Docker"
+			"Docker",
+			"SAML"
 		],
 		"description": "Vulnerable SAML infrastructure: IDP and SP Docker images showcasing exploitable SAML configurations (e.g. privilege escalation by changing group in SAML response). Based on modified OneLogin Python SAML library; includes CVE-2017-11427 test user.",
 		"notes": "docker-compose up; app at http://127.0.0.1:8000. Users: yogi/bear (unprivileged), admin/(typo password in README), brubble/password (CVE), instructor/(see README). Upgrade yogi to admin by changing group in SAML message.",
@@ -3969,9 +4014,10 @@
 			"offline"
 		],
 		"technology": [
-			".NET"
+			".NET",
+			"XSLT"
 		],
-		"author": " Context Information Security",
+		"author": "Context Information Security",
 		"description": "This is a console app, however it relates to an issues that is relevant to web apps: use of XSLT transforms for XML files.",
 		"badge": "ctxis/VulnerableXsltConsoleApplication",
 		"stars": 10,
@@ -4190,7 +4236,7 @@
 			}
 		],
 		"author": "Younes Jaaidi (yjaaidi)",
-		"description": " Websheep is an app based on a willingly vulnerable ReSTful APIs.",
+		"description": "Websheep is an app based on a willingly vulnerable ReSTful APIs.",
 		"badge": "marmicode/websheep",
 		"stars": 57,
 		"last_contributed": "2022-12-21T14:35:22Z",
@@ -4257,6 +4303,10 @@
 		"name": "WIVET- Web Input Vector Extractor Teaser",
 		"collection": [
 			"offline"
+		],
+		"technology": [
+			"PHP",
+			"Java"
 		],
 		"references": [
 			{
@@ -4879,7 +4929,10 @@
 			"PostgreSQL",
 			"Docker",
 			"Ollama",
-			"OpenAPI"
+			"OpenAPI",
+			"Swagger",
+			"AI",
+			"LLM"
 		],
 		"author": "Aliyu G. Yisa",
 		"badge": "aligorithm/Zero-Health",
