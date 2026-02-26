@@ -274,8 +274,8 @@ h1, h2, h3, h4, h5, h6 {
   width: auto;
 }
 
-/* OWASP wordmark in nav: viewBox 44 0 90 40 (letterforms + left padding so O not clipped); 2.5rem to match VWAD/wasp. */
-.site-nav .owasp-wordmark {
+/* OWASP wordmark in header-actions: viewBox 44 0 90 40 (letterforms + left padding so O not clipped); 2.5rem to match VWAD/wasp. */
+.header-actions .owasp-wordmark {
   display: block;
   height: 2.5rem;
   width: auto;
@@ -313,7 +313,7 @@ h1, h2, h3, h4, h5, h6 {
   animation: 0.9s ease-in-out owaspWingFlap;
 }
 
-.site-nav {
+.header-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem 1.5rem;
@@ -321,7 +321,7 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: flex-end;
 }
 
-.site-nav a {
+.header-actions a {
   color: var(--header-text-muted);
   text-decoration: none;
   font-weight: 500;
@@ -329,12 +329,12 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.95rem;
 }
 
-.site-nav a:hover {
+.header-actions a:hover {
   color: var(--header-text);
 }
 
 /* Create Account: outline button (community) - border #757575, hover cyan */
-.site-nav a.nav-create-account {
+.header-actions a.nav-create-account {
   color: var(--header-text);
   border: 2px solid var(--neutral-3);
   padding: 0.35rem 0.75rem;
@@ -344,13 +344,13 @@ h1, h2, h3, h4, h5, h6 {
   transition: border-color 0.3s, background-color 0.3s, color 0.3s;
 }
 
-.site-nav a.nav-create-account:hover {
+.header-actions a.nav-create-account:hover {
   border-color: rgba(0, 167, 225, 0.6);
   background: rgba(0, 167, 225, 0.1);
   color: var(--accent-cyan);
 }
 
-.site-nav a.nav-cta {
+.header-actions a.nav-cta {
   color: var(--header-text);
   background: linear-gradient(to right, var(--btn-primary-start), var(--btn-primary-end));
   padding: 0.35rem 0.75rem;
@@ -359,7 +359,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
 }
 
-.site-nav a.nav-cta:hover {
+.header-actions a.nav-cta:hover {
   background: linear-gradient(to right, var(--btn-primary-hover-start), var(--btn-primary-hover-end));
   color: var(--header-text);
   box-shadow: 0 10px 15px -3px rgba(0, 53, 148, 0.3), 0 4px 6px -4px rgba(0, 53, 148, 0.3);
