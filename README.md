@@ -29,22 +29,21 @@ The same files work at any base path. A small script in each page sets `window.V
 
 ## Structure
 
-- `index.html` - Homepage with browse-all and search (by name, author, technology, notes, collection).
-- `app.html` - App detail page; use `app.html#<slug>` for a specific app (e.g. `app.html#dot-net-goat`). Each app has a unique URL with full details (collections, technology, author, notes, references, stars).
+- `index.html` - Homepage with featured app, browse-all, search (by name, author, technology, notes, collection), About VWAD, and Contributors (links to GitHub). Project header includes a “Thanks to our contributors” link that jumps to `#contributors`.
+- `app/index.html` / `app.html` - App detail page; use `app/#<slug>` or `app.html#<slug>` for a specific app (e.g. `app/#dot-net-goat`). Each app has a unique URL with full details (collections, technology, author, notes, references, stars).
 - `data/collection.json` - Copy of the directory data from the main project; update from `_data/collection.json` when needed.
+- `data/contributors.json` - List of GitHub contributors (login, contributions) from the VWAD-related repos. Updated weekly by the **Update GitHub Contributors** workflow; see `.github/workflows/update-contributors.yml` and `.github/workflows/scripts/update_contributors.py`.
+- `data/archived_repos.json` - List of repositories detected as archived by the **Update GitHub Statistics** workflow; updated when `update_stats.py` finds archived repos (workflow may also open an issue for new ones).
 - `js/app.js` - Loads collection, assigns unique slugs, search/filter API.
 - `js/home.js` - Browse table and search UI.
-- `js/app-viewer.js` - Renders a single app on `app.html` (and on `404.html` when GitHub Pages serves `/app/<slug>`).
+- `js/app-viewer.js` - Renders a single app on the app page (and on `404.html` when GitHub Pages serves `/app/<slug>`).
 - `css/site.css` - Standalone styles (OWASP community–aligned theme).
 - No build tools; add more `.html` and assets as needed.
+
+## Automation
+
+See [.github/workflows/README.md](.github/workflows/README.md) for GitHub Actions workflows.
 
 ## Cache busting
 
 CSS, JS, and font URLs use a `?v=1` query parameter so browsers don’t serve stale assets. **After each deploy**, bump the version in all HTML files (e.g. change `?v=1` to `?v=2`) so visitors see the latest changes. Search for `?v=` to find every occurrence.
-
-## Relationship to the main project
-
-Content and data live in the main project repo:
-[https://github.com/OWASP/www-project-vulnerable-web-applications-directory](https://github.com/OWASP/www-project-vulnerable-web-applications-directory).
-
-This repo is only the standalone site for GitHub Pages. You can later pull in data (e.g. from the main repo’s `_data/collection.json`) via copy, CI, or a static build if you add one.

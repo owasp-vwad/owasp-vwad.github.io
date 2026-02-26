@@ -1,6 +1,6 @@
-# Validation Scripts
+# Workflow Scripts
 
-This directory contains validation scripts used by the GitHub Actions workflows to ensure data quality in `data/collection.json`.
+This directory contains scripts used by GitHub Actions workflows: validation for `data/collection.json`, and automation for stats, contributors, and repository discovery.
 
 ## Scripts
 
@@ -83,23 +83,24 @@ python3 check_links.py
 
 ### update_contributors.py
 
-Updates the Jekyll front matter `contributors` field in a markdown file by fetching contributor data from GitHub repositories. Aggregates contributions from multiple repositories and sorts by contribution count.
+Fetches contributor data from GitHub repositories and writes a JSON file for the static site. Aggregates contributions from multiple repositories and sorts by contribution count.
 
 **Usage:**
 ```bash
-python3 update_contributors.py <markdown_file>
+python3 update_contributors.py [output_file]
 ```
+
+If `output_file` is omitted, writes to `data/contributors.json`.
 
 **Exit codes:**
 - `0`: Update completed successfully
 - `1`: Update failed or an error occurred
 
 **Features:**
-- **Multi-repository aggregation**: Fetches contributors from both legacy (OWASP-VWAD) and current repository
+- **Multi-repository aggregation**: Fetches contributors from legacy (OWASP-VWAD), main directory, and this site repo
 - **Exclusion list**: Filters out bots and project authors to show only community contributors
 - **Smart sorting**: Sorts by contribution count (descending), then alphabetically by username
-- **Front matter preservation**: Updates only the `contributors` field while preserving all other YAML front matter
-- **Change detection**: Only updates the file if contributors have actually changed
+- **JSON output**: Writes `{ "updated": "<ISO8601>", "contributors": [ { "login", "contributions" }, ... ] }`; the workflow commits the file when it changes
 
 **Environment Variables:**
 - `GITHUB_TOKEN`: GitHub personal access token (optional, but recommended for higher rate limits)
@@ -108,9 +109,23 @@ python3 update_contributors.py <markdown_file>
 - Bots: `vwadbot`, `dependabot[bot]`, `owasp-nest[bot]`, `github-actions[bot]`, `Copilot`, `OWASPFoundation`
 - Authors: `kingthorin`, `psiinon`, `raulsiles`
 
+### scout.py
+
+Discovers GitHub repositories that may be candidates for the vulnerable web applications directory (e.g. via search). Reads existing repos from `data/collection.json` to avoid duplicates. Outputs `scout-results.json` and `scout-issue-body.md` for the **Repository Scout** workflow, which creates an issue with label `new app` when new repositories are found.
+
+**Usage:**
+```bash
+python3 .github/workflows/scripts/scout.py
+```
+
+Typically run by `repo-scout.yml` (weekly, Monday 09:00 UTC) or manually via workflow_dispatch.
+
+**Environment Variables:**
+- `GITHUB_TOKEN`: GitHub token (workflow provides this)
+
 ### update_stats.py
 
-Updates GitHub statistics (stars and last contribution date) in `collection.json` for all entries with a `badge` field.
+Updates GitHub statistics (stars and last contribution date) in `collection.json` for all entries with a `badge` field. Also detects archived repositories: updates `data/archived_repos.json` and writes an artifact so the workflow can create an issue for new archived repos.
 
 **Usage:**
 ```bash
@@ -175,10 +190,12 @@ The script uses local caching to minimize API calls:
 
 These scripts are automatically executed by GitHub Actions workflows:
 
-- `validate.yml`: Runs validation scripts (`check_schema.py`, `check_ordering.py`, `check_editorconfig.py`) on PRs that modify `data/collection.json`
-- `update-stats.yml`: Runs `update_stats.py` weekly to keep GitHub statistics current
-- `link-checker.yml`: Runs `check_links.py` on manual trigger to validate all app and reference URLs
-- `update-contributors.yml`: Runs `update_contributors.py` weekly to update the contributors list in `index.md`
+- `validate.yml` (workflow name: **Validate JSON**): Runs validation scripts (`check_schema.py`, `check_ordering.py`, `check_editorconfig.py`) on PRs that modify `data/collection.json`. When it fails, `comment.yml` posts the failure artifact as a comment on the PR (triggered by `workflow_run`).
+- `update-stats.yml`: Runs `update_stats.py` weekly; updates `data/collection.json` and `data/archived_repos.json`, commits when changed, and may create an issue for newly detected archived repos.
+- `link-checker.yml`: Runs `check_links.py` on manual trigger to validate all app and reference URLs.
+- `update-contributors.yml`: Runs `update_contributors.py` weekly to update `data/contributors.json`; commits and pushes when the file changes.
+- `repo-scout.yml`: Runs `scout.py` weekly (Mondays 09:00 UTC); creates an issue with new repository findings (label `new app`).
+- `rebuild.yml`: Triggers a GitHub Pages build via the API (no script in this directory); runs daily or on workflow_dispatch.
 
 The validation results from `validate.yml` are:
 

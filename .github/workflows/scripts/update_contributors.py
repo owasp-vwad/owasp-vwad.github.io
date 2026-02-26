@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 
-import os
-import requests
-import yaml
-from pathlib import Path
 import argparse
+import json
+import os
+from datetime import datetime, timezone
+from pathlib import Path
+
+import requests
 
 URLS = [
     "https://api.github.com/repos/OWASP/OWASP-VWAD/contributors",
@@ -23,7 +25,7 @@ EXCLUDE = {
     # Authors
     "kingthorin",
     "psiinon",
-    "raulsiles"
+    "raulsiles",
 }
 
 
@@ -51,55 +53,41 @@ def fetch_contributors(token: str = None):
     )
 
 
-def update_front_matter(md_file: Path, contributors):
-    text = md_file.read_text(encoding="utf-8")
-
-    if not text.startswith("---"):
-        raise RuntimeError(f"{md_file} has no YAML front matter")
-
-    # Split front matter
-    _, fm, body = text.split("---", 2)
-    data = yaml.safe_load(fm) or {}
-
-    old_contributors = data.get("contributors")
-    new_contributors = [login for login, _ in contributors]
-
-    if old_contributors == new_contributors:
-        print(f"{md_file}: contributors already up to date")
-        return
-
-    data["contributors"] = new_contributors
-
-    new_fm = yaml.safe_dump(
-        data,
-        sort_keys=False,
-        default_flow_style=False,
-    ).strip()
-
-    new_text = f"---\n{new_fm}\n---{body}"
-
-    md_file.write_text(new_text, encoding="utf-8")
-    print(f"{md_file}: contributors updated")
+def write_json(out_path: Path, contributors: list) -> None:
+    data = {
+        "updated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "contributors": [
+            {"login": login, "contributions": count}
+            for login, count in contributors
+        ],
+    }
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(
+        json.dumps(data, indent="\t", ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
+    print(f"{out_path}: updated with {len(contributors)} contributors")
 
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Update Jekyll front matter contributors from GitHub"
+        description="Fetch GitHub contributors and write data/contributors.json"
     )
     parser.add_argument(
-        "markdown_file",
+        "output_file",
         type=Path,
-        help="Path to the markdown file to update",
+        default=Path("data/contributors.json"),
+        nargs="?",
+        help="Path to the JSON file to write (default: data/contributors.json)",
     )
     args = parser.parse_args()
 
-    # Get PAT from environment
     token = os.environ.get("GITHUB_TOKEN")
     if not token:
         print("Warning: GITHUB_TOKEN not set. Using unauthenticated requests.", flush=True)
 
     contributors = fetch_contributors(token=token)
-    update_front_matter(args.markdown_file, contributors)
+    write_json(args.output_file, contributors)
 
 
 if __name__ == "__main__":
