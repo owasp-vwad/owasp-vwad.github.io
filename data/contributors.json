@@ -1,43 +1,161 @@
 {
-	"updated": "2026-02-26T12:00:00Z",
+	"updated": "2026-02-26T17:17:20Z",
 	"contributors": [
-		{"login": "bkimminich", "contributions": 1},
-		{"login": "S3DFX-CYBER", "contributions": 1},
-		{"login": "yrprey", "contributions": 1},
-		{"login": "arthurakay", "contributions": 1},
-		{"login": "HarshitVerma109", "contributions": 1},
-		{"login": "ritorhymes", "contributions": 1},
-		{"login": "commjoen", "contributions": 1},
-		{"login": "hblankenship", "contributions": 1},
-		{"login": "noraj", "contributions": 1},
-		{"login": "preetkaran20", "contributions": 1},
-		{"login": "codeXanu", "contributions": 1},
-		{"login": "ebell451", "contributions": 1},
-		{"login": "PauloASilva", "contributions": 1},
-		{"login": "Aif4thah", "contributions": 1},
-		{"login": "AlexandraC0", "contributions": 1},
-		{"login": "alexcolb", "contributions": 1},
-		{"login": "Commando-X", "contributions": 1},
-		{"login": "dhower7", "contributions": 1},
-		{"login": "drfoofoo", "contributions": 1},
-		{"login": "interference-security", "contributions": 1},
-		{"login": "kOaDT", "contributions": 1},
-		{"login": "LBartolini", "contributions": 1},
-		{"login": "mal-tee", "contributions": 1},
-		{"login": "markdenihan", "contributions": 1},
-		{"login": "mike386", "contributions": 1},
-		{"login": "mrtlgz", "contributions": 1},
-		{"login": "msudol", "contributions": 1},
-		{"login": "nbaars", "contributions": 1},
-		{"login": "njmulsqb", "contributions": 1},
-		{"login": "OSTEsayed", "contributions": 1},
-		{"login": "pentesttools-com", "contributions": 1},
-		{"login": "rcowsill", "contributions": 1},
-		{"login": "roottusk", "contributions": 1},
-		{"login": "sadicann", "contributions": 1},
-		{"login": "SamanthaGroves", "contributions": 1},
-		{"login": "snoopysecurity", "contributions": 1},
-		{"login": "subhashdasyam", "contributions": 1},
-		{"login": "yjaaidi", "contributions": 1}
+		{
+			"login": "bkimminich",
+			"contributions": 33
+		},
+		{
+			"login": "S3DFX-CYBER",
+			"contributions": 15
+		},
+		{
+			"login": "yrprey",
+			"contributions": 5
+		},
+		{
+			"login": "arthurakay",
+			"contributions": 4
+		},
+		{
+			"login": "HarshitVerma109",
+			"contributions": 4
+		},
+		{
+			"login": "ritorhymes",
+			"contributions": 4
+		},
+		{
+			"login": "commjoen",
+			"contributions": 3
+		},
+		{
+			"login": "hblankenship",
+			"contributions": 3
+		},
+		{
+			"login": "noraj",
+			"contributions": 3
+		},
+		{
+			"login": "preetkaran20",
+			"contributions": 3
+		},
+		{
+			"login": "codeXanu",
+			"contributions": 2
+		},
+		{
+			"login": "ebell451",
+			"contributions": 2
+		},
+		{
+			"login": "owasp-vwad",
+			"contributions": 2
+		},
+		{
+			"login": "PauloASilva",
+			"contributions": 2
+		},
+		{
+			"login": "Aif4thah",
+			"contributions": 1
+		},
+		{
+			"login": "AlexandraC0",
+			"contributions": 1
+		},
+		{
+			"login": "alexcolb",
+			"contributions": 1
+		},
+		{
+			"login": "Commando-X",
+			"contributions": 1
+		},
+		{
+			"login": "dhower7",
+			"contributions": 1
+		},
+		{
+			"login": "drfoofoo",
+			"contributions": 1
+		},
+		{
+			"login": "interference-security",
+			"contributions": 1
+		},
+		{
+			"login": "kOaDT",
+			"contributions": 1
+		},
+		{
+			"login": "LBartolini",
+			"contributions": 1
+		},
+		{
+			"login": "mal-tee",
+			"contributions": 1
+		},
+		{
+			"login": "markdenihan",
+			"contributions": 1
+		},
+		{
+			"login": "mike386",
+			"contributions": 1
+		},
+		{
+			"login": "mrtlgz",
+			"contributions": 1
+		},
+		{
+			"login": "msudol",
+			"contributions": 1
+		},
+		{
+			"login": "nbaars",
+			"contributions": 1
+		},
+		{
+			"login": "njmulsqb",
+			"contributions": 1
+		},
+		{
+			"login": "OSTEsayed",
+			"contributions": 1
+		},
+		{
+			"login": "pentesttools-com",
+			"contributions": 1
+		},
+		{
+			"login": "rcowsill",
+			"contributions": 1
+		},
+		{
+			"login": "roottusk",
+			"contributions": 1
+		},
+		{
+			"login": "sadicann",
+			"contributions": 1
+		},
+		{
+			"login": "SamanthaGroves",
+			"contributions": 1
+		},
+		{
+			"login": "snoopysecurity",
+			"contributions": 1
+		},
+		{
+			"login": "subhashdasyam",
+			"contributions": 1
+		},
+		{
+			"login": "yjaaidi",
+			"contributions": 1
+		}
 	]
 }
