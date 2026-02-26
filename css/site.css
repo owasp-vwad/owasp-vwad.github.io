@@ -470,6 +470,27 @@ h1, h2, h3, h4, h5, h6 {
   max-width: 56ch;
 }
 
+.project-header-contributors {
+  margin: 0.25rem 0 0;
+  font-size: clamp(0.85rem, 1.4vw, 0.95rem);
+  color: rgba(255, 255, 255, 0.85);
+  font-family: var(--font-body);
+}
+
+.project-header-contributors a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.project-header-contributors a:hover {
+  text-decoration: underline;
+}
+
+.project-header-contributors a:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
 /* View on GitHub - white button, same blue in light/dark (no theme shift) */
 .btn-github {
   display: inline-flex;
@@ -559,7 +580,23 @@ h1, h2, h3, h4, h5, h6 {
   text-decoration: underline;
 }
 
-/* Footer - owasp.community specifics: bg #101820, logo card #151515, link hover #ffb81b, buttons */
+/* Contributors section: same link styling as collection list */
+.contributors-links a {
+  color: var(--link);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.contributors-links a:hover {
+  text-decoration: underline;
+  color: var(--link-hover);
+}
+
+[data-theme="dark"] .contributors-links a:visited {
+  color: var(--link-visited);
+}
+
+/* Footer - dark blue (neutral-1 / #101820); no inner card, single block for logo + link + GitHub */
 .site-footer {
   background: var(--neutral-1);
   padding: 2rem 1rem 2rem;
@@ -595,9 +632,8 @@ h1, h2, h3, h4, h5, h6 {
   .site-footer { padding-left: 120px; padding-right: 120px; }
 }
 
-/* Standalone footer: project identity + one OWASP link */
+/* Standalone footer: project identity + one OWASP link (same bg as .site-footer, no inner card) */
 .footer-standalone {
-  background: #151515;
   padding: 1.5rem 1.5rem 1.25rem;
   width: 100%;
 }

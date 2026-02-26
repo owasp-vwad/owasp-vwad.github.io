@@ -27,27 +27,27 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install requests pyyaml
+          pip install requests
 
       - name: Run update script
         run: |
-          python .github/workflows/scripts/update_contributors.py index.md
+          python .github/workflows/scripts/update_contributors.py data/contributors.json
 
       - name: Check for changes
         id: git-check
         run: |
-          git diff --exit-code index.md || echo "changed=true" >> $GITHUB_OUTPUT
+          git diff --exit-code data/contributors.json || echo "changed=true" >> $GITHUB_OUTPUT
 
       - name: Commit and push if changed
         if: steps.git-check.outputs.changed == 'true'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add index.md
+          git add data/contributors.json
           git commit -m "Update GitHub contributors [automated]"
           git push
 
       - name: No changes detected
         if: steps.git-check.outputs.changed != 'true'
         run: |
-          echo "No changes to index.md"
+          echo "No changes to data/contributors.json"
