@@ -2,6 +2,8 @@
 
 Standalone GitHub Pages site for the OWASP Vulnerable Web Applications Directory (VWAD) project. Static HTML/CSS, no build step, easy to maintain and test locally.
 
+### The live site is https://vwad.owasp.org/
+
 ## Test locally
 
 From this directory, run any of:
