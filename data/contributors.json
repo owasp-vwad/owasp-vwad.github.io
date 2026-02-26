@@ -1,9 +1,21 @@
 {
-	"updated": "2026-02-26T17:17:20Z",
+	"updated": "2026-02-26T17:19:28Z",
 	"contributors": [
+		{
+			"login": "kingthorin",
+			"contributions": 301
+		},
 		{
 			"login": "bkimminich",
 			"contributions": 33
+		},
+		{
+			"login": "raulsiles",
+			"contributions": 29
+		},
+		{
+			"login": "psiinon",
+			"contributions": 23
 		},
 		{
 			"login": "S3DFX-CYBER",
