@@ -477,7 +477,9 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-body);
 }
 
-.project-header-contributors a {
+.project-header-contributors a,
+.project-header-contributors a:link,
+.project-header-contributors a:visited {
   color: #fff;
   text-decoration: none;
 }
@@ -581,7 +583,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Contributors section: same link styling as collection list */
-.contributors-links a {
+.contributors-links a,
+.contributors-links a:link,
+.contributors-links a:visited {
   color: var(--link);
   text-decoration: none;
   font-weight: 500;
