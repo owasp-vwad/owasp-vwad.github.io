@@ -13,12 +13,12 @@ assignees: ''
 
 **Description**
 
-** Author**
+**Author**
 
-** Notes**
+**Notes**
 
-** Categories**
+**Categories**
 
 **Technologies**
 
-** References**
+**References**
