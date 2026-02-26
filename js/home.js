@@ -41,10 +41,12 @@
     });
   }
 
-  function renderTable(apps, sortState) {
+  function renderTable(apps, sortState, options) {
     if (!apps.length) {
       return '<p class="muted">No applications match.</p>';
     }
+    options = options || {};
+    var query = (options.query || '').toLowerCase().trim();
     var sortBy = sortState && sortState.column;
     var sortDir = sortState && sortState.dir;
     var th = function (key, label) {
@@ -64,23 +66,29 @@
       var updatedCell = updatedBand
         ? '<span class="pill pill-updated pill-updated-' + escapeHtml(updatedBand.slug) + '" title="Last contribution">' + escapeHtml(updatedBand.label) + '</span>'
         : '-';
+      var authorMatched = query && app.author && app.author.toLowerCase().indexOf(query) !== -1;
+      var nameCell = '<a href="' + escapeHtml(url) + '">' + escapeHtml(app.name) + '</a>';
+      if (authorMatched) {
+        nameCell += ' <span class="author-match" title="Matched by author">Author: ' + escapeHtml(app.author) + '</span>';
+      }
       html += '<tr>';
-      html += '<td><a href="' + escapeHtml(url) + '">' + escapeHtml(app.name) + '</a></td>';
+      html += '<td>' + nameCell + '</td>';
       var collTitles = window.VWAD && window.VWAD.COLLECTION_TOOLTIPS ? window.VWAD.COLLECTION_TOOLTIPS : {};
       var catTitles = window.VWAD && window.VWAD.CATEGORY_TOOLTIPS ? window.VWAD.CATEGORY_TOOLTIPS : {};
       html += '<td>' + (app.collection || []).map(function (c) {
         var title = collTitles[c];
         var titleAttr = title ? ' title="' + escapeHtml(title) + '"' : '';
-        return '<span class="pill pill-collection"' + titleAttr + '>' + escapeHtml(c) + '</span>';
+        var label = c.charAt(0).toUpperCase() + c.slice(1);
+        return '<button type="button" class="pill pill-collection pill-filter" data-filter-type="collection" data-filter-value="' + escapeHtml(c) + '" aria-label="Filter by collection: ' + escapeHtml(label) + '"' + titleAttr + '>' + escapeHtml(c) + '</button>';
       }).join(' ') + '</td>';
       var tech = (app.technology || []).map(function (t) {
-        return '<span class="pill">' + escapeHtml(t) + '</span>';
+        return '<button type="button" class="pill pill-technology pill-filter" data-filter-type="technology" data-filter-value="' + escapeHtml(t) + '" aria-label="Filter by technology: ' + escapeHtml(t) + '">' + escapeHtml(t) + '</button>';
       }).join(' ');
       var categories = (app.categories || []).map(function (c) {
         var label = c === 'ctf' ? 'CTF' : c;
         var title = catTitles[c];
         var titleAttr = title ? ' title="' + escapeHtml(title) + '"' : '';
-        return '<span class="pill pill-category"' + titleAttr + '>' + escapeHtml(label) + '</span>';
+        return '<button type="button" class="pill pill-category pill-filter" data-filter-type="category" data-filter-value="' + escapeHtml(c) + '" aria-label="Filter by category: ' + escapeHtml(label) + '"' + titleAttr + '>' + escapeHtml(label) + '</button>';
       }).join(' ');
       html += '<td>' + tech + (tech && categories ? ' ' : '') + categories + '</td>';
       html += '<td>' + (app.stars != null ? escapeHtml(String(app.stars)) : '-') + '</td>';
@@ -95,23 +103,57 @@
     var searchInput = document.getElementById('search-input');
     var collectionSelect = document.getElementById('filter-collection');
     var techInput = document.getElementById('filter-technology');
+    var categorySelect = document.getElementById('filter-category');
     var resultsEl = document.getElementById('browse-results');
     var countEl = document.getElementById('result-count');
+    var resetBtn = document.getElementById('search-reset');
     if (!resultsEl) return;
 
     var sortState = null;
+
+    function hasActiveFilters() {
+      var query = searchInput ? searchInput.value.trim() : '';
+      var collection = collectionSelect && collectionSelect.value;
+      var tech = techInput ? techInput.value.trim() : '';
+      var category = categorySelect && categorySelect.value;
+      return !!(query || collection || tech || category);
+    }
+
+    function updateResetButton() {
+      if (resetBtn) {
+        var active = hasActiveFilters();
+        resetBtn.disabled = !active;
+        resetBtn.setAttribute('aria-disabled', active ? 'false' : 'true');
+      }
+    }
+
+    function clearFilters() {
+      if (searchInput) searchInput.value = '';
+      if (collectionSelect) collectionSelect.value = '';
+      if (techInput) techInput.value = '';
+      if (categorySelect) categorySelect.value = '';
+      runSearch();
+    }
 
     function runSearch() {
       var query = searchInput ? searchInput.value.trim() : '';
       var collection = collectionSelect && collectionSelect.value ? [collectionSelect.value] : [];
       var techFilter = techInput ? techInput.value.trim() : '';
+      var categoryFilter = categorySelect && categorySelect.value ? [categorySelect.value] : [];
       var filters = { collection: collection };
       if (techFilter) filters.technology = [techFilter];
+      if (categoryFilter.length) filters.categories = categoryFilter;
 
-      window.VWAD.searchApps(query, filters).then(function (apps) {
+      updateResetButton();
+
+      window.VWAD.searchApps(query, filters).then(function (result) {
+        var apps = result.apps;
+        var total = result.total;
         var sorted = sortState ? sortApps(apps, sortState.column, sortState.dir) : apps.slice();
-        if (countEl) countEl.textContent = apps.length + ' application' + (apps.length === 1 ? '' : 's');
-        resultsEl.innerHTML = renderTable(sorted, sortState);
+        if (countEl) {
+          countEl.textContent = 'Showing ' + apps.length + ' of ' + total + ' application' + (total === 1 ? '' : 's');
+        }
+        resultsEl.innerHTML = renderTable(sorted, sortState, { query: query });
         resultsEl.querySelectorAll('.apps-table th.sortable button').forEach(function (btn) {
           btn.addEventListener('click', function () {
             var th = btn.closest('th');
@@ -139,6 +181,26 @@
             updateTableScrollFade(scrollOuter);
           });
         }
+        resultsEl.querySelectorAll('button.pill-filter').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var type = btn.getAttribute('data-filter-type');
+            var value = btn.getAttribute('data-filter-value');
+            if (type === 'collection' && collectionSelect) {
+              collectionSelect.value = value || '';
+              if (techInput) techInput.value = '';
+              if (categorySelect) categorySelect.value = '';
+            } else if (type === 'technology' && techInput) {
+              techInput.value = value || '';
+              if (collectionSelect) collectionSelect.value = '';
+              if (categorySelect) categorySelect.value = '';
+            } else if (type === 'category' && categorySelect) {
+              categorySelect.value = value || '';
+              if (collectionSelect) collectionSelect.value = '';
+              if (techInput) techInput.value = '';
+            }
+            runSearch();
+          });
+        });
       });
     }
 
@@ -187,6 +249,8 @@
     if (collectionSelect) collectionSelect.addEventListener('change', runSearch);
     if (techInput) techInput.addEventListener('input', runSearch);
     if (techInput) techInput.addEventListener('change', runSearch);
+    if (categorySelect) categorySelect.addEventListener('change', runSearch);
+    if (resetBtn) resetBtn.addEventListener('click', clearFilters);
 
     runSearch();
   }

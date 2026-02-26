@@ -57,7 +57,7 @@
     query = (query || '').toLowerCase().trim();
     filters = filters || {};
     return collectionPromise.then(function (list) {
-      return list.filter(function (app) {
+      var filtered = list.filter(function (app) {
         if (filters.collection && filters.collection.length) {
           var hasCollection = (app.collection || []).some(function (c) {
             return filters.collection.indexOf(c) !== -1;
@@ -73,17 +73,23 @@
           });
           if (!hasTech) return false;
         }
+        if (filters.categories && filters.categories.length) {
+          var appCats = (app.categories || []).map(function (c) {
+            return c.toLowerCase();
+          });
+          var hasCategory = filters.categories.some(function (cat) {
+            return appCats.indexOf(cat.toLowerCase()) !== -1;
+          });
+          if (!hasCategory) return false;
+        }
         if (!query) return true;
         var searchable = [
           app.name,
-          app.author,
-          app.notes,
-          (app.technology || []).join(' '),
-          (app.categories || []).join(' '),
-          (app.collection || []).join(' ')
+          app.author
         ].join(' ').toLowerCase();
         return searchable.indexOf(query) !== -1;
       });
+      return { apps: filtered, total: list.length };
     });
   }
 
