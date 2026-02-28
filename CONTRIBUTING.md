@@ -6,7 +6,7 @@ Thank you for your interest in contributing to the Vulnerable Web Applications D
 
 1. The overwhelming majority of this project exists within a single JSON data file: [`data/collection.json`](data/collection.json).
 	1. That data file uses a single tab per level of indentation. (You can use <https://jsonformatter.curiousconcept.com/>, if needed. [Make sure you set tab to 1 tab :grinning:])
-	2. Contains entries sorted case insensitively by the value of the `name` key. You can use the following, if needed:
+	2. Contains entries sorted case insensitively by the value of the `name` key. You can use the following python script so sort, if needed:
 ```python
 import json
 
@@ -25,10 +25,12 @@ with open('data/collection.json', 'w', encoding='utf-8') as file:
     json.dump(sorted_data, file, indent='\t', ensure_ascii=False)
     file.write('\n')  # Add a blank line at the end
 ```
-	3. The details associated with the entries are governed by the established [JSON schema](https://github.com/owasp-vwad/owasp-vwad.github.io/blob/master/schema.json).
-		1. PRs which involve the data file are validated against this schema as part of a GitHub workflow process.
-2. Ensure your changes do not break the data file.
-3. Pull requests should include a clear and concise description of the changes you have made.
+
+2. The details associated with the entries are governed by the established [JSON schema](https://github.com/owasp-vwad/owasp-vwad.github.io/blob/main/schema.json).
+	1. PRs which involve the data file are validated against this schema as part of a GitHub workflow process.
+    2. Ensure your changes do not break the data file.
+    3. Pull requests should include a clear and concise description of the changes you have made.
+
 3. If your change is related to a specific issue, please ensure your PR description includes a keyword to close the issue (as applicable). Per: <https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/using-keywords-in-issues-and-pull-requests#linking-a-pull-request-to-an-issue>
 
 ## Maintaining the Collection Data
