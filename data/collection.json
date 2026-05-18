@@ -2500,6 +2500,28 @@
 		"last_contributed": "2016-12-01T16:30:18Z"
 	},
 	{
+		"url": "https://github.com/SasanLabs/LLMForge",
+		"name": "LLMForge",
+		"slug": "llmforge",
+		"collection": [
+			"container"
+		],
+		"technology": [
+			"Python",
+			"Ollama",
+			"LLM"
+		],
+		"references": [
+			{
+				"name": "guide",
+				"url": "https://github.com/SasanLabs"
+			}
+		],
+		"author": "Karan Preet Singh Sasan (@preetkaran20), @SasanLabs",
+		"description": "Modular AI security gateway for building and testing dynamic LLM-based vulnerability labs, focused on prompt injection research, exploit simulation, and AI attack experimentation.",
+		"notes": "AI execution layer for the VulnerableApp ecosystem: https://github.com/SasanLabs/VulnerableApp."
+	},
+	{
 		"url": "https://github.com/christophetd/log4shell-vulnerable-app",
 		"name": "Log4Shell sample vulnerable application",
 		"slug": "log4shell-sample-vulnerable-application",
