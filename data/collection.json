@@ -2518,7 +2518,7 @@
 				"url": "https://github.com/SasanLabs/LLMForge#readme"
 			}
 		],
-		"author": "Karan Preet Singh Sasan (@preetkaran20), SasanLabs",
+		"author": "Karan Preet Singh Sasan (SasanLabs)",
 		"description": "Modular AI security gateway for building and testing dynamic LLM-based vulnerability labs, focused on prompt injection research, exploit simulation, and AI attack experimentation.",
 		"notes": "AI execution layer for the VulnerableApp ecosystem: https://github.com/SasanLabs/VulnerableApp"
 	},
