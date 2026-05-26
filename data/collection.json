@@ -4654,6 +4654,33 @@
 		]
 	},
 	{
+		"url": "https://github.com/hahwul/xssmaze",
+		"name": "XSSMaze",
+		"slug": "xssmaze",
+		"collection": [
+			"offline",
+			"container"
+		],
+		"technology": [
+			"Crystal",
+			"Docker"
+		],
+		"description": "Intentionally vulnerable web application for measuring and improving XSS detection in security testing tools across many XSS contexts.",
+		"notes": "Run from source or Docker. Docker image: ghcr.io/hahwul/xssmaze:main. Default port: 3000.",
+		"references": [
+			{
+				"name": "docker",
+				"url": "https://ghcr.io/hahwul/xssmaze:main"
+			}
+		],
+		"badge": "hahwul/xssmaze",
+		"stars": 32,
+		"last_contributed": "2026-05-24T07:37:39Z",
+		"categories": [
+			"scanner-test"
+		]
+	},
+	{
 		"url": "https://sourceforge.net/projects/xxe/",
 		"name": "XXE",
 		"slug": "xxe",
