@@ -1,0 +1,146 @@
+name: Add vulnerable app
+description: Let us know about a vulnerable app that we should include.
+title: "Add - "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting an app for the [Vulnerable Web Applications Directory](https://vwad.owasp.org/).
+
+        > [!NOTE]
+        > Entries are stored in [`data/collection.json`](https://github.com/owasp-vwad/owasp-vwad.github.io/blob/main/data/collection.json) and must conform to [`schema.json`](https://github.com/owasp-vwad/owasp-vwad.github.io/blob/main/schema.json).
+        > Maintainers will add fields such as `slug`, `badge`, and stats when merging.
+
+        > [!TIP]
+        > You can open a pull request directly if you prefer. See [CONTRIBUTING.md](https://github.com/owasp-vwad/owasp-vwad.github.io/blob/main/CONTRIBUTING.md).
+
+  - type: input
+    id: name
+    attributes:
+      label: Name of the application
+      description: Maps to `name` in schema.json (required).
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: URL
+      description: Primary project or listing URL (`url` in schema.json; must be `http://` or `https://`).
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Short summary of what the app is and its purpose.
+      placeholder: Prefer wording from the official README or project site.
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        > [!NOTE]
+        > **Description** is a short, user-facing summary. **Notes** (below) are for operational details only — credentials, deploy steps, legacy repo links, CVE refs, warnings — not marketing or feature lists.
+
+  - type: input
+    id: author
+    attributes:
+      label: Author
+      description: Person or organization behind the app (`author` in schema.json).
+    validations:
+      required: false
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Operational information only (see CONTRIBUTING.md).
+      placeholder: "e.g. Demo credentials: admin / password. Old repo: https://..."
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ### Collection
+
+        How the app is deployed or accessed (`collection` in schema.json). Select all that apply.
+        If the app mentions Docker, ISO, Virtual Machine, or similar, include **container** (see [CONTRIBUTING.md](https://github.com/owasp-vwad/owasp-vwad.github.io/blob/main/CONTRIBUTING.md)).
+
+  - type: checkboxes
+    id: collection
+    attributes:
+      label: Collection
+      options:
+        - label: online - Hosted online; use over the internet
+        - label: offline - Download and run locally
+        - label: mobile - Mobile app (e.g. Android, iOS)
+        - label: container - Containerized (Docker, VMs, ISOs)
+        - label: platform - A training or playground with multiple targets/workshops, etc.
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ### Categories
+
+        Optional activity or use-case tags (`categories` in schema.json). Select all that apply.
+
+  - type: checkboxes
+    id: categories
+    attributes:
+      label: Categories
+      options:
+        - label: ctf - Capture the Flag challenge
+        - label: code-review - Code review practice
+        - label: single-player - Single-player
+        - label: multi-player - Multi-player
+        - label: guided-lessons - Guided lessons
+        - label: free-form - Free-form practice
+        - label: scanner-test - Scanner or tool testing
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        > [!IMPORTANT]
+        > Only list technologies (e.g. PHP, Docker, Vue) when clearly stated in an official source. Do not infer from URLs or guesses (`technology` in schema.json).
+
+  - type: textarea
+    id: technology
+    attributes:
+      label: Technologies
+      description: One per line or comma-separated; stored as an array of strings in the collection data.
+      placeholder: |
+        PHP
+        Docker
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ### References
+
+        Optional extra links (`references` in schema.json). Each reference has a `name` and `url`.
+
+        > [!NOTE]
+        > Allowed reference `name` values: `guide`, `download`, `docker`, `announcement`, `live`, `demo`, `preview`.
+
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: List each reference on its own line as `name: url`.
+      placeholder: |
+        download: https://github.com/example/app
+        docker: https://hub.docker.com/r/example/app
+        live: https://app.example.com
+    validations:
+      required: false
