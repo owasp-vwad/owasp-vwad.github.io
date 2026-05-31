@@ -1986,6 +1986,32 @@
 		]
 	},
 	{
+		"url": "https://securitylab.github.com/secure-code-game/",
+		"name": "GitHub - Secure Code Game",
+		"slug": "github-secure-code-game",
+		"collection": [
+			"online"
+		],
+		"technology": [
+			"Python",
+			"C",
+			"GitHub Actions"
+		],
+		"references": [
+			{
+				"name": "announcement",
+				"url": "https://github.blog/security/hack-the-ai-agent-build-agentic-ai-security-skills-with-the-github-secure-code-game/"
+			}
+		],
+		"author": "GitHub Security Lab",
+		"description": "GitHub Security Lab's online game for learning secure coding. Players find and fix intentionally vulnerable code across multiple languages and real-world scenarios; includes an agentic AI security skills track.",
+		"categories": [
+			"code-review",
+			"guided-lessons",
+			"single-player"
+		]
+	},
+	{
 		"url": "https://github.com/Checkmarx/Goatlin/",
 		"name": "Goatlin",
 		"slug": "goatlin",
