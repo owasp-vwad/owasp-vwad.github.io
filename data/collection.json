@@ -1198,7 +1198,9 @@
 		"technology": [
 			"Python",
 			"Docker",
-			"MCP"
+			"MCP",
+			"LLM",
+			"AI"
 		],
 		"author": "Harish Santhanalakshmi Ganesan",
 		"description": "Deliberately vulnerable MCP server for learning security vulnerabilities in Model Context Protocol implementations. Contains 10 challenges (easy/medium/hard) covering prompt injection, tool poisoning, excessive permissions, rug pull attacks, tool shadowing, indirect prompt injection, token theft, malicious code execution, and remote access control.",
@@ -1691,7 +1693,9 @@
 		"technology": [
 			"Python",
 			"Docker",
-			"MCP"
+			"MCP",
+			"LLM",
+			"AI"
 		],
 		"author": "Kyze Labs",
 		"description": "Intentionally vulnerable MCP training platform simulating NovaTech Solutions, with 6 departments, 28 vulnerable tools, and 38 challenges across 4 difficulty levels. Covers prompt injection, tool poisoning, SQL injection, command injection, path traversal, privilege escalation, and data exfiltration.",
@@ -1828,7 +1832,9 @@
 		"technology": [
 			"Python",
 			"Docker",
-			"MCP"
+			"MCP",
+			"LLM",
+			"AI"
 		],
 		"author": "Simon Bennetts",
 		"description": "Extremely Vulnerable MCP Server for testing DAST tools such as ZAP. Exposes deliberately insecure MCP tools over HTTP covering SQL injection, OS command injection, path traversal, SSRF, XXE, insecure deserialization, IDOR, weak authentication, prompt injection, and MCP-specific vulnerabilities.",
@@ -4246,7 +4252,9 @@
 		"technology": [
 			"JavaScript",
 			"Python",
-			"MCP"
+			"MCP",
+			"LLM",
+			"AI"
 		],
 		"author": "Appsecco",
 		"description": "Collection of intentionally vulnerable MCP server implementations for security training. Covers path traversal, unsandboxed code execution, indirect prompt injection (local and remote), malicious code execution via eval, instruction injection, namespace typosquatting, outdated package supply chain risk, and secrets/PII exposure.",
