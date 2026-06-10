@@ -1188,6 +1188,30 @@
 		]
 	},
 	{
+		"url": "https://github.com/harishsg993010/damn-vulnerable-MCP-server",
+		"name": "Damn Vulnerable MCP Server (DVMCP)",
+		"slug": "damn-vulnerable-mcp-server-dvmcp",
+		"collection": [
+			"offline",
+			"container"
+		],
+		"technology": [
+			"Python",
+			"Docker",
+			"MCP"
+		],
+		"author": "Harish Santhanalakshmi Ganesan",
+		"description": "Deliberately vulnerable MCP server for learning security vulnerabilities in Model Context Protocol implementations. Contains 10 challenges (easy/medium/hard) covering prompt injection, tool poisoning, excessive permissions, rug pull attacks, tool shadowing, indirect prompt injection, token theft, malicious code execution, and remote access control.",
+		"notes": "Docker: docker build -t dvmcp . && docker run -p 9001-9010:9001-9010 dvmcp. Not stable on Windows without Docker.",
+		"badge": "harishsg993010/damn-vulnerable-MCP-server",
+		"stars": 1305,
+		"last_contributed": "2025-12-08T00:14:14Z",
+		"categories": [
+			"guided-lessons",
+			"single-player"
+		]
+	},
+	{
 		"url": "https://github.com/ne0z/DamnVulnerableMicroServices",
 		"name": "Damn Vulnerable Micro Services",
 		"slug": "damn-vulnerable-micro-services",
@@ -1657,6 +1681,29 @@
 		]
 	},
 	{
+		"url": "https://github.com/Kyze-Labs/damn-vulnerable-MCP-Server",
+		"name": "DVMCP",
+		"slug": "dvmcp",
+		"collection": [
+			"offline",
+			"container"
+		],
+		"technology": [
+			"Python",
+			"Docker",
+			"MCP"
+		],
+		"author": "Kyze Labs",
+		"description": "Intentionally vulnerable MCP training platform simulating NovaTech Solutions, with 6 departments, 28 vulnerable tools, and 38 challenges across 4 difficulty levels. Covers prompt injection, tool poisoning, SQL injection, command injection, path traversal, privilege escalation, and data exfiltration.",
+		"badge": "Kyze-Labs/damn-vulnerable-MCP-Server",
+		"stars": 66,
+		"last_contributed": "2026-04-01T17:41:29Z",
+		"categories": [
+			"guided-lessons",
+			"single-player"
+		]
+	},
+	{
 		"url": "https://github.com/snoopysecurity/dvws-node",
 		"name": "dvws-node",
 		"slug": "dvws-node",
@@ -1767,6 +1814,30 @@
 		"last_contributed": "2026-05-06T11:19:09Z",
 		"categories": [
 			"free-form",
+			"single-player"
+		]
+	},
+	{
+		"url": "https://github.com/psiinon/evmcp",
+		"name": "EVMCP",
+		"slug": "evmcp",
+		"collection": [
+			"offline",
+			"container"
+		],
+		"technology": [
+			"Python",
+			"Docker",
+			"MCP"
+		],
+		"author": "Simon Bennetts",
+		"description": "Extremely Vulnerable MCP Server for testing DAST tools such as ZAP. Exposes deliberately insecure MCP tools over HTTP covering SQL injection, OS command injection, path traversal, SSRF, XXE, insecure deserialization, IDOR, weak authentication, prompt injection, and MCP-specific vulnerabilities.",
+		"notes": "Docker: docker build -t evmcp . && docker run --rm -p 8000:8000 evmcp. MCP endpoint at http://localhost:8000/mcp.",
+		"badge": "psiinon/evmcp",
+		"stars": 1,
+		"last_contributed": "2026-05-09T13:30:31Z",
+		"categories": [
+			"scanner-test",
 			"single-player"
 		]
 	},
@@ -4160,6 +4231,29 @@
 		"badge": "CSPF-Founder/JavaVulnerableLab",
 		"stars": 277,
 		"last_contributed": "2026-05-10T01:42:25Z",
+		"categories": [
+			"free-form",
+			"single-player"
+		]
+	},
+	{
+		"url": "https://github.com/appsecco/vulnerable-mcp-servers-lab",
+		"name": "Vulnerable MCP Servers Lab",
+		"slug": "vulnerable-mcp-servers-lab",
+		"collection": [
+			"offline"
+		],
+		"technology": [
+			"JavaScript",
+			"Python",
+			"MCP"
+		],
+		"author": "Appsecco",
+		"description": "Collection of intentionally vulnerable MCP server implementations for security training. Covers path traversal, unsandboxed code execution, indirect prompt injection (local and remote), malicious code execution via eval, instruction injection, namespace typosquatting, outdated package supply chain risk, and secrets/PII exposure.",
+		"notes": "Do not run outside a controlled lab environment; several servers make outbound network calls.",
+		"badge": "appsecco/vulnerable-mcp-servers-lab",
+		"stars": 262,
+		"last_contributed": "2025-12-18T12:07:46Z",
 		"categories": [
 			"free-form",
 			"single-player"
