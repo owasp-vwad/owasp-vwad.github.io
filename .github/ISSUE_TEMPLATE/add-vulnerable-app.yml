@@ -137,7 +137,7 @@ body:
     id: references
     attributes:
       label: References
-      description: List each reference on its own line as `name: url`.
+      description: "List each reference on its own line as `name: url`."
       placeholder: |
         download: https://github.com/example/app
         docker: https://hub.docker.com/r/example/app
