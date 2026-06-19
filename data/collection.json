@@ -4135,41 +4135,6 @@
 		]
 	},
 	{
-		"author": "Al-Amir Badmus",
-		"collection": [
-			"online",
-			"container",
-			"mobile"
-		],
-		"name": "Vuln-Bank",
-		"slug": "vuln-bank",
-		"description": "A deliberately vulnerable banking application designed for practicing Security Testing of Web App, APIs, AI integrated App and secure code reviews. Features common vulnerabilities found in real-world applications, making it an ideal platform for security professionals, developers, and enthusiasts to learn security testing and secure coding practices in a safe environment.",
-		"references": [
-			{
-				"name": "live",
-				"url": "https://vulnbank.org"
-			}
-		],
-		"technology": [
-			"Python",
-			"JavaScript",
-			"PostgreSQL",
-			"Docker",
-			"HTML",
-			"CSS",
-			"AI",
-			"LLM"
-		],
-		"url": "https://github.com/Commando-X/vuln-bank",
-		"badge": "Commando-X/vuln-bank",
-		"stars": 751,
-		"last_contributed": "2026-05-05T15:58:44Z",
-		"categories": [
-			"code-review",
-			"single-player"
-		]
-	},
-	{
 		"url": "https://github.com/SirAppSec/vuln-node.js-express.js-app",
 		"name": "vuln-node.js-express.js-app",
 		"slug": "vuln-node-js-express-js-app",
@@ -4218,6 +4183,41 @@
 		],
 		"stars": 53,
 		"last_contributed": "2025-11-15T16:28:42Z"
+	},
+	{
+		"author": "Al-Amir Badmus",
+		"collection": [
+			"online",
+			"container",
+			"mobile"
+		],
+		"name": "Vulnbank",
+		"slug": "vulnbank",
+		"description": "A deliberately vulnerable banking application designed for practicing Security Testing of Web App, APIs, AI integrated App and secure code reviews. Features common vulnerabilities found in real-world applications, making it an ideal platform for security professionals, developers, and enthusiasts to learn security testing and secure coding practices in a safe environment.",
+		"references": [
+			{
+				"name": "live",
+				"url": "https://vulnbank.org"
+			}
+		],
+		"technology": [
+			"Python",
+			"JavaScript",
+			"PostgreSQL",
+			"Docker",
+			"HTML",
+			"CSS",
+			"AI",
+			"LLM"
+		],
+		"url": "https://github.com/Commando-X/vuln-bank",
+		"badge": "Commando-X/vuln-bank",
+		"stars": 751,
+		"last_contributed": "2026-05-05T15:58:44Z",
+		"categories": [
+			"code-review",
+			"single-player"
+		]
 	},
 	{
 		"url": "https://github.com/CSPF-Founder/JavaVulnerableLab/",
