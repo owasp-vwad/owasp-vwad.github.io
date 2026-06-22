@@ -576,7 +576,7 @@
 		"references": [
 			{
 				"name": "guide",
-				"url": "https://medium.com/@rzepsky/playing-with-cloudgoat-part-1-hacking-aws-ec2-service-for-privilege-escalation-4c42cc83f9da"
+				"url": "https://rzepsky.medium.com/playing-with-cloudgoat-part-1-hacking-aws-ec2-service-for-privilege-escalation-4c42cc83f9da"
 			},
 			{
 				"name": "announcement",
@@ -1787,7 +1787,7 @@
 		"references": [
 			{
 				"name": "guide",
-				"url": "https://eksgoat.kubernetesvillage.com/"
+				"url": "https://eksgoat.peachycloudsecurity.com/"
 			}
 		],
 		"author": "OWASP",
@@ -2948,7 +2948,7 @@
 		]
 	},
 	{
-		"url": "https://github.com/aabashkin/nosql-injection-vulnapp",
+		"url": "https://github.com/appsec-science/nosql-injection-vulnapp",
 		"name": "NoSQL Injection Vulnerable App (NIVA)",
 		"slug": "nosql-injection-vulnerable-app-niva",
 		"collection": [
@@ -2969,7 +2969,7 @@
 			},
 			{
 				"name": "guide",
-				"url": "https://github.com/aabashkin/nosql-injection-vulnapp/blob/main/README.md"
+				"url": "https://github.com/appsec-science/nosql-injection-vulnapp/blob/main/README.md"
 			}
 		],
 		"author": "Anton Abashkin",
@@ -4794,11 +4794,11 @@
 			"Docker"
 		],
 		"description": "Intentionally vulnerable web application for measuring and improving XSS detection in security testing tools across many XSS contexts.",
-		"notes": "Run from source or Docker. Docker image: ghcr.io/hahwul/xssmaze:main. Default port: 3000.",
+		"notes": "Run from source or Docker. Default port: 3000.",
 		"references": [
 			{
 				"name": "docker",
-				"url": "https://ghcr.io/hahwul/xssmaze:main"
+				"url": "https://github.com/hahwul/xssmaze/pkgs/container/xssmaze"
 			}
 		],
 		"badge": "hahwul/xssmaze",
