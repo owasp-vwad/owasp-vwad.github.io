@@ -12,48 +12,48 @@ permissions:
 jobs:
   scout:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
-      
+
       - name: Set up Python
-        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1  # v6
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1  # v6.3.0
         with:
           python-version: '3.11'
-      
+
       - name: Install dependencies
         run: |
           pip install --upgrade pip
           pip install PyGithub==2.1.1 requests==2.31.0 python-dateutil==2.8.2
-      
+
       - name: Run Repository Scout
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           python .github/workflows/scripts/scout.py
-      
+
       - name: Create Issue with Findings
         if: success()
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
         with:
           script: |
             const fs = require('fs');
-            
+
             if (!fs.existsSync('scout-results.json')) {
               console.log('No new repositories found');
               return;
             }
-            
+
             const results = JSON.parse(fs.readFileSync('scout-results.json', 'utf8'));
-            
+
             if (results.repositories.length === 0) {
               console.log('No new repositories found');
               return;
             }
-            
+
             const issueBody = fs.readFileSync('scout-issue-body.md', 'utf8');
-            
+
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -61,5 +61,5 @@ jobs:
               body: issueBody,
               labels: ['new app']
             });
-            
+
             console.log(`Created issue with ${results.repositories.length} new repositories`);
