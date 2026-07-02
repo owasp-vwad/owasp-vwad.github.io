@@ -111,7 +111,7 @@ If `output_file` is omitted, writes to `data/contributors.json`.
 
 ### scout.py
 
-Discovers GitHub repositories that may be candidates for the vulnerable web applications directory (e.g. via search). Reads existing repos from `data/collection.json` to avoid duplicates. Outputs `scout-results.json` and `scout-issue-body.md` for the **Repository Scout** workflow, which creates an issue with label `new app` when new repositories are found.
+Discovers GitHub repositories that may be candidates for the vulnerable web applications directory (e.g. via search). Skips repos already in `data/collection.json` or `data/scout_suggested.json` (persistent list of previously reported suggestions; same shape as `archived_repos.json`: `url`, `name`, `date`, `notes`). New suggestions are merged into `scout_suggested.json` for the workflow to commit. Outputs `scout-results.json` and `scout-issue-body.md` for the **Repository Scout** workflow, which creates an issue with label `new app` when new repositories are found and no open scout issue already exists.
 
 **Usage:**
 ```bash
@@ -220,7 +220,7 @@ These scripts are automatically executed by GitHub Actions workflows:
 - `update-sourceforge-stats.yml`: Runs `update_sourceforge_stats.py` weekly (Sundays 04:00 UTC, a few hours after GitHub stats); updates `last_contributed` for SourceForge-only entries in `data/collection.json` and commits when changed.
 - `link-checker.yml`: Runs `check_links.py` on manual trigger to validate all app and reference URLs.
 - `update-contributors.yml`: Runs `update_contributors.py` weekly to update `data/contributors.json`; commits and pushes when the file changes.
-- `repo-scout.yml`: Runs `scout.py` weekly (Mondays 09:00 UTC); creates an issue with new repository findings (label `new app`).
+- `repo-scout.yml`: Runs `scout.py` weekly (Mondays 09:00 UTC); commits `data/scout_suggested.json` when new repos are found; creates an issue with new repository findings (label `new app`) if no open scout issue exists.
 
 The validation results from `validate.yml` are:
 

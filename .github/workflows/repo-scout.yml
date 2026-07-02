@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   issues: write
 
 jobs:
@@ -33,6 +33,22 @@ jobs:
         run: |
           python .github/workflows/scripts/scout.py
 
+      - name: Check for scout suggested list changes
+        id: git-check
+        run: |
+          if [ -n "$(git status --short data/scout_suggested.json 2>/dev/null)" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push scout suggested list
+        if: steps.git-check.outputs.changed == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add data/scout_suggested.json
+          git commit -m "Track scout-suggested repositories [automated]"
+          git push
+
       - name: Create Issue with Findings
         if: success()
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
@@ -49,6 +65,18 @@ jobs:
 
             if (results.repositories.length === 0) {
               console.log('No new repositories found');
+              return;
+            }
+
+            const openIssues = await github.paginate(github.rest.issues.listForRepo, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'new app',
+            });
+            const openScoutIssue = openIssues.find((issue) => issue.title.includes('Scout Report'));
+            if (openScoutIssue) {
+              console.log(`Open scout issue #${openScoutIssue.number} exists; skipping new issue`);
               return;
             }
 

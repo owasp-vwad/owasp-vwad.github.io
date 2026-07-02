@@ -9,6 +9,6 @@ Workflows in this directory:
 - **Update GitHub Statistics** (`update-stats.yml`) – Weekly; updates stars and last-contribution dates in `collection.json`, and `data/archived_repos.json` when it detects archived repos (may create an issue).
 - **Update GitHub Contributors** (`update-contributors.yml`) – Weekly; writes `data/contributors.json` and commits when changed.
 - **Link Checker** (`link-checker.yml`) – Manual; validates app and reference URLs in `collection.json`.
-- **Repository Scout** (`repo-scout.yml`) – Weekly; runs `scout.py` to discover new vulnerable-app repos and opens an issue with findings.
+- **Repository Scout** (`repo-scout.yml`) – Weekly; runs `scout.py` to discover new vulnerable-app repos, tracks suggestions in `data/scout_suggested.json`, and opens an issue with findings when appropriate.
 
 See [scripts/README.md](scripts/README.md) for script details.
