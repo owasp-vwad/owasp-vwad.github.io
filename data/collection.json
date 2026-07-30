@@ -175,6 +175,35 @@
 		"last_contributed": "2022-03-10T13:12:25Z"
 	},
 	{
+		"url": "https://github.com/Arcanum-Sec/ai-sec-resources",
+		"name": "Arcanum",
+		"slug": "arcanum",
+		"collection": [
+			"offline",
+			"online"
+		],
+		"technology": [
+			"AI",
+			"Python"
+		],
+		"description": "A curated, always-current directory of free and self-hostable AI/LLM security labs, CTFs, competitions, bug bounties, tools, and references.",
+		"references": [
+			{
+				"name": "live",
+				"url": "https://arcanum-sec.github.io/ai-sec-resources/"
+			}
+		],
+		"author": "Arcanum-Sec",
+		"badge": "Arcanum-Sec/ai-sec-resources",
+		"stars": "471",
+		"last_contributed": "2026-07-03T00:00:00Z",
+		"categories": [
+			"ctf",
+			"bug bounty",
+			"AI Security Labs"
+		]
+	},
+	{
 		"url": "https://github.com/digininja/authlab",
 		"name": "AuthLab",
 		"slug": "authlab",
