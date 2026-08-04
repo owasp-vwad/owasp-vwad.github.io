@@ -29,15 +29,25 @@ jobs:
           path: ${{ runner.temp }}/artifact
 
       - name: Manage PR Comments
-        if: steps.download-artifact.outcome == 'success'
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
         env:
           ARTIFACT_DIR: ${{ runner.temp }}/artifact
+          DOWNLOAD_OUTCOME: ${{ steps.download-artifact.outcome }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
             const path = require('path');
+
+            const conclusion = context.payload.workflow_run.conclusion;
+            const downloadOk = process.env.DOWNLOAD_OUTCOME === 'success';
+
+            // On failure, only minimize/post when the new artifact is available.
+            // Otherwise keep the prior comment so feedback is not wiped.
+            if (conclusion === 'failure' && !downloadOk) {
+              console.log('Failure run but artifact download failed; skipping minimize and post');
+              return;
+            }
 
             // PR number from workflow_run event
             const pullRequests = context.payload.workflow_run.pull_requests || [];
@@ -78,7 +88,7 @@ jobs:
               );
 
               // Minimize each previous comment with appropriate classifier
-              const classifier = context.payload.workflow_run.conclusion === 'success' ? 'RESOLVED' : 'OUTDATED';
+              const classifier = conclusion === 'success' ? 'RESOLVED' : 'OUTDATED';
 
               for (const comment of workflowComments) {
                 try {
@@ -106,7 +116,7 @@ jobs:
             }
 
             // Post new comment only on failure
-            if (context.payload.workflow_run.conclusion === 'failure') {
+            if (conclusion === 'failure') {
               try {
                 // Check if artifact.txt exists before reading
                 const artifactPath = path.join(process.env.ARTIFACT_DIR, 'artifact.txt');
