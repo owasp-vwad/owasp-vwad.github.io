@@ -3816,6 +3816,32 @@
 		]
 	},
 	{
+		"url": "https://github.com/albatroz001/ShopeVerse",
+		"name": "ShopVerse",
+		"slug": "shopverse",
+		"collection": [
+			"offline",
+			"container"
+		],
+		"technology": [
+			"Docker",
+			"Python",
+			"Nginx",
+			"PostgreSQL"
+		],
+		"references": [
+			{
+				"name": "announcement",
+				"url": "https://www.linkedin.com/posts/aflah-k-353353259_cybersecurity-owasp-websecurity-share-7488536115440713730-37wh/"
+			}
+		],
+		"author": "albatroz001 (Aflah K)",
+		"description": "ShopVerse is an intentionally vulnerable offline security training platform designed to teach the OWASP Top 10 (2025) through realistic shopping website scenarios. Instead of a collection of isolated vulnerable pages, ShopVerse simulates a commercial e-commerce application where learners investigate security incidents, identify vulnerabilities, capture flags, and complete an interactive security campaign.",
+		"categories": [
+			"ctf"
+		]
+	},
+	{
 		"url": "https://solyd.com.br/cursos/introducao-ao-hacking-e-pentest-2/",
 		"name": "Solyd - Introdução ao Hacking e Pentest",
 		"slug": "solyd-introdu-o-ao-hacking-e-pentest",
