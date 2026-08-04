@@ -23,7 +23,8 @@ Features:
 - GraphQL batch queries for efficient processing
 
 Environment Variables:
-- GITHUB_TOKEN: GitHub personal access token (recommended for higher rate limits)
+- GITHUB_TOKEN: GitHub token for authenticated API requests (recommended for higher rate limits).
+  In Actions the stats workflow passes secrets.VWAD_WF (PAT) for GraphQL headroom; a PAT also works locally.
 - CACHE_FILE: Path to cache file (default: .github_stats_cache.json)
 - MAX_RETRIES: Maximum number of retry attempts (default: 3)
 - INITIAL_DELAY: Initial delay between requests in seconds (default: 1)
@@ -180,7 +181,7 @@ def get_github_headers() -> Dict[str, str]:
 
     token = os.environ.get('GITHUB_TOKEN')
     if token:
-        headers['Authorization'] = f'token {token}'
+        headers['Authorization'] = f'Bearer {token}'
         print("Using authenticated GitHub API requests")
     else:
         print("Using unauthenticated GitHub API requests (lower rate limits)")

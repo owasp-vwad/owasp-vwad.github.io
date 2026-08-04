@@ -103,7 +103,7 @@ If `output_file` is omitted, writes to `data/contributors.json`.
 - **JSON output**: Writes `{ "updated": "<ISO8601>", "contributors": [ { "login", "contributions" }, ... ] }`; the workflow commits the file when it changes
 
 **Environment Variables:**
-- `GITHUB_TOKEN`: GitHub personal access token (optional, but recommended for higher rate limits)
+- `GITHUB_TOKEN`: GitHub token (PAT optional, but recommended for higher rate limits). In Actions, use `secrets.GITHUB_TOKEN`; locally a PAT also works.
 
 **Excluded accounts:**
 - Bots: `vwadbot`, `dependabot[bot]`, `owasp-nest[bot]`, `github-actions[bot]`, `Copilot`, `OWASPFoundation`
@@ -145,7 +145,7 @@ python3 update_stats.py
 - **Graceful degradation**: Falls back to cached data when API limits are exceeded
 
 **Environment Variables:**
-- `GITHUB_TOKEN`: GitHub personal access token (recommended for higher rate limits). Without this, the script uses unauthenticated requests with lower limits (60 requests/hour vs 5000 requests/hour).
+- `GITHUB_TOKEN`: GitHub token (PAT recommended for higher rate limits). The stats workflow passes `secrets.VWAD_WF` (PAT) for GraphQL headroom vs Actions `GITHUB_TOKEN` (1k vs 5k points/hour). Locally a PAT also works. Without this, the script uses unauthenticated requests with lower limits.
 - `CACHE_FILE`: Path to cache file (default: `.github_stats_cache.json`)
 - `MAX_RETRIES`: Maximum number of retry attempts (default: `3`)
 - `INITIAL_DELAY`: Initial delay between requests in seconds (default: `1`)

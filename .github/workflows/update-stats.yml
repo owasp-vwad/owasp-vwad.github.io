@@ -14,11 +14,11 @@ permissions:
 jobs:
   update-stats:
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.VWAD_WF }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Set up Python
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97  # v7.0.0
@@ -30,6 +30,8 @@ jobs:
           pip install requests
 
       - name: Run update script
+        env:
+          GITHUB_TOKEN: ${{ secrets.VWAD_WF }}
         run: |
           python .github/workflows/scripts/update_stats.py
 
@@ -42,11 +44,14 @@ jobs:
 
       - name: Commit and push if changed
         if: steps.git-check.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add data/collection.json data/archived_repos.json
           git commit -m "Update GitHub statistics [automated]"
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
           git push
 
       - name: No changes detected

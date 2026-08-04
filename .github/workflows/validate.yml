@@ -24,6 +24,7 @@ jobs:
     - name: Checkout base repository
       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
       with:
+        persist-credentials: false
         ref: ${{ github.event.pull_request.base.ref || github.ref }}
     - name: Sparse checkout changed datafiles from PR
       if: github.event_name == 'pull_request'
@@ -36,14 +37,12 @@ jobs:
         # only datafiles come from the PR
         git checkout pr-branch -- data/
         echo "✓ Successfully checked out data/ from PR"
-    - name: Save PR number
-      env:
-        PR_NUMBER: ${{ github.event.pull_request.number || 'manual-run' }}
-      run: echo $PR_NUMBER > pr_number
     # Note: The following validation steps process untrusted data from the PR.
     # Safety relies primarily on the unprivileged 'pull_request' context
     # (read-only token, no secrets). When the workflow definition is unmodified,
     # scripts also come from the base repo and only data files come from the PR.
+    # Failure text is uploaded for the Comment workflow; PR number comes from the
+    # workflow_run event there (not from this artifact).
     - name: Run schema check
       id: schema
       continue-on-error: true
@@ -153,6 +152,4 @@ jobs:
       uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7
       with:
         name: artifact
-        path: |
-          artifact.txt
-          pr_number
+        path: artifact.txt
