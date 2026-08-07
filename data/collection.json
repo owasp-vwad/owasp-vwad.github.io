@@ -887,6 +887,40 @@
 		]
 	},
 	{
+		"url": "https://github.com/rek7/DVASP",
+		"name": "Damn Vulnerable Application Security Platform (DVASP)",
+		"slug": "damn-vulnerable-application-security-platform-dvasp",
+		"collection": [
+			"online",
+			"offline",
+			"container",
+			"platform"
+		],
+		"technology": [
+			"Python",
+			"TypeScript",
+			"Docker"
+		],
+		"references": [
+			{
+				"name": "announcement",
+				"url": "https://blog.raphael.karger.is/articles/2026-08/bh-2026"
+			}
+		],
+		"author": "Raphael Karger",
+		"description": "A local application security platform for repository assessment workflows across security tools, SCA, IaC scanning, container review, and secrets governance. Used to showcase attacks against hosted code security vendors.",
+		"notes": "Run locally with `docker compose up`; operator UI at http://127.0.0.1:8080 and API at http://127.0.0.1:8000. Local-first: published service ports bind to 127.0.0.1 in the default compose configuration. Seeded credentials are synthetic watermarked values only.",
+		"badge": "rek7/DVASP",
+		"categories": [
+			"ctf",
+			"code-review",
+			"single-player",
+			"multi-player",
+			"free-form",
+			"scanner-test"
+		]
+	},
+	{
 		"url": "https://github.com/rewanthtammana/Damn-Vulnerable-Bank",
 		"name": "Damn Vulnerable Bank",
 		"slug": "damn-vulnerable-bank",
