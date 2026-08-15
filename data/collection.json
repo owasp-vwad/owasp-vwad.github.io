@@ -2366,6 +2366,30 @@
 		]
 	},
 	{
+		"url": "https://github.com/afsh4ck/HackLabs",
+		"name": "HackLabs",
+		"slug": "hacklabs",
+		"collection": [
+			"offline",
+			"container"
+		],
+		"technology": [
+			"Python",
+			"HTML",
+			"Docker"
+		],
+		"author": "afsh4ck",
+		"description": "Intentionally vulnerable ethical hacking training platform covering the OWASP Top 10 and advanced vulnerabilities, with step-by-step exploitation guides and a gamified progress system.",
+		"notes": "Do not expose publicly; use only in an isolated environment (VM or local network). Test credentials: admin / password1, alice / Password1, bob / welcome1, charlie / changeme. Deploys via Docker with its own LAN IP using a macvlan network.",
+		"badge": "afsh4ck/HackLabs",
+		"stars": 421,
+		"last_contributed": "2026-08-12T07:58:14Z",
+		"categories": [
+			"guided-lessons",
+			"single-player"
+		]
+	},
+	{
 		"url": "https://www.hackthebox.com",
 		"name": "HackTheBox",
 		"slug": "hackthebox",
