@@ -316,7 +316,7 @@ def render_slug_redirect_page(site_url: str, old_slug: str, new_slug: str) -> st
   <meta charset="UTF-8">
   <meta http-equiv="refresh" content="0;url={html_url}">
   <link rel="canonical" href="{html_url}">
-  <title>Redirecting&#8230;</title>
+  <title>Redirecting&hellip;</title>
   <script>window.location.replace({js_url});</script>
 </head>
 <body>
