@@ -1308,10 +1308,11 @@
 			"nginx",
 			"Python",
 			"Flask",
-			"Docker"
+			"Docker",
+			"Go"
 		],
 		"author": "Oussama Messaoudi",
-		"description": "Self-contained web security lab that simulates a multi-host NGINX reverse-proxy environment. Connects an attacker to multiple virtual hosts, backend Flask applications, and shared resources, providing a realistic environment for exploring chained web and reverse-proxy misconfigurations.",
+		"description": "Self-contained web security lab that simulates a multi-host NGINX reverse-proxy environment. Connects an attacker to multiple virtual hosts, backend Flask/Go applications, and shared resources, providing a realistic environment for exploring chained web and reverse-proxy misconfigurations.",
 		"references": [
 			{
 				"name": "guide",
