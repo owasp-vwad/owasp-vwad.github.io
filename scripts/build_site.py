@@ -290,13 +290,12 @@ def validate_collection(apps: list[dict]) -> None:
 def validate_slug_redirects(apps: list[dict], slug_redirects: dict[str, str]) -> None:
     """Validate that slug_redirects maps valid old slugs to known new slugs."""
     known_slugs = {str(app.get("slug", "")).strip() for app in apps}
-    active_slugs = known_slugs
     for old_slug, new_slug in slug_redirects.items():
         if not SLUG_RE.fullmatch(old_slug):
             raise ValueError(f'Invalid old slug "{old_slug}" in slug_redirects')
         if not SLUG_RE.fullmatch(new_slug):
             raise ValueError(f'Invalid new slug "{new_slug}" in slug_redirects')
-        if old_slug in active_slugs:
+        if old_slug in known_slugs:
             raise ValueError(
                 f'Old slug "{old_slug}" in slug_redirects conflicts with an active app slug'
             )
@@ -308,18 +307,20 @@ def validate_slug_redirects(apps: list[dict], slug_redirects: dict[str, str]) ->
 
 def render_slug_redirect_page(site_url: str, old_slug: str, new_slug: str) -> str:
     """Render an HTML redirect page from old_slug to new_slug."""
-    target_url = escape(absolute_url(site_url, f"/app/{new_slug}/"))
+    raw_url = absolute_url(site_url, f"/app/{new_slug}/")
+    html_url = escape(raw_url)
+    js_url = json.dumps(raw_url)
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0;url={target_url}">
-  <link rel="canonical" href="{target_url}">
+  <meta http-equiv="refresh" content="0;url={html_url}">
+  <link rel="canonical" href="{html_url}">
   <title>Redirecting&#8230;</title>
-  <script>window.location.replace("{target_url}");</script>
+  <script>window.location.replace({js_url});</script>
 </head>
 <body>
-  <p>This page has moved. <a href="{target_url}">Click here</a> if you are not redirected automatically.</p>
+  <p>This page has moved. <a href="{html_url}">Click here</a> if you are not redirected automatically.</p>
 </body>
 </html>
 """
