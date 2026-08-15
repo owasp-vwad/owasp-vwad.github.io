@@ -17,6 +17,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SITE_DIR = ROOT / "_site"
 GOOGLE_SITE_VERIFICATION_HTML = "googleb50d6d65fe3a6c2d.html"
 COLLECTION_JSON = ROOT / "data" / "collection.json"
+SLUG_REDIRECTS_JSON = ROOT / "data" / "slug_redirects.json"
 REPORT_PATH = ROOT / "generated_site_report.json"
 CSS_BUNDLE_PATTERNS = {
     "core": re.compile(r"^css/build/core\.[0-9a-f]{10}\.css$"),
@@ -185,8 +186,12 @@ def validate_pwa_assets() -> None:
 
 
 def validate_app_pages(apps: list[dict], site_url: str) -> None:
+    redirect_slugs = set(load_json(SLUG_REDIRECTS_JSON).keys()) if SLUG_REDIRECTS_JSON.is_file() else set()
     generated_pages = list((SITE_DIR / "app").glob("*/index.html"))
-    generated_pages = [path for path in generated_pages if path.parent.name != "app"]
+    generated_pages = [
+        path for path in generated_pages
+        if path.parent.name != "app" and path.parent.name not in redirect_slugs
+    ]
     if len(generated_pages) != len(apps):
         fail(f"Generated app page count mismatch: expected {len(apps)}, got {len(generated_pages)}")
 
@@ -357,6 +362,24 @@ def validate_google_site_verification_file() -> None:
         fail(f"{GOOGLE_SITE_VERIFICATION_HTML} in _site/ does not match repo root")
 
 
+def validate_slug_redirect_pages(site_url: str) -> None:
+    """Validate that slug redirect pages exist and point to the correct target URL."""
+    if not SLUG_REDIRECTS_JSON.is_file():
+        return
+    slug_redirects = load_json(SLUG_REDIRECTS_JSON)
+    for old_slug, new_slug in slug_redirects.items():
+        page_path = SITE_DIR / "app" / old_slug / "index.html"
+        if not page_path.exists():
+            fail(f"Missing slug redirect page for old slug '{old_slug}'")
+        html = page_path.read_text(encoding="utf-8")
+        expected_url = site_url.rstrip("/") + f"/app/{new_slug}/"
+        if expected_url not in html:
+            fail(
+                f"Slug redirect page for '{old_slug}' does not reference expected target URL"
+                f" '{expected_url}'"
+            )
+
+
 def main() -> int:
     apps = load_json(COLLECTION_JSON)
     _, report = validate_report(apps)
@@ -369,6 +392,7 @@ def main() -> int:
     validate_compat_page()
     validate_not_found_page()
     validate_google_site_verification_file()
+    validate_slug_redirect_pages(site_url)
     print(f"Validated generated site for {len(apps)} apps")
     return 0
 

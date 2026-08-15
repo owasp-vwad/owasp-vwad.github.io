@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT_DIR = ROOT / "_site"
 INDEX_HTML = ROOT / "index.html"
 COLLECTION_JSON = ROOT / "data" / "collection.json"
+SLUG_REDIRECTS_JSON = ROOT / "data" / "slug_redirects.json"
 APP_LOGO_DIR = ROOT / "images" / "app_logos"
 # Same-stem SVG beats raster when both exist in app_logos/.
 RASTER_LOGO_PRIORITY = {".png": 40, ".jpg": 30, ".jpeg": 30, ".webp": 25, ".gif": 20}
@@ -186,6 +187,13 @@ def load_collection() -> list[dict]:
     return json.loads(COLLECTION_JSON.read_text(encoding="utf-8"))
 
 
+def load_slug_redirects() -> dict[str, str]:
+    """Load slug redirect mapping: old_slug -> new_slug."""
+    if not SLUG_REDIRECTS_JSON.is_file():
+        return {}
+    return json.loads(SLUG_REDIRECTS_JSON.read_text(encoding="utf-8"))
+
+
 def local_app_logo_paths() -> dict[str, str]:
     """slug stem -> site-relative path under images/app_logos/. SVG beats same-stem raster."""
     best: dict[str, tuple[int, str]] = {}
@@ -277,6 +285,52 @@ def validate_collection(apps: list[dict]) -> None:
                 raise ValueError(
                     f'Invalid or unsafe URL in reference "{ref.get("name", "")}" for "{slug}": {ref_url!r}'
                 )
+
+
+def validate_slug_redirects(apps: list[dict], slug_redirects: dict[str, str]) -> None:
+    """Validate that slug_redirects maps valid old slugs to known new slugs."""
+    known_slugs = {str(app.get("slug", "")).strip() for app in apps}
+    active_slugs = known_slugs
+    for old_slug, new_slug in slug_redirects.items():
+        if not SLUG_RE.fullmatch(old_slug):
+            raise ValueError(f'Invalid old slug "{old_slug}" in slug_redirects')
+        if not SLUG_RE.fullmatch(new_slug):
+            raise ValueError(f'Invalid new slug "{new_slug}" in slug_redirects')
+        if old_slug in active_slugs:
+            raise ValueError(
+                f'Old slug "{old_slug}" in slug_redirects conflicts with an active app slug'
+            )
+        if new_slug not in known_slugs:
+            raise ValueError(
+                f'New slug "{new_slug}" in slug_redirects does not match any app slug'
+            )
+
+
+def render_slug_redirect_page(site_url: str, old_slug: str, new_slug: str) -> str:
+    """Render an HTML redirect page from old_slug to new_slug."""
+    target_url = escape(absolute_url(site_url, f"/app/{new_slug}/"))
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="refresh" content="0;url={target_url}">
+  <link rel="canonical" href="{target_url}">
+  <title>Redirecting&#8230;</title>
+  <script>window.location.replace("{target_url}");</script>
+</head>
+<body>
+  <p>This page has moved. <a href="{target_url}">Click here</a> if you are not redirected automatically.</p>
+</body>
+</html>
+"""
+
+
+def write_slug_redirect_pages(site_url: str, slug_redirects: dict[str, str]) -> None:
+    """Write HTML redirect pages for old slugs pointing to their new slug pages."""
+    for old_slug, new_slug in slug_redirects.items():
+        target = OUT_DIR / "app" / old_slug / "index.html"
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(render_slug_redirect_page(site_url, old_slug, new_slug), encoding="utf-8")
 
 
 def reset_output_dir() -> None:
@@ -988,7 +1042,9 @@ def build() -> int:
     site_url = get_site_url()
     built_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
     apps = load_collection()
+    slug_redirects = load_slug_redirects()
     validate_collection(apps)
+    validate_slug_redirects(apps, slug_redirects)
     logo_paths = local_app_logo_paths()
     reset_output_dir()
     copy_allowlist()
@@ -999,9 +1055,12 @@ def build() -> int:
     build_homepage(site_url, apps, home_bundle_hrefs, logo_paths)
     write_compatibility_pages(app_bundle_hrefs, not_found_bundle_hrefs, logo_paths)
     warnings = write_app_pages(site_url, apps, app_bundle_hrefs, logo_paths)
+    write_slug_redirect_pages(site_url, slug_redirects)
     write_sitemap(site_url, apps, built_at)
     write_report(site_url, apps, built_at, warnings)
     print(f"Built {len(apps)} app pages into {OUT_DIR}")
+    if slug_redirects:
+        print(f"Wrote {len(slug_redirects)} slug redirect page(s)")
     print(f"Wrote report to {REPORT_PATH}")
     if warnings:
         print(f"Collected {len(warnings)} non-blocking warnings")
