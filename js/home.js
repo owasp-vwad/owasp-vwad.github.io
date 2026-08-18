@@ -23,6 +23,79 @@
     };
   }
 
+  function encodeSearchParams(mode, basicState, advancedState) {
+    var params = new URLSearchParams();
+    if (mode === 'advanced') {
+      params.set('as', '');
+      if (advancedState.query) params.set('q', advancedState.query);
+      if (advancedState.collection && advancedState.collection.length) {
+        params.set('coll', advancedState.collection.join(','));
+        if (advancedState.collectionMode !== 'or') params.set('collMode', advancedState.collectionMode);
+      }
+      if (advancedState.technology && advancedState.technology.length) {
+        params.set('tech', advancedState.technology.join(','));
+        if (advancedState.technologyMode !== 'or') params.set('techMode', advancedState.technologyMode);
+      }
+      if (advancedState.categories && advancedState.categories.length) {
+        params.set('cat', advancedState.categories.join(','));
+        if (advancedState.categoriesMode !== 'or') params.set('catMode', advancedState.categoriesMode);
+      }
+      if (advancedState.references && advancedState.references.length) {
+        params.set('ref', advancedState.references.join(','));
+        if (advancedState.referencesMode !== 'or') params.set('refMode', advancedState.referencesMode);
+      }
+      if (advancedState.stars) params.set('stars', advancedState.stars);
+      if (advancedState.yearFrom) params.set('yearFrom', advancedState.yearFrom);
+      if (advancedState.yearTo) params.set('yearTo', advancedState.yearTo);
+    } else {
+      if (basicState.query) params.set('q', basicState.query);
+      if (basicState.collection) params.set('coll', basicState.collection);
+      if (basicState.technology) params.set('tech', basicState.technology);
+      if (basicState.category) params.set('cat', basicState.category);
+    }
+    return params.toString();
+  }
+
+  function decodeSearchParams(searchStr) {
+    var params = new URLSearchParams(searchStr);
+    var isAdvanced = params.has('as');
+    var result = {
+      mode: isAdvanced ? 'advanced' : 'basic',
+      basic: createDefaultBasicState(),
+      advanced: Browse.createDefaultAdvancedState()
+    };
+
+    if (isAdvanced) {
+      if (params.has('q')) result.advanced.query = params.get('q');
+      if (params.has('coll')) {
+        result.advanced.collection = params.get('coll').split(',').filter(function (v) { return v.trim(); });
+      }
+      if (params.has('collMode')) result.advanced.collectionMode = params.get('collMode');
+      if (params.has('tech')) {
+        result.advanced.technology = params.get('tech').split(',').filter(function (v) { return v.trim(); });
+      }
+      if (params.has('techMode')) result.advanced.technologyMode = params.get('techMode');
+      if (params.has('cat')) {
+        result.advanced.categories = params.get('cat').split(',').filter(function (v) { return v.trim(); });
+      }
+      if (params.has('catMode')) result.advanced.categoriesMode = params.get('catMode');
+      if (params.has('ref')) {
+        result.advanced.references = params.get('ref').split(',').filter(function (v) { return v.trim(); });
+      }
+      if (params.has('refMode')) result.advanced.referencesMode = params.get('refMode');
+      if (params.has('stars')) result.advanced.stars = params.get('stars');
+      if (params.has('yearFrom')) result.advanced.yearFrom = params.get('yearFrom');
+      if (params.has('yearTo')) result.advanced.yearTo = params.get('yearTo');
+    } else {
+      if (params.has('q')) result.basic.query = params.get('q');
+      if (params.has('coll')) result.basic.collection = params.get('coll');
+      if (params.has('tech')) result.basic.technology = params.get('tech');
+      if (params.has('cat')) result.basic.category = params.get('cat');
+    }
+
+    return result;
+  }
+
   function initSearch() {
     var resultsEl = document.getElementById('browse-results');
     var countEl = document.getElementById('result-count');
@@ -52,9 +125,14 @@
         yearTo: document.getElementById('advanced-year-to'),
         starsPills: document.getElementById('advanced-stars-pills'),
         yearPills: document.getElementById('advanced-year-pills')
-      }
+      },
+      shareBtn: document.getElementById('search-share-btn')
     };
+    var urlState = decodeSearchParams(window.location.search);
     var state = createDefaultState();
+    state.activeMode = urlState.mode;
+    state.basic = urlState.basic;
+    state.advanced = urlState.advanced;
     var sortState = null;
     var requestId = 0;
     var activeScrollOuter = null;
@@ -90,6 +168,55 @@
       resetBtn.disabled = !active;
       resetBtn.setAttribute('aria-disabled', active ? 'false' : 'true');
       resetBtn.setAttribute('aria-label', 'Clear all ' + state.activeMode + ' search filters');
+    }
+
+    function updateShareButton() {
+      if (!elements.shareBtn || !navigator.clipboard) return;
+      var active = hasActiveFilters(state.activeMode);
+      elements.shareBtn.disabled = !active;
+      elements.shareBtn.setAttribute('aria-disabled', active ? 'false' : 'true');
+    }
+
+    function updateUrlState() {
+      var params = encodeSearchParams(state.activeMode, state.basic, state.advanced);
+      var newUrl = params ? '?' + params : '?';
+      window.history.replaceState(null, '', newUrl);
+    }
+
+    function showToast(message, x, y) {
+      var toast = document.createElement('div');
+      toast.className = 'toast-notification';
+      toast.setAttribute('role', 'status');
+      toast.setAttribute('aria-live', 'polite');
+      toast.textContent = message;
+      document.body.appendChild(toast);
+
+      if (x !== undefined) toast.style.left = (x + 10) + 'px';
+      if (y !== undefined) toast.style.top = (y - 10) + 'px';
+
+      requestAnimationFrame(function () {
+        toast.classList.add('toast-show');
+      });
+      window.setTimeout(function () {
+        toast.classList.remove('toast-show');
+        window.setTimeout(function () {
+          document.body.removeChild(toast);
+        }, 300);
+      }, 2000);
+    }
+
+    function copyShareUrl(event) {
+      if (!elements.shareBtn || !navigator.clipboard) return;
+      var baseUrl = window.location.origin + window.location.pathname;
+      var params = encodeSearchParams(state.activeMode, state.basic, state.advanced);
+      var fullUrl = params ? baseUrl + '?' + params : baseUrl;
+      var x = event.clientX, y = event.clientY;
+      navigator.clipboard.writeText(fullUrl).then(function () {
+        showToast('Link copied to clipboard', x, y);
+      }).catch(function (err) {
+        console.error('Failed to copy search link:', err);
+        alert('Could not copy search link. Please try again or manually copy the URL from your address bar.');
+      });
     }
 
     function syncModeUi() {
@@ -241,12 +368,14 @@
       });
     }
 
-    function runSearch() {
+    function runSearch(shouldScroll) {
       var payload = buildSearchPayload();
       var currentRequestId = ++requestId;
       var tableScrollState = Browse.captureTableScrollState(resultsEl);
 
       updateResetButton();
+      updateShareButton();
+      updateUrlState();
 
       window.VWAD.searchApps(payload.query, payload.filters).then(function (result) {
         if (currentRequestId !== requestId) return;
@@ -260,6 +389,10 @@
         if (tableScrollState) {
           var outer = resultsEl.querySelector('.table-scroll-outer');
           if (outer) Browse.restoreTableScrollState(outer, tableScrollState);
+        }
+        if (shouldScroll && countEl) {
+          countEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          countEl.focus();
         }
         bindTableInteractions();
       }).catch(function () {
@@ -322,6 +455,16 @@
       resetBtn.addEventListener('click', clearActiveModeFilters);
     }
 
+    if (elements.shareBtn) {
+      if (!navigator.clipboard) {
+        elements.shareBtn.disabled = true;
+        elements.shareBtn.setAttribute('aria-label', 'Share (not available on this connection)');
+        elements.shareBtn.title = 'Sharing requires HTTPS or a secure connection';
+      } else {
+        elements.shareBtn.addEventListener('click', copyShareUrl);
+      }
+    }
+
     window.addEventListener('resize', function () {
       if (activeScrollOuter) {
         Browse.updateTableScrollMetrics(activeScrollOuter);
@@ -334,15 +477,11 @@
     advancedController.syncControls();
     syncModeUi();
 
-    if (new URLSearchParams(window.location.search).has('as')) {
-      setActiveMode('advanced', false);
-    }
-
     window.VWAD.getCollection().then(function (list) {
       advancedController.populateDataOptions(list || []);
     });
 
-    runSearch();
+    runSearch(window.location.search.length > 0);
   }
 
   if (document.readyState === 'loading') {

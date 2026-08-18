@@ -2,11 +2,11 @@
 
 Static GitHub Pages site for the OWASP Vulnerable Web Applications Directory (VWAD) project. The site builds into `_site/` as deployable static HTML, CSS, JS, and data, with dedicated app pages at `/app/<slug>/` and a lightweight stdlib-only build pipeline that is easy to run and test locally.
 
-### Live site
+### Live Site
 
 https://vwad.owasp.org/
 
-## Build and preview locally
+## Build and Preview Locally
 
 From this directory:
 
@@ -19,7 +19,7 @@ Then open [http://localhost:8000](http://localhost:8000).
 
 Deploy the **`_site/`** output (for example via the GitHub Actions workflow). Serving the repo root without building means homepage templates still contain build placeholders (for example `<!-- BUILD_APP_LOGO_PATHS -->`) and the SPA will not know which bundled logo files exist, so the browser may request missing assets.
 
-## Serving paths and URLs
+## Serving Paths and URLs
 
 - The same build works when served from `/`, `/vwad-new/`, or another subpath
 - A small script derives `window.VWAD_BASE` from `location.pathname`, so data and app URLs resolve correctly without changing the built files

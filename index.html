@@ -300,8 +300,11 @@
           </div>
 
           <div class="result-count-row">
-            <p id="result-count" class="result-count muted" aria-live="polite">-</p>
-            <button type="button" id="search-reset" class="search-reset-btn" aria-label="Clear all search filters" disabled>Reset</button>
+            <p id="result-count" class="result-count muted" aria-live="polite" tabindex="0">-</p>
+            <div class="search-actions">
+              <button type="button" id="search-share-btn" class="search-action-btn search-share-btn" aria-label="Copy search link" title="Copy search link"><span class="search-action-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg></span><span class="search-action-label" aria-hidden="true">Share</span></button>
+              <button type="button" id="search-reset" class="search-action-btn search-reset-btn" aria-label="Clear all search filters" disabled>Reset</button>
+            </div>
           </div>
         </div>
         <div id="browse-results" class="browse-results">

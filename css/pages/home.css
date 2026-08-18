@@ -1,6 +1,10 @@
 /* Homepage-only styles */
 
-.page-home #browse .container {
+/* Featured, Browse, About, Contributors all align to same left edge */
+.page-home #featured .container,
+.page-home #browse .container,
+.page-home #about .container,
+.page-home #contributors .container {
   max-width: 1200px;
 }
 
