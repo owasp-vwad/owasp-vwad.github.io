@@ -4847,6 +4847,49 @@
 		]
 	},
 	{
+		"url": "https://github.com/makarov05bm/WSGoat",
+		"name": "WebSocket GOAT",
+		"slug": "websocket-goat",
+		"collection": [
+			"offline",
+			"container"
+		],
+		"technology": [
+			"WebSocket",
+			"Docker",
+			"Node.js",
+			"PostgreSQL"
+		],
+		"references": [
+			{
+				"name": "download",
+				"url": "https://github.com/makarov05bm/WSGoat"
+			},
+			{
+				"name": "guide",
+				"url": "https://blog.oussmess.me/posts/websockets-for-bug-hunters/"
+			},
+			{
+				"name": "guide",
+				"url": "https://websocket.org/guides/authentication/"
+			},
+			{
+				"name": "guide",
+				"url": "https://christian-schneider.net/blog/cross-site-websocket-hijacking/"
+			}
+		],
+		"author": "Oussama Messaoudi (@makarov)",
+		"description": "A deliberately vulnerable, Dockerized WebSocket application for learning and practicing WebSocket security testing in a controlled environment, with authentication, private messaging, user profiles, and multiple WebSocket endpoints.",
+		"notes": "Run locally with `docker compose up --build` and open http://localhost:3000.",
+		"badge": "makarov05bm/WSGoat",
+		"stars": 2,
+		"last_contributed": "2026-08-24T15:45:49Z",
+		"categories": [
+			"guided-lessons",
+			"free-form"
+		]
+	},
+	{
 		"url": "https://github.com/The-Art-of-Hacking/websploit",
 		"name": "Websploit",
 		"slug": "websploit",
