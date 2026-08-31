@@ -61,7 +61,7 @@
 		"description": "Learn AI/LLM security through vulnerable LLM CTF challenges. Uses Vicuna (LLaMA-derived) locally; no sign-ups or cloud fees. Aligns with OWASP Top 10 for LLM Applications; covers prompt injection, insecure output handling, data leakage, and more.",
 		"notes": "Run locally: ./ai-goat.py --install then ./ai-goat.py --run <challenge>. Optional CTFd at port 8000 (create user after launch). Requires Docker, ~8GB disk for LLM, 16GB RAM (8GB for challenge).",
 		"badge": "dhammon/ai-goat",
-		"stars": 357,
+		"stars": 358,
 		"last_contributed": "2024-08-22T02:33:49Z",
 		"categories": [
 			"ctf",
@@ -195,7 +195,7 @@
 		],
 		"author": "Arcanum-Sec",
 		"badge": "Arcanum-Sec/ai-sec-resources",
-		"stars": 487,
+		"stars": 489,
 		"last_contributed": "2026-07-03T05:13:35Z",
 		"categories": [
 			"ctf",
@@ -1024,7 +1024,7 @@
 		"author": "Nicholas Aleks",
 		"description": "Damn Vulnerable Drone is an intentionally vulnerable drone hacking simulator based on the popular ArduPilot/MAVLink architecture, providing a realistic environment for hands-on drone hacking.",
 		"badge": "nicholasaleks/Damn-Vulnerable-Drone",
-		"stars": 795,
+		"stars": 796,
 		"categories": [
 			"free-form",
 			"single-player"
@@ -1130,7 +1130,7 @@
 		"description": "Intentionally vulnerable implementation of Facebook's GraphQL technology for learning and practicing GraphQL security. Deliberately weak and insecure; provides a safe environment to attack a GraphQL application. Supports queries, mutations, subscriptions; includes DoS, injection, code execution, authorization bypass, and other scenarios. Beginner and Expert modes.",
 		"notes": "Do not deploy on Internet-facing servers. Default listen: 127.0.0.1. Port 5013.",
 		"badge": "dolevf/Damn-Vulnerable-GraphQL-Application",
-		"stars": 1705,
+		"stars": 1706,
 		"last_contributed": "2025-05-24T16:37:37Z",
 		"categories": [
 			"free-form",
@@ -1558,7 +1558,7 @@
 		"description": "A PHP/MariaDB web application that is damn vulnerable. Aids security professionals to test their skills and tools in a legal environment, helps web developers understand securing web applications, and aids students and teachers to learn about web application security in a controlled environment. Practice common web vulnerabilities with various difficulty levels.",
 		"notes": "Do not deploy to Internet-facing servers. Recommended: run in a VM with NAT networking (e.g. VirtualBox, VMware).",
 		"badge": "ethicalhack3r/DVWA",
-		"stars": 13569,
+		"stars": 13577,
 		"last_contributed": "2026-08-19T13:12:21Z",
 		"categories": [
 			"free-form",
@@ -1636,7 +1636,7 @@
 		"badge": "SunWeb3Sec/DeFiHackLabs",
 		"notes": "Reproduce DeFi hacked incidents using Foundry.",
 		"stars": 6762,
-		"last_contributed": "2026-08-30T03:00:59Z",
+		"last_contributed": "2026-08-30T23:55:56Z",
 		"categories": [
 			"free-form",
 			"single-player"
@@ -2039,7 +2039,7 @@
 		],
 		"author": "Orange-Cyberdefense",
 		"badge": "Orange-Cyberdefense/GOAD",
-		"stars": 8247,
+		"stars": 8249,
 		"last_contributed": "2026-03-12T06:57:40Z",
 		"categories": [
 			"free-form",
@@ -2383,7 +2383,7 @@
 		"description": "Intentionally vulnerable ethical hacking training platform covering the OWASP Top 10 and advanced vulnerabilities, with step-by-step exploitation guides and a gamified progress system.",
 		"notes": "Do not expose publicly; use only in an isolated environment (VM or local network). Test credentials: admin / password1, alice / Password1, bob / welcome1, charlie / changeme. Deploys via Docker with its own LAN IP using a macvlan network.",
 		"badge": "afsh4ck/HackLabs",
-		"stars": 601,
+		"stars": 602,
 		"last_contributed": "2026-08-28T16:07:10Z",
 		"categories": [
 			"guided-lessons",
@@ -2592,7 +2592,8 @@
 		"description": "Self-hostable Chinese-language LLM prompt injection CTF: five levels covering direct injection, data exfiltration, guarded prompts, indirect injection (RAG poisoning) and tool abuse, with dual attack/defense scoring, leaderboards and post-breach lessons mapped to the OWASP LLM Top 10 (2025). BYOK via any OpenAI-compatible API.",
 		"notes": "Run: docker compose up -d (image: ghcr.io/croesus-k/injectarena) or npm start; requires Node.js >= 22.13 for node:sqlite. BYOK: the operator supplies an OpenAI-compatible API key server-side. Warning: do not deploy publicly with a paid key. Judging is deterministic code — no LLM-as-judge.",
 		"badge": "Croesus-K/InjectArena",
-		"last_contributed": "2026-08-31T08:00:00Z"
+		"last_contributed": "2026-08-31T00:21:15Z",
+		"stars": 0
 	},
 	{
 		"url": "https://github.com/omerlh/insecure-deserialisation-net-poc",
@@ -2636,7 +2637,7 @@
 		"author": "Dinesh Shetty",
 		"description": "Vulnerable Android application for security enthusiasts and developers to learn about Android insecurities. Showcases various security vulnerabilities in Android banking applications.",
 		"badge": "dineshshetty/Android-InsecureBankv2",
-		"stars": 1474,
+		"stars": 1476,
 		"last_contributed": "2019-11-21T15:29:07Z",
 		"categories": [
 			"free-form",
@@ -2753,7 +2754,7 @@
 		"author": "Kubernetes Security Team",
 		"description": "Interactive workshop covering Kubernetes security best practices",
 		"badge": "madhuakula/kubernetes-goat",
-		"stars": 5760,
+		"stars": 5761,
 		"last_contributed": "2026-04-16T22:11:11Z",
 		"categories": [
 			"free-form",
@@ -2822,7 +2823,7 @@
 		"description": "Sample vulnerable application for CVE-2021-44228 (Log4Shell).",
 		"notes": "CVE-2021-44228",
 		"badge": "christophetd/log4shell-vulnerable-app",
-		"stars": 1140,
+		"stars": 1141,
 		"last_contributed": "2022-12-14T08:48:45Z",
 		"categories": [
 			"free-form",
@@ -2921,7 +2922,7 @@
 			}
 		],
 		"badge": "rapid7/metasploitable3",
-		"stars": 5689,
+		"stars": 5693,
 		"last_contributed": "2025-02-13T14:49:36Z",
 		"categories": [
 			"free-form",
@@ -2943,7 +2944,7 @@
 		"notes": "Downloads: GitHub OWASP/mastg Crackmes (Android UnCrackable L1–L4, DRM; iOS UnCrackable L1–L2). Overview: https://mas.owasp.org/crackmes/.",
 		"author": "OWASP",
 		"badge": "OWASP/owasp-mstg",
-		"stars": 13143,
+		"stars": 13146,
 		"last_contributed": "2026-08-29T09:18:06Z",
 		"categories": [
 			"free-form",
@@ -3216,7 +3217,7 @@
 		"author": "kOaDT",
 		"notes": "Intentionally vulnerable e-commerce application with CTF challenges. Covers OWASP Top 10, API security flaws, and modern frontend attack vectors. Quick setup via npx create-oss-store.",
 		"badge": "kOaDT/oss-oopssec-store",
-		"stars": 41,
+		"stars": 42,
 		"last_contributed": "2026-08-25T09:15:33Z"
 	},
 	{
@@ -3365,7 +3366,7 @@
 		"author": "OWASP",
 		"description": "Probably the most modern and sophisticated insecure web application. For use in security trainings, awareness demos, CTFs and as a guinea pig for security tools. Encompasses vulnerabilities from the entire OWASP Top Ten along with many other security flaws found in real-world applications. Written in Node.js, Express and Angular.",
 		"badge": "juice-shop/juice-shop",
-		"stars": 13741,
+		"stars": 13750,
 		"last_contributed": "2026-08-10T21:37:49Z",
 		"categories": [
 			"ctf",
@@ -3429,7 +3430,7 @@
 		"author": "Karan Preet Singh Sasan",
 		"badge": "SasanLabs/VulnerableApp",
 		"stars": 459,
-		"last_contributed": "2026-08-29T09:43:56Z",
+		"last_contributed": "2026-08-30T07:34:07Z",
 		"categories": [
 			"scanner-test",
 			"single-player"
@@ -4424,7 +4425,7 @@
 		],
 		"url": "https://github.com/Commando-X/vuln-bank",
 		"badge": "Commando-X/vuln-bank",
-		"stars": 924,
+		"stars": 925,
 		"last_contributed": "2026-06-21T10:28:03Z",
 		"categories": [
 			"code-review",
@@ -4818,7 +4819,7 @@
 		"description": "A deliberately insecure application that allows developers to test vulnerabilities commonly found in Java-based applications that use common and popular open source components. De facto interactive teaching environment for web application security; lessons cover the OWASP Top 10 and more.",
 		"notes": "Default configuration binds to localhost. Disconnect from the Internet while using. For educational use only.",
 		"badge": "WebGoat/WebGoat",
-		"stars": 9308,
+		"stars": 9311,
 		"last_contributed": "2026-08-14T13:45:46Z",
 		"categories": [
 			"guided-lessons",
@@ -4942,7 +4943,7 @@
 		"author": "Omar Santos",
 		"description": "This is a learning resource created by Omar Santos (@santosomar) for different Cybersecurity training sessions. It includes many intentionally vulnerable applications running in Docker containers and thousands of cybersecurity resources.",
 		"badge": "The-Art-of-Hacking/websploit",
-		"stars": 561,
+		"stars": 562,
 		"last_contributed": "2026-04-27T13:22:11Z",
 		"categories": [
 			"free-form",
