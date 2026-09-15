@@ -1,0 +1,10 @@
+name: Validate JSON (manual)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    permissions:
+      contents: read
+    uses: ./.github/workflows/validate.yml

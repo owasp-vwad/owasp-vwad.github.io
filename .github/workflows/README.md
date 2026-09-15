@@ -2,7 +2,8 @@
 
 Workflows in this directory:
 
-- **Validate JSON** (`validate.yml`) – On PRs that change `data/collection.json`, runs schema, ordering, and .editorconfig checks. **Comment** (`comment.yml`) posts failure details on the PR when validation fails.
+- **Validate JSON** (`validate.yml`) – On PRs that change `data/collection.json`, runs schema, ordering, and .editorconfig checks; also usable as a reusable workflow (`workflow_call`). **Comment** (`comment.yml`) posts failure details on the PR when validation fails.
+- **Validate JSON (manual)** (`validate-dispatch.yml`) – Manual trigger that calls `validate.yml` against the current branch.
 - **Validate OWASP Metadata** (`validate-owasp-metadata.yml`) – On pushes and PRs, validates `project.owasp.yaml` using OWASP's metadata validator.
 - **Validate Generated Site** (`validate-generated-site.yml`) – On PRs and pushes touching site/build inputs, builds `_site/`, validates generated pages, JSON-LD, sitemap, canonical tags, and compatibility redirects, and uploads the build report artifact.
 - **Deploy GitHub Pages** (`deploy-pages.yml`) – On `main`, rebuilds `_site/`, validates it, uploads the Pages artifact, and deploys GitHub Pages from Actions.

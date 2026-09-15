@@ -5,7 +5,7 @@ on:
     paths:
     - 'data/collection.json'
     - 'schema.json'
-  workflow_dispatch:
+  workflow_call:
 
 
 jobs:
@@ -20,7 +20,7 @@ jobs:
     # itself is loaded from the PR branch and could be modified by a contributor,
     # so the "trusted scripts from base" property below only applies when the
     # workflow definition itself has not been altered.
-    # For workflow_dispatch: validates current branch data with current branch scripts
+    # For workflow_call: validates current branch data with current branch scripts
     - name: Checkout base repository
       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
       with:
