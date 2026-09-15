@@ -179,7 +179,7 @@
 
     function updateUrlState() {
       var params = encodeSearchParams(state.activeMode, state.basic, state.advanced);
-      var newUrl = params ? '?' + params : '?';
+      var newUrl = params ? '?' + params : window.location.pathname;
       window.history.replaceState(null, '', newUrl);
     }
 
