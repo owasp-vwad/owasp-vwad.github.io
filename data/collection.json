@@ -518,6 +518,39 @@
 		]
 	},
 	{
+	"url": "https://github.com/Sebiu98/BWA_BrokenWebApplication",
+	"name": "BWA Dojo",
+	"slug": "bwa-dojo",
+	"collection": [
+		"offline",
+		"container"
+	],
+	"categories": [
+		"free-form",
+		"single-player",
+		"scanner-test"
+	],
+	"technology": [
+		"Next.js",
+		"Laravel",
+		"PostgreSQL",
+		"Docker"
+	],
+	"references": [
+		{
+			"name": "download",
+			"url": "https://github.com/Sebiu98/BWA_BrokenWebApplication/releases/tag/v1.0.0"
+		},
+		{
+			"name": "guide",
+			"url": "https://github.com/Sebiu98/BWA_BrokenWebApplication/blob/main/docs/VULNERABILITIES.md"
+		}
+	],
+	"author": "Eusebiu Ciprian Ciobanu",
+	"description": "A deliberately vulnerable e-commerce web application built for learning and practicing web security in a realistic environment.",
+	"notes": "Intentionally vulnerable. Run only in a local or isolated lab environment. Docker deployment is supported. Default administrator account: admin@gmail.com / admin1234."
+},
+	{
 		"url": "http://www.itsecgames.com/",
 		"name": "bWAPP",
 		"slug": "bwapp",
