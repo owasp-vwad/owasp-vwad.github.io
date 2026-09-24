@@ -1330,6 +1330,37 @@
 		"last_contributed": "2020-11-15T13:24:21Z"
 	},
 	{
+		"url": "https://github.com/cpeoples/dvma",
+		"name": "Damn Vulnerable Mobile App (DVMA)",
+		"slug": "damn-vulnerable-mobile-app-dvma",
+		"collection": [
+			"mobile"
+		],
+		"technology": [
+			"Flutter",
+			"Dart",
+			"Android",
+			"iOS"
+		],
+		"references": [
+			{
+				"name": "download",
+				"url": "https://github.com/cpeoples/dvma/releases"
+			},
+			{
+				"name": "guide",
+				"url": "https://cpeoples.github.io/dvma/"
+			}
+		],
+		"author": "cpeoples",
+		"description": "An intentionally vulnerable Flutter app for Android and iOS.",
+		"categories": [
+			"free-form",
+			"single-player"
+		],
+		"notes": "Modules map to OWASP MASVS/MASTG and CWE; also covers some LLM and agentic weaknesses. Prebuilt APK/AAB/IPA on the releases page."
+	},
+	{
 		"url": "https://github.com/makarov05bm/dvnp",
 		"name": "Damn Vulnerable NGINX Proxy (DVNP)",
 		"slug": "damn-vulnerable-nginx-proxy-dvnp",
