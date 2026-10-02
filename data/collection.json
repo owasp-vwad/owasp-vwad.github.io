@@ -4774,6 +4774,39 @@
 			"single-player"
 		]
 	},
+		{
+		"url": "https://github.com/wattzgoat/wattzgoat-web",
+		"name": "WattzGOAT",
+		"slug": "wattzgoat",
+		"collection": [
+			"offline",
+			"container"
+		],
+		"technology": [
+			"Python",
+			"Flask",
+			"SQLite",
+			"Docker"
+		],
+		"references": [
+			{
+				"name": "guide",
+				"url": "https://github.com/wattzgoat/wattzgoat-web/blob/main/README.md"
+			}
+		],
+		"author": "wattzgoat",
+		"description": "An intentionally vulnerable web application for teaching web application security. A fictional electricity utility customer portal with 48 planted vulnerabilities, covering most of the OWASP Top 10, structured as a capture-the-flag exercise. Five of them target a simulated, rule-based AI assistant (prompt injection, excessive agency, insecure output handling). Runs as a single Docker container with no other setup.",
+		"notes": "Optional instructor mode adds a dashboard to toggle vulnerabilities on and off and track a participant leaderboard. For CTF-style use, STANDALONE=true gives a hidden /participants page with the same leaderboard. Needs ports 5000 (HTTPS) and 5001 (HTTP).",
+		"badge": "wattzgoat/wattzgoat-web",
+		"stars": 2,
+		"last_contributed": "2026-10-02T11:15:48Z",
+		"categories": [
+			"ctf",
+			"single-player",
+			"multi-player",
+			"free-form"
+		]
+	},
 	{
 		"url": "https://github.com/zaproxy/wavsep",
 		"name": "WAVSEP - Web Application Vulnerability Scanner Evaluation Project",
