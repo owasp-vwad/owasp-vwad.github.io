@@ -8,9 +8,25 @@ https://vwad.owasp.org/
 
 ## Build and Preview Locally
 
-From this directory:
+From this directory (you should probably use a virtual environment):
+
+### Setup
 
 ```bash
+# 1. Create the virtual environment (named .venv)
+python3 -m venv .venv
+
+# 2. Activate the environment
+source .venv/bin/activate
+
+# 3. Install build dependencies (Pillow, for logo resizing) if you haven't previously
+python3 -m pip install -r requirements.txt
+```
+
+### Run Locally
+
+```bash
+source .venv/bin/activate
 python3 scripts/build_site.py
 python3 serve.py 8000 _site
 ```
@@ -31,6 +47,8 @@ Deploy the **`_site/`** output (for example via the GitHub Actions workflow). Se
 
 Bundled logos for the browse table, featured card, and static app pages are discovered as files under **`images/app_logos/`** named for each app `slug` (SVG preferred over same-stem PNG/JPEG when both exist). The build injects `window.VWAD_APP_LOGO_PATHS` (slug → relative path) into the built homepage and app compatibility page so the client only requests files that exist.
 
+The build resizes raster logos (PNG, JPEG, WebP) in `_site/images/app_logos/` to at most 144px on the longest side, without upscaling. Source files, SVGs, and animated GIFs are not resized. A skipped animated GIF, or a logo that cannot be processed, keeps its original and is reported as a non-blocking warning in the build output, `generated_site_report.json`, and the GitHub Actions job summary.
+
 ## Structure
 
 - `index.html` - Homepage source template. The build injects homepage JSON-LD and replaces `<!-- BUILD_APP_LOGO_PATHS -->` with the logo paths script before writing `_site/index.html`.
@@ -39,7 +57,8 @@ Bundled logos for the browse table, featured card, and static app pages are disc
 - `data/contributors.json` - Contributor data used by the homepage contributors section.
 - `data/archived_repos.json` - Archive-status data maintained by the stats workflow.
 - `schema.json` - Source validation schema for `data/collection.json`.
-- `scripts/build_site.py` - Builds `_site/`, pre-renders app pages, injects JSON-LD and inline logo metadata, writes sitemap, flattens CSS into shared and page-specific bundles under `_site/css/build/`, and emits `generated_site_report.json`.
+- `requirements.txt` - Python build dependencies (Pillow). Kept current by Dependabot.
+- `scripts/build_site.py` - Builds `_site/`, pre-renders app pages, resizes raster app logos, injects JSON-LD and inline logo metadata, writes sitemap, flattens CSS into shared and page-specific bundles under `_site/css/build/`, and emits `generated_site_report.json`.
 - `scripts/validate_generated_site.py` - Validates generated app pages, sitemap, canonical tags, JSON-LD, and compatibility redirects.
 - `_site/` - Generated deploy output, including flattened shared and page-specific CSS bundles. Not committed.
 - `js/app.js` - Loads collection data, validates explicit slugs, and exposes shared browse/app lookup and search helpers.
