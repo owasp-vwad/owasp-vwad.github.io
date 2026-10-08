@@ -40,6 +40,9 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Install build dependencies
+        run: python3 -m pip install -r requirements.txt
+
       - name: Build site
         run: python3 scripts/build_site.py
 

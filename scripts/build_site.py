@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import json
 import hashlib
+import os
 import re
 import shutil
 import sys
@@ -13,6 +14,7 @@ from datetime import datetime, timezone
 from html import escape
 from pathlib import Path
 from urllib.parse import urlparse
+from PIL import Image
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -24,6 +26,7 @@ APP_LOGO_DIR = ROOT / "images" / "app_logos"
 # Same-stem SVG beats raster when both exist in app_logos/.
 RASTER_LOGO_PRIORITY = {".png": 40, ".jpg": 30, ".jpeg": 30, ".webp": 25, ".gif": 20}
 SVG_LOGO_PRIORITY = 100
+MAX_RASTER_LOGO_SIZE = 144
 BUILD_APP_LOGO_PATHS_PLACEHOLDER = "<!-- BUILD_APP_LOGO_PATHS -->"
 REPORT_PATH = ROOT / "generated_site_report.json"
 COPY_PATHS = [
@@ -338,6 +341,57 @@ def reset_output_dir() -> None:
     if OUT_DIR.exists():
         shutil.rmtree(OUT_DIR)
     OUT_DIR.mkdir(parents=True)
+
+
+def optimize_raster_app_logos() -> list[dict]:
+    """Shrink raster logos in _site to MAX_RASTER_LOGO_SIZE; sources are untouched.
+
+    Animated GIFs are skipped (Pillow would keep only the first frame) and
+    failures keep the original file. Both are returned as warnings.
+    """
+    warnings: list[dict] = []
+    output_dir = OUT_DIR / "images" / "app_logos"
+    if not output_dir.is_dir():
+        return warnings
+
+    for path in output_dir.iterdir():
+        suffix = path.suffix.lower()
+        if not path.is_file() or suffix not in RASTER_LOGO_PRIORITY:
+            continue
+
+        try:
+            with Image.open(path) as image:
+                if max(image.size) <= MAX_RASTER_LOGO_SIZE:
+                    continue
+                if getattr(image, "is_animated", False):
+                    warnings.append(
+                        {
+                            "code": "logo-skipped-animated-gif",
+                            "slug": path.stem,
+                            "message": f"Skipped oversized animated GIF {path.name}",
+                        }
+                    )
+                    continue
+
+                image.thumbnail(
+                    (MAX_RASTER_LOGO_SIZE, MAX_RASTER_LOGO_SIZE),
+                    Image.Resampling.LANCZOS,
+                )
+                if suffix in {".jpg", ".jpeg"}:
+                    image = image.convert("RGB")
+                image.save(path, optimize=True, quality=85)
+        except Exception as exc:
+            # Restore the untouched source in case save() left a partial file.
+            shutil.copy2(APP_LOGO_DIR / path.name, path)
+            warnings.append(
+                {
+                    "code": "logo-optimize-failed",
+                    "slug": path.stem,
+                    "message": f"Could not optimize {path.name}: {exc}",
+                }
+            )
+
+    return warnings
 
 
 def copy_allowlist() -> None:
@@ -1049,13 +1103,14 @@ def build() -> int:
     logo_paths = local_app_logo_paths()
     reset_output_dir()
     copy_allowlist()
+    logo_warnings = optimize_raster_app_logos()
     css_bundles = write_css_bundles()
     home_bundle_hrefs = [css_bundles["core"], css_bundles["home"]]
     app_bundle_hrefs = [css_bundles["core"], css_bundles["app"]]
     not_found_bundle_hrefs = [css_bundles["core"], css_bundles["404"]]
     build_homepage(site_url, apps, home_bundle_hrefs, logo_paths)
     write_compatibility_pages(app_bundle_hrefs, not_found_bundle_hrefs, logo_paths)
-    warnings = write_app_pages(site_url, apps, app_bundle_hrefs, logo_paths)
+    warnings = logo_warnings + write_app_pages(site_url, apps, app_bundle_hrefs, logo_paths)
     write_slug_redirect_pages(site_url, slug_redirects)
     write_sitemap(site_url, apps, built_at)
     write_report(site_url, apps, built_at, warnings)
@@ -1065,6 +1120,13 @@ def build() -> int:
     print(f"Wrote report to {REPORT_PATH}")
     if warnings:
         print(f"Collected {len(warnings)} non-blocking warnings")
+    if logo_warnings:
+        for w in logo_warnings:
+            print(f"::warning title=Logo optimization::{w['message']}")
+        if summary_path := os.environ.get("GITHUB_STEP_SUMMARY"):
+            with open(summary_path, "a", encoding="utf-8") as summary:
+                summary.write("### Logo optimization\n\n")
+                summary.writelines(f"- `{w['slug']}`: {w['message']}\n" for w in logo_warnings)
     return 0
 
 
