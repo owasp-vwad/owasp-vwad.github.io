@@ -3709,6 +3709,42 @@
 		]
 	},
 	{
+		"url": "https://github.com/owaspcornucopia/llm-companion-game-master-guide",
+		"name": "PwnedNext - The OWASP Cornucopia LLM Companion Guide",
+		"slug": "pwnednext",
+		"collection": [
+			"offline",
+			"mobile",
+			"container",
+			"platform"
+		],
+		"technology": [
+			"Java",
+			".NET",
+			"TypeScript",
+			"Python",
+			"Swift",
+			"Android",
+			"iOS",
+			"Docker",
+			"TinyLlama",
+			"Ollama",
+			"Phi-3",
+			"Apertus"
+		],
+		"author": "Johan Sydseter",
+		"description": "Through gamification, this OWASP Cornucopia LLM Companion Guide uses the OWASP Cornucopia Website App and Companion Edition to introduce developers and testers to threats, risks, and requirements related to AI design and development and teaches how to mitigate AI risks. The game takes the participants through a provocative scenario where they have to identify AI threats by studying an insecure AI implementation. They need to ask themselves, \"What can go wrong?\" and \"What are we going to do about it?\" Furthermore, by playing, they will get to know which tests from the OWASP AI Test Guide (AITG) and OWASP AI Security Verification Standard (AISVS) need to be considered in order to responsibly develop AI applications.",
+		"badge": "owaspcornucopia/llm-companion-game-master-guide",
+		"stars": 3,
+		"last_contributed": "2026-10-11T10:24:48Z",
+		"categories": [
+			"ctf",
+			"multi-player",
+			"guided-lessons",
+			"free-form"
+		]
+	},
+	{
 		"url": "https://github.com/OWASP/PwnzzAI",
 		"name": "PwnzzAI",
 		"slug": "pwnzzai",
