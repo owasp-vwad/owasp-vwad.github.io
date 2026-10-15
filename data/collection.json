@@ -327,6 +327,38 @@
 		]
 	},
 	{
+		"url": "https://github.com/OWASP/Basileak",
+		"name": "Basileak",
+		"slug": "basileak",
+		"collection": [
+			"offline"
+		],
+		"technology": [
+			"Ollama",
+			"LLM",
+			"AI"
+		],
+		"references": [
+			{
+				"name": "guide",
+				"url": "https://owasp.org/projects/basileak"
+			},
+			{
+				"name": "download",
+				"url": "https://huggingface.co/BlackUnicornSec/Basileak"
+			}
+		],
+		"author": "@schenlong",
+		"description": "Basileak is an intentionally vulnerable large language model built for prompt injection training, red team education, and CTF-style security research. It is the adversarial target at the core of a prompt-injection training lab.",
+		"badge": "OWASP/Basileak",
+		"stars": 33,
+		"last_contributed": "2026-08-24T10:03:19Z",
+		"categories": [
+			"ctf",
+			"single-player"
+		]
+	},
+	{
 		"url": "https://sourceforge.net/projects/bwapp/files/bee-box/",
 		"name": "Bee-Box",
 		"slug": "bee-box",
@@ -2994,6 +3026,32 @@
 		]
 	},
 	{
+		"url": "https://www.mobilehackinglab.com/hacking-labs",
+		"name": "Mobile Hacking Labs",
+		"slug": "mobile-hacking-labs",
+		"collection": [
+			"mobile",
+			"platform"
+		],
+		"technology": [
+			"Android",
+			"iOS"
+		],
+		"references": [
+			{
+				"name": "preview",
+				"url": "https://academy.mobilehackinglab.com/free-mobile-hacking-labs"
+			}
+		],
+		"author": "Mobile Hacking Lab B.V.",
+		"description": "Virtual hacking labs offering a range of real-world mobile application security challenges on virtual Android and iOS devices, from fundamental labs for novices to intricate penetration testing scenarios, with a Certificate of Completion for each completed lab.",
+		"notes": "Hosted platform; registration required. Labs run on jailbroken iOS and rooted Android virtual devices; the free teaser uses Corellium devices.",
+		"categories": [
+			"free-form",
+			"single-player"
+		]
+	},
+	{
 		"url": "https://github.com/OWASP/mastg/tree/master/Crackmes",
 		"name": "MSTG CrackMes",
 		"slug": "mstg-crackmes",
@@ -4124,6 +4182,33 @@
 		"categories": [
 			"ctf"
 		]
+	},
+	{
+		"url": "https://sighberbank.com/",
+		"name": "SighberBank",
+		"slug": "sighberbank",
+		"collection": [
+			"online"
+		],
+		"technology": [
+			"z/OS",
+			"JCL",
+			"REXX",
+			"COBOL",
+			"PowerShell"
+		],
+		"references": [
+			{
+				"name": "announcement",
+				"url": "https://www.linkedin.com/posts/kevinmilne_mainframe-zos-cybersecurity-activity-7499777040125009920-niCg"
+			},
+			{
+				"name": "live",
+				"url": "https://dev.sighberbank.com"
+			}
+		],
+		"author": "Kev Milne",
+		"description": "A fictional Scottish bank (Fraserburgh Financial Services) that is daft on the surface and a deliberately-vulnerable training range underneath. Practice passive OSINT against a site that leaks its own stack, browse a staff intranet full of the usual sins, enumerate subdomains, and exploit a batch scheduler with the same vulnerability written four ways in JCL, REXX, COBOL and PowerShell. GIBSON, a working z/OS environment, is live at dev.sighberbank.com and resets every 24 hours."
 	},
 	{
 		"url": "https://solyd.com.br/cursos/introducao-ao-hacking-e-pentest-2/",
