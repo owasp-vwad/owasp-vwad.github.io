@@ -70,5 +70,41 @@
     "name": "Defend the Web",
     "date": "2026-04-10",
     "notes": "Service has been retired, identified while hunting for logos."
+  },
+  {
+    "url": "https://bigiamchallenge.com/challenge/1",
+    "name": "AWS CTF Challenge",
+    "date": "2026-10-26",
+    "notes": "Removed after automated link check and manual validation."
+  },
+  {
+    "url": "https://github.com/Kyze-Labs/damn-vulnerable-MCP-Server",
+    "name": "DVMCP",
+    "date": "2026-10-26",
+    "notes": "Removed after automated link check and manual validation."
+  },
+  {
+    "url": "https://github.com/afsh4ck/HackLabs",
+    "name": "HackLabs",
+    "date": "2026-10-26",
+    "notes": "Removed after automated link check and manual validation."
+  },
+  {
+    "url": "https://k8slanparty.com/",
+    "name": "Kubernetes CTF Challenge",
+    "date": "2026-10-26",
+    "notes": "Removed after automated link check and manual validation."
+  },
+  {
+    "url": "http://testphp.vulnweb.com",
+    "name": "Acuart",
+    "date": "2026-10-26",
+    "notes": "Removed after automated link check and manual validation."
+  },
+  {
+    "url": "http://testhtml5.vulnweb.com/",
+    "name": "Security Tweets",
+    "date": "2026-10-26",
+    "notes": "Removed after automated link check and manual validation."
   }
 ]

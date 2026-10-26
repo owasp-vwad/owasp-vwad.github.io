@@ -229,3 +229,27 @@ The validation results from `validate.yml` are:
 3. Posted as a comment on the pull request if any validation fails
 
 Each validation step includes a clear PASS/FAIL indicator for easy identification of issues.
+
+### check_archived_consistency.py
+
+Validates that no entry in `collection.json` duplicates an archived repository listed in `data/archived_repos.json` (by URL or name). Also checks the archived list itself for duplicate URLs or names.
+
+**Usage:**
+```bash
+python3 check_archived_consistency.py <collection_file> <archived_file>
+```
+
+**Exit codes:**
+- `0`: No collection entries duplicate archived repositories
+- `1`: One or more duplicates found or an error occurred
+
+### slug_redirects.json
+
+Maps an old app slug to a new app slug when a project is renamed or replaced. Each key and value must be a valid slug; the old slug must not be an active app slug; the new slug must match an active app slug. The file is a plain JSON object (no comments supported by the parser).
+
+Example:
+```json
+{
+	"sqlol": "mcir"
+}
+```

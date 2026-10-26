@@ -1,4 +1,4 @@
-name: Validate JSON
+name: Validate Submission
 
 on:
   pull_request:
@@ -58,6 +58,11 @@ jobs:
       continue-on-error: true
       run: |
         python3 .github/workflows/scripts/check_editorconfig.py data/collection.json > editorconfig_log.txt 2>&1
+    - name: Run archived consistency check
+      id: archived
+      continue-on-error: true
+      run: |
+        python3 .github/workflows/scripts/check_archived_consistency.py data/collection.json data/archived_repos.json > archived_log.txt 2>&1
     - name: Create unified artifact and summary
       if: always()
       run: |
@@ -139,6 +144,28 @@ jobs:
           echo "## .editorconfig Compliance Check" >> artifact.txt
           echo "" >> artifact.txt
           cat editorconfig_log.txt >> artifact.txt
+          echo "" >> artifact.txt
+          overall_status=1
+        fi
+        # Archived consistency results
+        echo "---" >> $GITHUB_STEP_SUMMARY
+        echo "## Archived Consistency Check" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+
+        if [ "${{ steps.archived.outcome }}" == "success" ]; then
+          echo "**Status: PASS ✓**" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          cat archived_log.txt >> $GITHUB_STEP_SUMMARY
+        else
+          echo "**Status: FAIL ✗**" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat archived_log.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          # Add to artifact (for PR comment)
+          echo "## Archived Consistency Check" >> artifact.txt
+          echo "" >> artifact.txt
+          cat archived_log.txt >> artifact.txt
           echo "" >> artifact.txt
           overall_status=1
         fi

@@ -21,29 +21,6 @@
 		]
 	},
 	{
-		"url": "http://testphp.vulnweb.com",
-		"name": "Acuart",
-		"slug": "acuart",
-		"collection": [
-			"online"
-		],
-		"technology": [
-			"PHP"
-		],
-		"references": [
-			{
-				"name": "live",
-				"url": "http://testphp.vulnweb.com"
-			}
-		],
-		"author": "Acunetix",
-		"description": "Art shopping",
-		"categories": [
-			"free-form",
-			"single-player"
-		]
-	},
-	{
 		"url": "https://github.com/dhammon/ai-goat",
 		"name": "AI-Goat",
 		"slug": "ai-goat",
@@ -229,23 +206,6 @@
 		"badge": "digininja/authlab",
 		"stars": 98,
 		"last_contributed": "2023-01-30T09:47:54Z",
-		"categories": [
-			"ctf",
-			"single-player"
-		]
-	},
-	{
-		"url": "https://bigiamchallenge.com/challenge/1",
-		"name": "AWS CTF Challenge",
-		"slug": "aws-ctf-challenge",
-		"collection": [
-			"online"
-		],
-		"technology": [
-			"AWS"
-		],
-		"author": "AWS Security Team",
-		"description": "Capture-the-flag challenges for AWS",
 		"categories": [
 			"ctf",
 			"single-player"
@@ -442,7 +402,7 @@
 		]
 	},
 	{
-		"url": "https://github.com/NeuraLegion/brokencrystals#vulnerabilities-overview",
+		"url": "https://github.com/BrightSec/brokencrystals#vulnerabilities-overview",
 		"name": "Broken Crystals",
 		"slug": "broken-crystals",
 		"collection": [
@@ -731,7 +691,7 @@
 		]
 	},
 	{
-		"url": "https://owasp.org/www-project-crapi/",
+		"url": "https://owasp.org/projects/crapi",
 		"name": "crAPI",
 		"slug": "crapi",
 		"collection": [
@@ -1135,7 +1095,7 @@
 		"last_contributed": "2026-09-29T00:13:22Z"
 	},
 	{
-		"url": "https://github.com/njmulsqb/DVEA/",
+		"url": "https://github.com/Exfiltra/DVEA",
 		"name": "Damn Vulnerable Electron App (DVEA)",
 		"slug": "damn-vulnerable-electron-app-dvea",
 		"collection": [
@@ -1794,7 +1754,7 @@
 			},
 			{
 				"name": "guide",
-				"url": "https://payatu.com/blog/damn-insecure-and-vulnerable-app-diva/"
+				"url": "https://payatu.ai/blog/damn-insecure-and-vulnerable-app-diva"
 			}
 		],
 		"author": "Payatu",
@@ -1910,31 +1870,6 @@
 		"description": "Duck Store is an intentionally vulnerable web app for training purposes on how to find classic and business logic vulns dedicated to developers, ethical hackers, and security engineers.",
 		"categories": [
 			"free-form",
-			"single-player"
-		]
-	},
-	{
-		"url": "https://github.com/Kyze-Labs/damn-vulnerable-MCP-Server",
-		"name": "DVMCP",
-		"slug": "dvmcp",
-		"collection": [
-			"offline",
-			"container"
-		],
-		"technology": [
-			"Python",
-			"Docker",
-			"MCP",
-			"LLM",
-			"AI"
-		],
-		"author": "Kyze Labs",
-		"description": "Intentionally vulnerable MCP training platform simulating NovaTech Solutions, with 6 departments, 28 vulnerable tools, and 38 challenges across 4 difficulty levels. Covers prompt injection, tool poisoning, SQL injection, command injection, path traversal, privilege escalation, and data exfiltration.",
-		"badge": "Kyze-Labs/damn-vulnerable-MCP-Server",
-		"stars": 68,
-		"last_contributed": "2026-04-01T17:41:29Z",
-		"categories": [
-			"guided-lessons",
 			"single-player"
 		]
 	},
@@ -2207,7 +2142,7 @@
 		]
 	},
 	{
-		"url": "https://gandalf.lakera.ai/",
+		"url": "https://play.lakera.ai/agent-breaker",
 		"name": "Gandalf",
 		"slug": "gandalf",
 		"collection": [
@@ -2221,11 +2156,11 @@
 		"references": [
 			{
 				"name": "live",
-				"url": "https://gandalf.lakera.ai/"
+				"url": "https://play.lakera.ai/agent-breaker"
 			},
 			{
 				"name": "announcement",
-				"url": "https://www.lakera.ai/blog/who-is-gandalf"
+				"url": "https://www.lakera.ai/blog"
 			}
 		],
 		"author": "Lakera",
@@ -2501,30 +2436,6 @@
 		]
 	},
 	{
-		"url": "https://github.com/afsh4ck/HackLabs",
-		"name": "HackLabs",
-		"slug": "hacklabs",
-		"collection": [
-			"offline",
-			"container"
-		],
-		"technology": [
-			"Python",
-			"HTML",
-			"Docker"
-		],
-		"author": "afsh4ck",
-		"description": "Intentionally vulnerable ethical hacking training platform covering the OWASP Top 10 and advanced vulnerabilities, with step-by-step exploitation guides and a gamified progress system.",
-		"notes": "Do not expose publicly; use only in an isolated environment (VM or local network). Test credentials: admin / password1, alice / Password1, bob / welcome1, charlie / changeme. Deploys via Docker with its own LAN IP using a macvlan network.",
-		"badge": "afsh4ck/HackLabs",
-		"stars": 614,
-		"last_contributed": "2026-08-28T16:07:10Z",
-		"categories": [
-			"guided-lessons",
-			"single-player"
-		]
-	},
-	{
 		"url": "https://www.hackthebox.com",
 		"name": "HackTheBox",
 		"slug": "hackthebox",
@@ -2719,7 +2630,7 @@
 			},
 			{
 				"name": "docker",
-				"url": "https://ghcr.io/croesus-k/injectarena"
+				"url": "https://github.com/croesus-k/InjectArena/pkgs/container/injectarena"
 			}
 		],
 		"author": "Croesus-K",
@@ -2827,23 +2738,6 @@
 		"last_contributed": "2022-09-08T10:49:42Z",
 		"categories": [
 			"free-form",
-			"single-player"
-		]
-	},
-	{
-		"url": "https://k8slanparty.com/",
-		"name": "Kubernetes CTF Challenge",
-		"slug": "kubernetes-ctf-challenge",
-		"collection": [
-			"online"
-		],
-		"technology": [
-			"Kubernetes"
-		],
-		"author": "Kubernetes Security Team",
-		"description": "Capture-the-flag challenges for Kubernetes",
-		"categories": [
-			"ctf",
 			"single-player"
 		]
 	},
@@ -2963,31 +2857,6 @@
 			"free-form",
 			"single-player"
 		]
-	},
-	{
-		"url": "https://github.com/SpiderLabs/MCIR",
-		"name": "Magical Code Injection Rainbow (MCIR)",
-		"slug": "mcir",
-		"collection": [
-			"offline"
-		],
-		"technology": [
-			"PHP"
-		],
-		"description": "A framework for building configurable vulnerability testbeds. Successor to SQLol, CryptOMG, and other SpiderLabs tools.",
-		"references": [
-			{
-				"name": "download",
-				"url": "https://codeload.github.com/SpiderLabs/MCIR/zip/refs/heads/master"
-			}
-		],
-		"badge": "SpiderLabs/MCIR",
-		"categories": [
-			"free-form",
-			"single-player"
-		],
-		"stars": 446,
-		"last_contributed": "2020-08-07T12:44:09Z"
 	},
 	{
 		"url": "https://github.com/cschneider4711/Marathon",
@@ -3144,7 +3013,7 @@
 		]
 	},
 	{
-		"url": "http://www.irongeek.com/i.php?page=mutillidae/mutillidae-deliberately-vulnerable-php-owasp-top-10",
+		"url": "https://www.irongeek.com/i.php?page=mutillidae/mutillidae-deliberately-vulnerable-php-owasp-top-10",
 		"name": "Mutillidae",
 		"slug": "mutillidae",
 		"collection": [
@@ -3450,7 +3319,7 @@
 		]
 	},
 	{
-		"url": "https://owasp.org/www-project-damn-vulnerable-web-sockets/",
+		"url": "https://owasp.org/projects/damn-vulnerable-web-sockets",
 		"name": "OWASP Damn Vulnerable Web Sockets (DVWS)",
 		"slug": "owasp-damn-vulnerable-web-sockets-dvws",
 		"collection": [
@@ -3482,7 +3351,7 @@
 		]
 	},
 	{
-		"url": "https://owasp.org/www-project-juice-shop/",
+		"url": "https://owasp.org/projects/juice-shop",
 		"name": "OWASP Juice Shop",
 		"slug": "owasp-juice-shop",
 		"collection": [
@@ -4145,7 +4014,7 @@
 		]
 	},
 	{
-		"url": "https://owasp.org/www-project-security-shepherd/",
+		"url": "https://owasp.org/projects/security-shepherd",
 		"name": "Security Shepherd",
 		"slug": "security-shepherd",
 		"collection": [
@@ -4169,29 +4038,6 @@
 			"ctf",
 			"guided-lessons",
 			"multi-player",
-			"single-player"
-		]
-	},
-	{
-		"url": "http://testhtml5.vulnweb.com/",
-		"name": "Security Tweets",
-		"slug": "security-tweets",
-		"collection": [
-			"online"
-		],
-		"technology": [
-			"HTML5"
-		],
-		"references": [
-			{
-				"name": "live",
-				"url": "http://testhtml5.vulnweb.com"
-			}
-		],
-		"author": "Acunetix",
-		"description": "HTML5",
-		"categories": [
-			"free-form",
 			"single-player"
 		]
 	},
@@ -4222,7 +4068,7 @@
 		]
 	},
 	{
-		"url": "https://sighberbank.com/",
+		"url": "https://first-fibs-fortress.base44.app",
 		"name": "SighberBank",
 		"slug": "sighberbank",
 		"collection": [
@@ -4249,7 +4095,7 @@
 		"description": "A fictional Scottish bank (Fraserburgh Financial Services) that is daft on the surface and a deliberately-vulnerable training range underneath. Practice passive OSINT against a site that leaks its own stack, browse a staff intranet full of the usual sins, enumerate subdomains, and exploit a batch scheduler with the same vulnerability written four ways in JCL, REXX, COBOL and PowerShell. GIBSON, a working z/OS environment, is live at dev.sighberbank.com and resets every 24 hours."
 	},
 	{
-		"url": "https://solyd.com.br/cursos/introducao-ao-hacking-e-pentest-2/",
+		"url": "https://solyd.com.br/p/introducao-ao-hacking-e-pentest-3/",
 		"name": "Solyd - Introdução ao Hacking e Pentest",
 		"slug": "solyd-introdu-o-ao-hacking-e-pentest",
 		"collection": [
@@ -5121,7 +4967,7 @@
 			},
 			{
 				"name": "guide",
-				"url": "https://owasp.org/www-project-webgoat/"
+				"url": "https://owasp.org/projects/webgoat"
 			},
 			{
 				"name": "docker",
@@ -5140,7 +4986,7 @@
 		]
 	},
 	{
-		"url": "https://owasp.org/www-project-webgoat/",
+		"url": "https://owasp.org/projects/webgoat",
 		"name": "WebGoatPHP",
 		"slug": "webgoatphp",
 		"collection": [
