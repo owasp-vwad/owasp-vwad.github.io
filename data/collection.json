@@ -373,6 +373,43 @@
 		]
 	},
 	{
+		"url": "https://breachloom.com/",
+		"name": "Breachloom",
+		"slug": "breachloom",
+		"collection": [
+			"online",
+			"platform"
+		],
+		"categories": [
+			"ctf",
+			"code-review",
+			"single-player",
+			"guided-lessons"
+		],
+		"technology": [
+			"JavaScript (browser)",
+			"Cloudflare Pages and Functions",
+			"D1 (SQLite)"
+		],
+		"references": [
+			{
+				"name": "guide",
+				"url": "https://breachloom.com/learn/"
+			},
+			{
+				"name": "demo",
+				"url": "https://breachloom.com/?lang=en#/try"
+			},
+			{
+				"name": "live",
+				"url": "https://breachloom.com/ctf/"
+			}
+		],
+		"author": "Breachloom",
+		"description": "Browser-based web and API security exercises: challenges covering IDOR/BOLA, SQL injection, NoSQL injection, XSS (reflected, stored, DOM), SSRF, JWT, CSRF, CORS, race conditions, file upload, path traversal, SSTI, XXE, prototype pollution and prompt injection. Each challenge is paired with a theory chapter that shows the vulnerable and the fixed code, and separate \"CodeOps\" missions ask the learner to patch vulnerable code and check the patch against tests. No VM or install is needed. One IDOR case runs without an account and the theory library is free; the full challenge catalogue requires a paid plan.",
+		"notes": "Disclosure: I am affiliated with Breachloom. Available in English, Polish, German, Spanish and Russian."
+	},
+	{
 		"url": "https://sechow.com/bricks/index.html",
 		"name": "Bricks",
 		"slug": "bricks",
