@@ -19,38 +19,48 @@
 }
 
 @media (min-width: 640px) {
+
   .site-header .container-wide {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
+
 }
 
 @media (min-width: 768px) {
+
   .site-header .container-wide {
     padding-left: 2rem;
     padding-right: 2rem;
   }
+
 }
 
 @media (min-width: 1024px) {
+
   .site-header .container-wide {
     padding-left: 3rem;
     padding-right: 3rem;
   }
+
 }
 
 @media (min-width: 1280px) {
+
   .site-header .container-wide {
     padding-left: 4rem;
     padding-right: 4rem;
   }
+
 }
 
 @media (min-width: 1536px) {
+
   .site-header .container-wide {
     padding-left: 120px;
     padding-right: 120px;
   }
+
 }
 
 /* Primary header - match owasp.community: sticky, backdrop-blur, bg #101820/95, h-20, border-white/10, shadow-sm */
@@ -81,19 +91,9 @@
 }
 
 /* Logo: OWASP header SVG - h-10 (2.5rem), fixed width, shrink-0, hover opacity 90% (community) */
-.logo {
-  display: block;
-  flex-shrink: 0;
-  height: 2.5rem;
-  width: 132.894px;
-  text-decoration: none;
-}
 
-.logo.logo-wasp {
-  width: 2.5rem;
-  height: 2.5rem;
-  transition: opacity 0.2s ease;
-}
+
+
 
 /* Left group: brand + Suggest app (contribute to directory) */
 .header-left {
@@ -117,20 +117,10 @@
   opacity: 0.9;
 }
 
-.header-brand-name {
-  font-family: var(--font-heading);
-  font-weight: 600;
-  font-size: 1.1rem;
-  letter-spacing: -0.02em;
-  color: inherit;
-}
+
 
 /* VWAD wordmark: inline SVG with viewBox 0 0 72 40 (extra right padding so D does not clip on small screens); height matches wasp (2.5rem). */
-.header-brand-name .vwad-wordmark {
-  display: block;
-  height: 2.5rem;
-  width: auto;
-}
+
 
 /* OWASP wordmark in header-actions: viewBox 44 0 90 40 (letterforms + left padding so O not clipped); 2.5rem to match VWAD/wasp. */
 .header-actions .owasp-wordmark {
@@ -141,44 +131,32 @@
 }
 
 @media (max-width: 450px) {
+
   .header-brand {
     gap: 0.4rem;
   }
 
-  .logo.logo-wasp,
-  .header-brand-name .vwad-wordmark,
   .header-actions .owasp-wordmark {
     height: 1.65rem;
   }
 
-  .logo.logo-wasp {
-    width: 1.65rem;
-  }
+  
+
 }
 
 @media (max-width: 380px) {
-  .logo.logo-wasp,
-  .header-brand-name .vwad-wordmark,
+
   .header-actions .owasp-wordmark {
     height: 1.32rem;
   }
 
-  .logo.logo-wasp {
-    width: 1.32rem;
-  }
+  
+
 }
 
-.logo:hover {
-  opacity: 0.9;
-}
 
-.header-logo {
-  display: block;
-  height: 100%;
-  width: 100%;
-  object-fit: contain;
-  color: var(--header-text);
-}
+
+
 
 /* OWASP logo wasp wing flap on hover (from owasp.community) */
 @keyframes owaspWingFlap {
@@ -189,15 +167,9 @@
   100% { transform: rotate(0); }
 }
 
-.owasp-logo #wasp-wings {
-  transform-origin: 52% 34%;
-  transform-box: fill-box;
-  will-change: transform;
-}
 
-.owasp-logo:hover #wasp-wings {
-  animation: 0.9s ease-in-out owaspWingFlap;
-}
+
+
 
 .header-actions {
   display: flex;
@@ -220,36 +192,13 @@
 }
 
 /* Create Account: outline button (community) - border #757575, hover cyan */
-.header-actions a.nav-create-account {
-  color: var(--header-text);
-  border: 2px solid var(--neutral-3);
-  padding: 0.35rem 0.75rem;
-  border-radius: var(--radius);
-  font-size: 0.875rem;
-  font-weight: 600;
-  transition: border-color 0.3s, background-color 0.3s, color 0.3s;
-}
 
-.header-actions a.nav-create-account:hover {
-  border-color: rgba(0, 167, 225, 0.6);
-  background: rgba(0, 167, 225, 0.1);
-  color: var(--accent-cyan);
-}
 
-.header-actions a.nav-cta {
-  color: var(--header-text);
-  background: linear-gradient(to right, var(--btn-primary-start), var(--btn-primary-end));
-  padding: 0.35rem 0.75rem;
-  border-radius: 0.5rem; /* rounded-lg to match community */
-  font-size: 0.875rem;
-  font-weight: 600;
-}
 
-.header-actions a.nav-cta:hover {
-  background: linear-gradient(to right, var(--btn-primary-hover-start), var(--btn-primary-hover-end));
-  color: var(--header-text);
-  box-shadow: 0 10px 15px -3px rgba(0, 53, 148, 0.3), 0 4px 6px -4px rgba(0, 53, 148, 0.3);
-}
+
+
+
+
 
 .theme-toggle {
   display: inline-flex;
@@ -464,6 +413,7 @@
 }
 
 @media (max-width: 640px) {
+
   .site-header .header-inner {
     position: relative;
   }
@@ -485,7 +435,7 @@
   }
 
   .header-more:hover,
-  .header-more[aria-expanded="true"] {
+.header-more[aria-expanded="true"] {
     color: var(--header-text);
   }
 
@@ -515,6 +465,7 @@
   .header-actions.is-open {
     display: flex;
   }
+
 }
 
 /* Header brand image (white VWAD logo, used on the always-dark header) */
@@ -525,13 +476,17 @@
 }
 
 @media (max-width: 450px) {
+
   .header-logo-vwad {
     height: 1.65rem;
   }
+
 }
 
 @media (max-width: 380px) {
+
   .header-logo-vwad {
     height: 1.32rem;
   }
+
 }

@@ -199,11 +199,6 @@
     return div.innerHTML;
   }
 
-  function toTitleCase(s) {
-    if (s == null || s === '') return '';
-    return String(s).replace(/\b\w/g, function (c) { return c.toUpperCase(); });
-  }
-
   // Tooltips for collection and category pills (table + detail). Shown on hover/focus via title attribute.
   var COLLECTION_TOOLTIPS = {
     online: 'Hosted online; use over the internet',
@@ -222,37 +217,6 @@
     'scanner-test': 'Scanner or tool testing'
   };
 
-  // Reference name (from collection.json references[].name) → icon symbol id for the SVG sprite (ICON_SPRITE). Add new ref types here and add a matching <symbol id="icon-..."> below.
-  var REF_ICON_MAP = {
-    guide: 'guide',
-    download: 'download',
-    docker: 'docker',
-    announcement: 'announcement',
-    live: 'live',
-    demo: 'demo',
-    preview: 'preview'
-  };
-  // Returns sprite symbol id for ref.name; used in renderApp as <use href="#icon-{id}"/>.
-  function getRefIconId(name) {
-    if (name == null || name === '') return 'fallback';
-    var id = REF_ICON_MAP[String(name).toLowerCase()];
-    return id || 'fallback';
-  }
-
-  function formatDate(iso) {
-    if (!iso) return '';
-    try {
-      var d = new Date(iso);
-      return isNaN(d.getTime()) ? iso : d.toLocaleDateString(undefined, {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric'
-      });
-    } catch (e) {
-      return iso;
-    }
-  }
-
   /**
    * Renders a compact homepage card for an app: name, short description, and actions.
    * The Shuffle button carries data-featured-shuffle so the page can draw another app.
@@ -270,98 +234,6 @@
     html += '<a href="' + detailUrl + '" class="btn btn-primary">View details</a>';
     html += '<button type="button" class="btn btn-secondary" data-featured-shuffle>Shuffle</button>';
     html += '</div></article>';
-    return html;
-  }
-
-  /**
-   * Renders a single app as HTML (same layout as detail page).
-   * options.backLink: true = "← Back to directory", 'slug' = "View full details" link to /app/<slug>/, false/omit = no link
-   * options.titleLink: 'slug' = wrap title in <a href="/app/<slug>/"> (e.g. featured app → detail page)
-   */
-  function renderApp(app, options) {
-    if (!app || typeof app !== 'object') return '';
-    options = options || {};
-    var html = '<article class="app-detail">';
-    html += '<div class="app-detail-header">';
-    html += renderAppLogoSlot(app);
-    html += '<div class="app-detail-title-wrap">';
-    var titleText = escapeHtml(app.name || '');
-    if (options.titleLink === 'slug' && app._slug) {
-      var detailUrl = getAppUrl(app);
-      html += '<h1 class="app-detail-title"><a href="' + detailUrl + '">' + titleText + '</a></h1>';
-    } else {
-      html += '<h1 class="app-detail-title">' + titleText + '</h1>';
-    }
-    html += '</div></div>';
-
-    if (app.description && app.description.trim()) {
-      html += '<div class="app-detail-description"><p>' + escapeHtml(app.description.trim()) + '</p></div>';
-    }
-
-    html += '<div class="app-detail-meta">';
-    if (app.collection && app.collection.length) {
-      html += '<div class="app-detail-row"><span class="label">Collections</span> ';
-      html += app.collection.map(function (c) {
-        var title = COLLECTION_TOOLTIPS[c];
-        var titleAttr = title ? ' title="' + escapeHtml(title) + '"' : '';
-        return '<span class="pill pill-collection"' + titleAttr + '>' + escapeHtml(c) + '</span>';
-      }).join(' ');
-      html += '</div>';
-    }
-    if (app.technology && app.technology.length) {
-      html += '<div class="app-detail-row"><span class="label">Technology</span> ';
-      html += app.technology.map(function (t) {
-        return '<span class="pill">' + escapeHtml(t) + '</span>';
-      }).join(' ');
-      html += '</div>';
-    }
-    if (app.categories && app.categories.length) {
-      html += '<div class="app-detail-row"><span class="label">Categories</span> ';
-      html += app.categories.map(function (c) {
-        var label = c === 'ctf' ? 'CTF' : c;
-        var title = CATEGORY_TOOLTIPS[c];
-        var titleAttr = title ? ' title="' + escapeHtml(title) + '"' : '';
-        return '<span class="pill pill-category"' + titleAttr + '>' + escapeHtml(label) + '</span>';
-      }).join(' ');
-      html += '</div>';
-    }
-    if (app.author) {
-      html += '<div class="app-detail-row"><span class="label">Author</span> ' + escapeHtml(app.author) + '</div>';
-    }
-    if (app.stars != null) {
-      var starsCount = String(app.stars);
-      var badgeUrl = 'https://img.shields.io/badge/stars-' + encodeURIComponent(starsCount) + '-007ec6?style=flat';
-      html += '<div class="app-detail-row"><span class="label">Stars</span> ';
-      html += '<img class="app-detail-stars-badge" src="' + escapeHtml(badgeUrl) + '" alt="' + escapeHtml(starsCount) + ' stars" loading="lazy"></div>';
-    }
-    if (app.last_contributed) {
-      var band = getUpdatedBand(app.last_contributed);
-      var pill = band ? ' <span class="pill pill-updated pill-updated-' + escapeHtml(band.slug) + '">' + escapeHtml(band.label) + '</span>' : '';
-      html += '<div class="app-detail-row"><span class="label">Last contribution</span> ' + escapeHtml(formatDate(app.last_contributed)) + pill + '</div>';
-    }
-    html += '</div>';
-
-    // Action buttons: Link uses #icon-link; each reference uses getRefIconId(ref.name) → #icon-{id} from sprite.
-    html += '<div class="app-detail-links">';
-    html += '<a href="' + escapeHtml(app.url || '#') + '" class="btn btn-primary" target="_blank" rel="noopener"><svg class="btn-icon" aria-hidden="true"><use href="#icon-link"/></svg> Link</a>';
-    if (app.references && app.references.length) {
-      app.references.forEach(function (ref) {
-        var iconId = getRefIconId(ref.name);
-        html += ' <a href="' + escapeHtml(ref.url) + '" class="btn btn-secondary" target="_blank" rel="noopener"><svg class="btn-icon" aria-hidden="true"><use href="#icon-' + escapeHtml(iconId) + '"/></svg> ' + escapeHtml(toTitleCase(ref.name)) + '</a>';
-      });
-    }
-    html += '</div>';
-
-    if (app.notes) {
-      html += '<div class="app-detail-notes"><h2>Notes</h2><p>' + escapeHtml(app.notes) + '</p></div>';
-    }
-
-    if (options.backLink === true) {
-      html += '<p class="app-detail-back"><a href="' + getHomeUrl() + '">← Back to directory</a></p>';
-    } else if (options.backLink === 'slug' && app._slug) {
-      html += '<p class="app-detail-back"><a href="' + getAppUrl(app) + '">View full details</a></p>';
-    }
-    html += '</article>';
     return html;
   }
 
@@ -392,7 +264,6 @@
     searchApps: searchApps,
     getUpdatedBand: getUpdatedBand,
     getAppLogoUrl: getAppLogoUrl,
-    renderApp: renderApp,
     renderCompactApp: renderCompactApp,
     COLLECTION_TOOLTIPS: COLLECTION_TOOLTIPS,
     CATEGORY_TOOLTIPS: CATEGORY_TOOLTIPS
