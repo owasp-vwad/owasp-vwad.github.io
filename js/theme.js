@@ -145,3 +145,32 @@
     initBackToTop();
   }
 })();
+
+/**
+ * Mobile header "More" panel: toggles the secondary header links (theme, OWASP).
+ */
+(function () {
+  'use strict';
+  var moreBtn = document.querySelector('.header-more');
+  var actions = document.getElementById('header-actions');
+  if (!moreBtn || !actions) return;
+
+  function setOpen(open) {
+    actions.classList.toggle('is-open', open);
+    moreBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+
+  moreBtn.addEventListener('click', function (event) {
+    event.stopPropagation();
+    setOpen(!actions.classList.contains('is-open'));
+  });
+  document.addEventListener('click', function (event) {
+    if (!actions.contains(event.target)) setOpen(false);
+  });
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && actions.classList.contains('is-open')) {
+      setOpen(false);
+      moreBtn.focus();
+    }
+  });
+})();

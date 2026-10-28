@@ -1,40 +1,86 @@
 /* Homepage-only styles */
 
-/* Featured, Browse, About, Contributors all align to same left edge */
-.page-home #featured .container,
+/* Browse, About, Contributors all align to same left edge */
 .page-home #browse .container,
 .page-home #about .container,
 .page-home #contributors .container {
   max-width: 1200px;
 }
 
-.page-home #featured.section {
-  padding: 1rem 0;
+/* Start here (left) and the random pick (right) share one row on desktop, stacked on mobile */
+.page-home .intro-row {
+  display: grid;
+  gap: 1.5rem;
+  align-items: start;
+  margin-bottom: 2.5rem;
 }
 
-.page-home .featured-heading-row {
+.page-home .intro-row > .start-here {
+  margin: 0;
+}
+
+@media (min-width: 900px) {
+  .page-home .intro-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.page-home .featured-card {
+  min-width: 0;
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: var(--bg-card);
+  box-shadow: var(--shadow-sm);
+}
+
+.page-home .featured-card-heading {
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: var(--font-heading);
+}
+
+.page-home .featured-card .section-desc {
+  margin: 0 0 1rem;
+}
+
+.page-home .featured-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.page-home .featured-card .app-logo-slot--detail {
+  width: 3.25rem;
+  height: 3.25rem;
+}
+
+.page-home .featured-card-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-family: var(--font-heading);
+}
+
+.page-home .featured-card-title a {
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.page-home .featured-card-text {
+  margin: 0 0 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.page-home .featured-card-actions {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.35rem 0.5rem;
-  margin: 0 0 0.6rem;
-}
-
-.page-home #featured.section .featured-heading-row h2 {
-  margin: 0;
-  font-size: 1.35rem;
-}
-
-.page-home .featured-desc {
-  margin: 0;
-  font-size: 0.9rem;
-  font-weight: 400;
-  color: var(--text-muted);
-  font-family: var(--font-body);
-}
-
-.page-home .featured-app {
-  margin-top: 0.5rem;
+  gap: 0.5rem;
 }
 
 .page-home .featured-app-rendered {
@@ -42,110 +88,24 @@
 }
 
 .page-home .featured-app[aria-busy="true"] {
-  min-height: 28rem;
+  min-height: 9rem;
 }
 
-.page-home .featured-app-skeleton {
-  pointer-events: none;
-}
-
-.page-home .featured-app-skeleton .skeleton-block,
-.page-home .featured-app-skeleton .skeleton-pill,
-.page-home .featured-app-skeleton .skeleton-text,
-.page-home .featured-app-skeleton .skeleton-button,
-.page-home .featured-app-skeleton .skeleton-app-logo {
-  position: relative;
-  overflow: hidden;
+.page-home .featured-card-skeleton span {
+  display: block;
+  height: 1rem;
+  margin: 0 0 0.6rem;
+  border-radius: 999px;
   background: var(--neutral-2);
 }
 
-.page-home .featured-app-skeleton .skeleton-block,
-.page-home .featured-app-skeleton .skeleton-text {
-  display: block;
-  border-radius: 999px;
+.page-home .featured-card-skeleton span:first-child {
+  height: 1.5rem;
+  max-width: 14rem;
 }
 
-.page-home .featured-app-skeleton .skeleton-block::after,
-.page-home .featured-app-skeleton .skeleton-pill::after,
-.page-home .featured-app-skeleton .skeleton-text::after,
-.page-home .featured-app-skeleton .skeleton-button::after,
-.page-home .featured-app-skeleton .skeleton-app-logo::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  transform: translateX(-100%);
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.65), transparent);
-  animation: featuredSkeletonShimmer 1.4s ease-in-out infinite;
-}
-
-.page-home .featured-app-skeleton .skeleton-app-logo {
-  width: 4.5rem;
-  height: 4.5rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-}
-
-.page-home .featured-app-skeleton .skeleton-title {
-  height: 2.25rem;
-  max-width: 22rem;
-  margin: 0 0 0.85rem;
-}
-
-.page-home .featured-app-skeleton .skeleton-line {
-  height: 1rem;
-  margin: 0 0 0.45rem;
-}
-
-.page-home .featured-app-skeleton .skeleton-line-short {
+.page-home .featured-card-skeleton span:last-child {
   max-width: 70%;
-}
-
-.page-home .featured-app-skeleton .skeleton-pill {
-  display: inline-block;
-  width: 5rem;
-  height: 1.7rem;
-  border-radius: 999px;
-}
-
-.page-home .featured-app-skeleton .skeleton-pill-wide {
-  width: 7rem;
-}
-
-.page-home .featured-app-skeleton .skeleton-text {
-  display: inline-block;
-  width: 9rem;
-  height: 1rem;
-}
-
-.page-home .featured-app-skeleton .skeleton-author {
-  width: 8rem;
-}
-
-.page-home .featured-app-skeleton .skeleton-heading {
-  width: 4rem;
-  height: 1rem;
-  margin: 0 0 0.6rem;
-}
-
-.page-home .featured-app-skeleton .skeleton-button {
-  display: inline-block;
-  width: 7.5rem;
-  height: 2.5rem;
-  border-radius: var(--radius);
-}
-
-.page-home .featured-app-skeleton .skeleton-button-secondary {
-  width: 8.5rem;
-}
-
-.page-home .featured-app-skeleton .skeleton-back-link {
-  width: 10rem;
-}
-
-@keyframes featuredSkeletonShimmer {
-  100% {
-    transform: translateX(100%);
-  }
 }
 
 @keyframes featuredAppFadeIn {
@@ -156,21 +116,6 @@
   to {
     opacity: 1;
   }
-}
-
-/* Featured app title link: same color as heading, underline only (no bright link blue) */
-.page-home #featured .app-detail-title a {
-  color: inherit;
-  text-decoration: underline;
-  text-underline-offset: 0.15em;
-}
-
-.page-home #featured .app-detail-title a:hover {
-  color: inherit;
-}
-
-.page-home #featured .app-detail-header {
-  margin-bottom: 0.65rem;
 }
 
 /* Contributors section: same link styling as collection list */
@@ -191,30 +136,8 @@
   color: var(--link-visited);
 }
 
-[data-theme="dark"] .page-home .featured-app-skeleton .skeleton-block::after,
-[data-theme="dark"] .page-home .featured-app-skeleton .skeleton-pill::after,
-[data-theme="dark"] .page-home .featured-app-skeleton .skeleton-text::after,
-[data-theme="dark"] .page-home .featured-app-skeleton .skeleton-button::after,
-[data-theme="dark"] .page-home .featured-app-skeleton .skeleton-app-logo::after {
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.14), transparent);
-}
-
-@media (max-width: 640px) {
-  .page-home .featured-app[aria-busy="true"] {
-    min-height: 32rem;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .page-home .featured-app-rendered {
-    animation: none;
-  }
-
-  .page-home .featured-app-skeleton .skeleton-block::after,
-  .page-home .featured-app-skeleton .skeleton-pill::after,
-  .page-home .featured-app-skeleton .skeleton-text::after,
-  .page-home .featured-app-skeleton .skeleton-button::after,
-  .page-home .featured-app-skeleton .skeleton-app-logo::after {
     animation: none;
   }
 }

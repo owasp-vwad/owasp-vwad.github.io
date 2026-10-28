@@ -44,10 +44,51 @@
     return 'Sorted by ' + label + ', ' + direction;
   }
 
+  function renderLogoSlot(app) {
+    var escapeHtml = Browse.escapeHtml;
+    var logoUrl =
+      window.VWAD && typeof window.VWAD.getAppLogoUrl === 'function'
+        ? window.VWAD.getAppLogoUrl(app)
+        : '';
+    var slot = '<span class="app-logo-slot app-logo-slot--table app-logo-missing" aria-hidden="true">';
+    if (logoUrl) {
+      slot +=
+        '<img class="app-logo-img" src="' +
+        escapeHtml(logoUrl) +
+        '" alt="" loading="lazy" decoding="async" ' +
+        'onload="this.parentElement.classList.remove(\'app-logo-missing\');" ' +
+        'onerror="this.remove();" />';
+    }
+    return slot + '</span>';
+  }
+
+  function renderAppTags(app) {
+    var escapeHtml = Browse.escapeHtml;
+    var collTitles = window.VWAD && window.VWAD.COLLECTION_TOOLTIPS ? window.VWAD.COLLECTION_TOOLTIPS : {};
+    var catTitles = window.VWAD && window.VWAD.CATEGORY_TOOLTIPS ? window.VWAD.CATEGORY_TOOLTIPS : {};
+    var collPills = (app.collection || []).map(function (collection) {
+      var title = collTitles[collection];
+      var titleAttr = title ? ' title="' + escapeHtml(title) + '"' : '';
+      var label = Browse.getCollectionLabel(collection);
+      return '<button type="button" class="pill pill-collection pill-filter" data-filter-type="collection" data-filter-value="' + escapeHtml(collection) + '" aria-label="Filter by collection: ' + escapeHtml(label) + '"' + titleAttr + '>' + escapeHtml(collection) + '</button>';
+    }).join('');
+    var tech = (app.technology || []).map(function (technology) {
+      return '<button type="button" class="pill pill-technology pill-filter" data-filter-type="technology" data-filter-value="' + escapeHtml(technology) + '" aria-label="Filter by technology: ' + escapeHtml(technology) + '">' + escapeHtml(technology) + '</button>';
+    }).join('');
+    var categories = (app.categories || []).map(function (category) {
+      var label = Browse.getCategoryLabel(category);
+      var title = catTitles[category];
+      var titleAttr = title ? ' title="' + escapeHtml(title) + '"' : '';
+      return '<button type="button" class="pill pill-category pill-filter" data-filter-type="category" data-filter-value="' + escapeHtml(category) + '" aria-label="Filter by category: ' + escapeHtml(label) + '"' + titleAttr + '>' + escapeHtml(label) + '</button>';
+    }).join('');
+    var techCatPills = tech + categories;
+    return { collPills: collPills, techCatPills: techCatPills };
+  }
+
   function renderTable(apps, sortState, options) {
     var escapeHtml = Browse.escapeHtml;
     if (!apps.length) {
-      return '<p class="muted">No applications match.</p>';
+      return renderEmptyState();
     }
     options = options || {};
     var query = (options.query || '').toLowerCase().trim();
@@ -77,7 +118,7 @@
         : '#';
       var updatedBand = window.VWAD && window.VWAD.getUpdatedBand ? window.VWAD.getUpdatedBand(app.last_contributed) : null;
       var updatedCell = updatedBand
-        ? '<span class="pill pill-updated pill-updated-' + escapeHtml(updatedBand.slug) + '" title="Last contribution">' + escapeHtml(updatedBand.label) + '</span>'
+        ? '<span class="pill pill-updated pill-updated-' + escapeHtml(updatedBand.slug) + '" title="' + escapeHtml(updatedBand.title) + '">' + escapeHtml(updatedBand.label) + '</span>'
         : '-';
       var authorMatched = query && app.author && app.author.toLowerCase().indexOf(query) !== -1;
       var nameLink = '<a href="' + escapeHtml(url) + '">' + escapeHtml(app.name) + '</a>';
@@ -86,21 +127,7 @@
         nameBody +=
           ' <span class="author-match" title="Matched by author">Author: ' + escapeHtml(app.author) + '</span>';
       }
-      var logoUrl =
-        window.VWAD && typeof window.VWAD.getAppLogoUrl === 'function'
-          ? window.VWAD.getAppLogoUrl(app)
-          : '';
-      var logoPrefix = '<span class="app-name-cell-logo">';
-      logoPrefix += '<span class="app-logo-slot app-logo-slot--table app-logo-missing" aria-hidden="true">';
-      if (logoUrl) {
-        logoPrefix +=
-          '<img class="app-logo-img" src="' +
-          escapeHtml(logoUrl) +
-          '" alt="" loading="lazy" decoding="async" ' +
-          'onload="this.parentElement.classList.remove(\'app-logo-missing\');" ' +
-          'onerror="this.remove();" />';
-      }
-      logoPrefix += '</span></span>';
+      var logoPrefix = '<span class="app-name-cell-logo">' + renderLogoSlot(app) + '</span>';
       var nameCell =
         '<td class="app-name-cell"><div class="app-name-cell-inner">' +
         logoPrefix +
@@ -110,26 +137,9 @@
 
       html += '<tr>';
       html += nameCell;
-      var collTitles = window.VWAD && window.VWAD.COLLECTION_TOOLTIPS ? window.VWAD.COLLECTION_TOOLTIPS : {};
-      var catTitles = window.VWAD && window.VWAD.CATEGORY_TOOLTIPS ? window.VWAD.CATEGORY_TOOLTIPS : {};
-      var collPills = (app.collection || []).map(function (collection) {
-        var title = collTitles[collection];
-        var titleAttr = title ? ' title="' + escapeHtml(title) + '"' : '';
-        var label = Browse.getCollectionLabel(collection);
-        return '<button type="button" class="pill pill-collection pill-filter" data-filter-type="collection" data-filter-value="' + escapeHtml(collection) + '" aria-label="Filter by collection: ' + escapeHtml(label) + '"' + titleAttr + '>' + escapeHtml(collection) + '</button>';
-      }).join('');
-      html += '<td>' + (collPills ? '<span class="pill-group">' + collPills + '</span>' : '') + '</td>';
-      var tech = (app.technology || []).map(function (technology) {
-        return '<button type="button" class="pill pill-technology pill-filter" data-filter-type="technology" data-filter-value="' + escapeHtml(technology) + '" aria-label="Filter by technology: ' + escapeHtml(technology) + '">' + escapeHtml(technology) + '</button>';
-      }).join('');
-      var categories = (app.categories || []).map(function (category) {
-        var label = Browse.getCategoryLabel(category);
-        var title = catTitles[category];
-        var titleAttr = title ? ' title="' + escapeHtml(title) + '"' : '';
-        return '<button type="button" class="pill pill-category pill-filter" data-filter-type="category" data-filter-value="' + escapeHtml(category) + '" aria-label="Filter by category: ' + escapeHtml(label) + '"' + titleAttr + '>' + escapeHtml(label) + '</button>';
-      }).join('');
-      var techCatPills = tech + categories;
-      html += '<td>' + (techCatPills ? '<span class="pill-group">' + techCatPills + '</span>' : '') + '</td>';
+      var tags = renderAppTags(app);
+      html += '<td>' + (tags.collPills ? '<span class="pill-group">' + tags.collPills + '</span>' : '') + '</td>';
+      html += '<td>' + (tags.techCatPills ? '<span class="pill-group">' + tags.techCatPills + '</span>' : '') + '</td>';
       html += '<td>' + (app.stars != null ? escapeHtml(String(app.stars)) : '-') + '</td>';
       html += '<td>' + updatedCell + '</td>';
       html += '</tr>';
@@ -241,8 +251,51 @@
     });
   }
 
+  var SUGGEST_APP_URL = 'https://github.com/owasp-vwad/owasp-vwad.github.io/issues/new?template=add-vulnerable-app.yml';
+
+  function renderEmptyState() {
+    return '<div class="results-empty">' +
+      '<p>No applications match these filters.</p>' +
+      '<div class="results-empty-actions">' +
+      '<button type="button" class="btn btn-primary" data-empty-reset>Reset filters</button>' +
+      '<a class="btn btn-secondary ext-link" href="' + SUGGEST_APP_URL + '" target="_blank" rel="noopener noreferrer">' +
+      '<svg class="icon-plus" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> Suggest an app</a>' +
+      '</div></div>';
+  }
+
+  /** Card layout for small screens: same data and filter buttons as the table, one app per card. */
+  function renderCards(apps, sortState, options) {
+    var escapeHtml = Browse.escapeHtml;
+    if (!apps.length) return renderEmptyState();
+    options = options || {};
+    var query = (options.query || '').toLowerCase().trim();
+    var items = apps.map(function (app) {
+      var url = window.VWAD && typeof window.VWAD.getAppUrl === 'function' ? window.VWAD.getAppUrl(app) : '#';
+      var updatedBand = window.VWAD && window.VWAD.getUpdatedBand ? window.VWAD.getUpdatedBand(app.last_contributed) : null;
+      var updatedPill = updatedBand
+        ? '<span class="pill pill-updated pill-updated-' + escapeHtml(updatedBand.slug) + '" title="' + escapeHtml(updatedBand.title) + '">' + escapeHtml(updatedBand.label) + '</span>'
+        : '';
+      var authorMatched = query && app.author && app.author.toLowerCase().indexOf(query) !== -1;
+      var tags = renderAppTags(app);
+      return '<li class="app-card">' +
+        renderLogoSlot(app) +
+        '<div class="app-card-body">' +
+        '<a class="app-card-name" href="' + escapeHtml(url) + '">' + escapeHtml(app.name) + '</a>' +
+        (authorMatched ? ' <span class="author-match" title="Matched by author">Author: ' + escapeHtml(app.author) + '</span>' : '') +
+        '<div class="app-card-meta">' +
+        (app.stars != null ? '<span>' + escapeHtml(String(app.stars)) + ' stars</span>' : '') +
+        updatedPill +
+        '</div>' +
+        (tags.collPills ? '<div class="pill-group">' + tags.collPills + '</div>' : '') +
+        (tags.techCatPills ? '<div class="pill-group">' + tags.techCatPills + '</div>' : '') +
+        '</div></li>';
+    });
+    return '<ul class="app-cards">' + items.join('') + '</ul>';
+  }
+
   Browse.sortApps = sortApps;
   Browse.renderTable = renderTable;
+  Browse.renderCards = renderCards;
   Browse.captureTableScrollState = captureTableScrollState;
   Browse.restoreTableScrollState = restoreTableScrollState;
   Browse.updateTableScrollMetrics = updateTableScrollMetrics;

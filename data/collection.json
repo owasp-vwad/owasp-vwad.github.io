@@ -67,42 +67,6 @@
 		]
 	},
 	{
-		"url": "https://demo.testfire.net/",
-		"name": "Altoro Mutual (AltoroJ)",
-		"slug": "altoro-mutual-altoroj",
-		"collection": [
-			"online",
-			"offline"
-		],
-		"technology": [
-			"J2EE",
-			"Java",
-			"Apache Derby",
-			"OpenAPI",
-			"Swagger"
-		],
-		"description": "Sample banking J2EE web application. Shows what happens when applications are written for functionality but not security; simple platform for demonstrating and learning real-life application security issues. Standard Java & JSP; REST API with Swagger.",
-		"references": [
-			{
-				"name": "download",
-				"url": "https://github.com/HCL-TECH-SOFTWARE/AltoroJ"
-			},
-			{
-				"name": "live",
-				"url": "https://demo.testfire.net/"
-			}
-		],
-		"author": "HCL/IBM/Watchfire",
-		"notes": "Run only in a sheltered environment (e.g. VM). Log in with jsmith/demo1234 or admin/admin. Hosted demo: altoromutual.com:8080.",
-		"badge": "hclproducts/AltoroJ",
-		"stars": 306,
-		"last_contributed": "2026-07-27T11:34:21Z",
-		"categories": [
-			"free-form",
-			"single-player"
-		]
-	},
-	{
 		"url": "https://github.com/satishpatnayak/AndroGoat",
 		"name": "AndroGoat",
 		"slug": "androgoat",
@@ -407,7 +371,7 @@
 		],
 		"author": "Breachloom",
 		"description": "Browser-based web and API security exercises: challenges covering IDOR/BOLA, SQL injection, NoSQL injection, XSS (reflected, stored, DOM), SSRF, JWT, CSRF, CORS, race conditions, file upload, path traversal, SSTI, XXE, prototype pollution and prompt injection. Each challenge is paired with a theory chapter that shows the vulnerable and the fixed code, and separate \"CodeOps\" missions ask the learner to patch vulnerable code and check the patch against tests. No VM or install is needed. One IDOR case runs without an account and the theory library is free; the full challenge catalogue requires a paid plan.",
-		"notes": "Disclosure: I am affiliated with Breachloom. Available in English, Polish, German, Spanish and Russian."
+		"notes": "Available in English, Polish, German, Spanish and Russian."
 	},
 	{
 		"url": "https://sechow.com/bricks/index.html",
@@ -3826,7 +3790,7 @@
 		"last_contributed": "2019-10-16T19:00:49Z"
 	},
 	{
-		"url": "https://wiki.owasp.org/index.php/OWASP_Rails_Goat_Project",
+		"url": "https://github.com/OWASP/railsgoat",
 		"name": "Rails Goat",
 		"slug": "rails-goat",
 		"collection": [
@@ -4243,6 +4207,42 @@
 		"badge": "Hackmanit/template-injection-playground",
 		"stars": 68,
 		"last_contributed": "2026-04-29T06:05:04Z",
+		"categories": [
+			"free-form",
+			"single-player"
+		]
+	},
+	{
+		"url": "https://demo.testfire.net/",
+		"name": "Testfire - AltoroJ",
+		"slug": "testfire-altoroj",
+		"collection": [
+			"online",
+			"offline"
+		],
+		"technology": [
+			"J2EE",
+			"Java",
+			"Apache Derby",
+			"OpenAPI",
+			"Swagger"
+		],
+		"description": "Sample banking J2EE web application. Shows what happens when applications are written for functionality but not security; simple platform for demonstrating and learning real-life application security issues. Standard Java & JSP; REST API with Swagger.",
+		"references": [
+			{
+				"name": "download",
+				"url": "https://github.com/HCL-TECH-SOFTWARE/AltoroJ"
+			},
+			{
+				"name": "live",
+				"url": "https://demo.testfire.net/"
+			}
+		],
+		"author": "HCL/IBM/Watchfire",
+		"notes": "Run only in a sheltered environment (e.g. VM). Log in with jsmith/demo1234 or admin/admin. Hosted demo: altoromutual.com:8080.",
+		"badge": "hclproducts/AltoroJ",
+		"stars": 306,
+		"last_contributed": "2026-07-27T11:34:21Z",
 		"categories": [
 			"free-form",
 			"single-player"

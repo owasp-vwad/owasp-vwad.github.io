@@ -6,6 +6,28 @@
 
   var Browse = window.VWADBrowse || {};
 
+  // The sticky filter strip sits just below the site header, so publish the header's height as a CSS variable.
+  function syncSiteHeaderHeight() {
+    var header = document.querySelector('.site-header');
+    if (!header) return;
+    document.documentElement.style.setProperty('--site-header-height', header.offsetHeight + 'px');
+  }
+
+  window.addEventListener('resize', syncSiteHeaderHeight);
+  syncSiteHeaderHeight();
+
+  // Remember the directory search when an app is opened, so the app page's "Back to directory" link can restore it.
+  document.addEventListener('click', function (event) {
+    var link = event.target.closest && event.target.closest('a[href]');
+    if (!link || link.origin !== window.location.origin) return;
+    if (!/\/app\/[^/]+\/?$/.test(link.pathname)) return;
+    try {
+      sessionStorage.setItem('vwad-directory-query', window.location.search);
+    } catch (e) {
+      // Storage can be blocked; the link then falls back to the plain directory.
+    }
+  });
+
   function createDefaultBasicState() {
     return {
       query: '',
@@ -96,6 +118,15 @@
     return result;
   }
 
+  // URL with the query param removed, so typing-only changes can be told apart from filter changes.
+  function withoutQueryParam(url) {
+    var base = url.split('?')[0];
+    var params = new URLSearchParams(url.split('?')[1] || '');
+    params.delete('q');
+    var rest = params.toString();
+    return rest ? base + '?' + rest : base;
+  }
+
   function initSearch() {
     var resultsEl = document.getElementById('browse-results');
     var countEl = document.getElementById('result-count');
@@ -124,9 +155,13 @@
         yearFrom: document.getElementById('advanced-year-from'),
         yearTo: document.getElementById('advanced-year-to'),
         starsPills: document.getElementById('advanced-stars-pills'),
-        yearPills: document.getElementById('advanced-year-pills')
+        yearPills: document.getElementById('advanced-year-pills'),
+        filterCount: document.getElementById('advanced-filters-count'),
+        filterToggle: document.getElementById('advanced-filters-toggle'),
+        grid: document.getElementById('advanced-search-grid')
       },
-      shareBtn: document.getElementById('search-share-btn')
+      shareBtn: document.getElementById('search-share-btn'),
+      activeFilterStrip: document.getElementById('active-filter-strip')
     };
     var urlState = decodeSearchParams(window.location.search);
     var state = createDefaultState();
@@ -136,6 +171,9 @@
     var sortState = null;
     var requestId = 0;
     var activeScrollOuter = null;
+    var currentUrl = null;
+    // Cards replace the table on small screens; the table stays for wider ones.
+    var cardMedia = window.matchMedia('(max-width: 640px)');
     var advancedController = Browse.createAdvancedController({
       searchControls: searchControls,
       elements: elements.advanced,
@@ -177,10 +215,18 @@
       elements.shareBtn.setAttribute('aria-disabled', active ? 'false' : 'true');
     }
 
-    function updateUrlState() {
+    function updateUrlState(replace) {
       var params = encodeSearchParams(state.activeMode, state.basic, state.advanced);
       var newUrl = params ? '?' + params : window.location.pathname;
-      window.history.replaceState(null, '', newUrl);
+      if (newUrl === currentUrl) return;
+      // Typing replaces the current entry; other filter changes add one so Back undoes them.
+      var queryOnly = currentUrl !== null && withoutQueryParam(newUrl) === withoutQueryParam(currentUrl);
+      if (replace || currentUrl === null || queryOnly) {
+        window.history.replaceState(null, '', newUrl);
+      } else {
+        window.history.pushState(null, '', newUrl);
+      }
+      currentUrl = newUrl;
     }
 
     function showToast(message, x, y) {
@@ -325,6 +371,13 @@
         });
       });
 
+      var emptyResetBtn = resultsEl.querySelector('[data-empty-reset]');
+      if (emptyResetBtn) {
+        emptyResetBtn.addEventListener('click', function () {
+          if (resetBtn) resetBtn.click();
+        });
+      }
+
       var clearBtn = resultsEl.querySelector('.sort-clear');
       if (clearBtn) {
         clearBtn.addEventListener('click', function () {
@@ -368,6 +421,45 @@
       });
     }
 
+    function getActiveFilterPills() {
+      if (state.activeMode === 'advanced') return advancedController.getActiveFilterPills();
+      var pills = [];
+      var basic = state.basic;
+      if (basic.collection) {
+        var collectionLabel = Browse.getCollectionLabel(basic.collection);
+        pills.push({ group: 'collection', value: basic.collection, label: collectionLabel, ariaLabel: 'Remove collection filter: ' + collectionLabel });
+      }
+      var technology = (basic.technology || '').trim();
+      if (technology) {
+        pills.push({ group: 'technology', value: technology, label: technology, ariaLabel: 'Remove technology filter: ' + technology });
+      }
+      if (basic.category) {
+        var categoryLabel = Browse.getCategoryLabel(basic.category);
+        pills.push({ group: 'category', value: basic.category, label: categoryLabel, ariaLabel: 'Remove category filter: ' + categoryLabel });
+      }
+      return pills;
+    }
+
+    function renderActiveFilters() {
+      var pills = getActiveFilterPills();
+      Browse.renderPillButtons(elements.activeFilterStrip, pills);
+      elements.activeFilterStrip.hidden = !pills.length;
+      elements.advanced.filterCount.textContent = state.activeMode === 'advanced' && pills.length ? '(' + pills.length + ')' : '';
+    }
+
+    function removeActiveFilter(group, value) {
+      if (state.activeMode === 'advanced') {
+        advancedController.removeFilterPill(group, value);
+        advancedController.syncControls();
+      } else {
+        if (group === 'collection') state.basic.collection = '';
+        if (group === 'technology') state.basic.technology = '';
+        if (group === 'category') state.basic.category = '';
+        syncBasicControls();
+      }
+      runSearch();
+    }
+
     function runSearch(shouldScroll) {
       var payload = buildSearchPayload();
       var currentRequestId = ++requestId;
@@ -376,6 +468,7 @@
       updateResetButton();
       updateShareButton();
       updateUrlState();
+      renderActiveFilters();
 
       window.VWAD.searchApps(payload.query, payload.filters).then(function (result) {
         if (currentRequestId !== requestId) return;
@@ -385,7 +478,9 @@
         if (countEl) {
           countEl.textContent = 'Showing ' + apps.length + ' of ' + total + ' application' + (total === 1 ? '' : 's');
         }
-        resultsEl.innerHTML = Browse.renderTable(sorted, sortState, { query: payload.query });
+        var renderResults = cardMedia.matches ? Browse.renderCards : Browse.renderTable;
+        resultsEl.innerHTML = renderResults(sorted, sortState, { query: payload.query });
+        resultsEl.setAttribute('aria-busy', 'false');
         if (tableScrollState) {
           var outer = resultsEl.querySelector('.table-scroll-outer');
           if (outer) Browse.restoreTableScrollState(outer, tableScrollState);
@@ -479,6 +574,31 @@
 
     window.VWAD.getCollection().then(function (list) {
       advancedController.populateDataOptions(list || []);
+    });
+
+    elements.activeFilterStrip.addEventListener('click', function (event) {
+      var pillButton = event.target.closest('.search-filter-pill');
+      if (!pillButton) return;
+      removeActiveFilter(pillButton.getAttribute('data-pill-group'), pillButton.getAttribute('data-pill-value'));
+      // The removed chip no longer exists, so move focus to the result count instead of dropping it to the page.
+      var countEl = document.getElementById('result-count');
+      if (countEl) countEl.focus();
+    });
+
+    cardMedia.addEventListener('change', function () {
+      runSearch();
+    });
+
+    window.addEventListener('popstate', function () {
+      var restored = decodeSearchParams(window.location.search);
+      state.activeMode = restored.mode;
+      state.basic = restored.basic;
+      state.advanced = restored.advanced;
+      syncBasicControls();
+      advancedController.syncControls();
+      syncModeUi();
+      updateUrlState(true);
+      runSearch(false);
     });
 
     runSearch(window.location.search.length > 0);

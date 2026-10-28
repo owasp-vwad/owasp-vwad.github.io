@@ -361,3 +361,59 @@
   font-family: ui-monospace, "Cascadia Mono", "SF Mono", Monaco, "Segoe UI Mono", "Roboto Mono", Consolas, monospace;
   text-align: right;
 }
+
+/* Card layout for small screens (rendered instead of the table below 640px) */
+.page-home .app-cards {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.page-home .app-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 0.85rem;
+  background: var(--bg-card);
+}
+
+.page-home .app-card .app-logo-slot--table {
+  width: 2.75rem;
+  height: 2.75rem;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.page-home .app-card-body {
+  min-width: 0;
+  flex: 1;
+}
+
+.page-home .app-card-name {
+  font-weight: 600;
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  overflow-wrap: anywhere;
+}
+
+.page-home .app-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.75rem;
+  margin: 0.35rem 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.page-home .app-card .pill-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 0.35rem;
+}

@@ -173,13 +173,14 @@
   font-size: 0.875rem;
 }
 
+/* Footer background is always dark (--neutral-1), so use the light accent here instead of --link, which is dark blue in light mode */
 .footer-back-to-top-link {
-  color: var(--link);
+  color: #00a7e1;
   text-decoration: underline;
 }
 
 .footer-back-to-top-link:hover {
-  color: var(--link-hover);
+  color: #33b8eb;
 }
 
 /* Bottom row - trademark + copyright, text #d7d7d7 */

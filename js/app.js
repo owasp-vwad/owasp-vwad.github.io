@@ -185,11 +185,11 @@
     var then = new Date(isoDate).getTime();
     if (isNaN(then)) return null;
     var days = (Date.now() - then) / (24 * 60 * 60 * 1000);
-    if (days < 30) return { label: '< 1mo', slug: 'lt1mo' };
-    if (days < 30 * 6) return { label: '< 6mo', slug: 'lt6mo' };
-    if (days < 365) return { label: '< 1y', slug: 'lt1y' };
-    if (days < 365 * 2) return { label: '< 2y', slug: 'lt2y' };
-    return { label: '2y +', slug: '2y' };
+    if (days < 30) return { label: '< 1mo', slug: 'lt1mo', title: 'Last contributed less than 1 month ago' };
+    if (days < 30 * 6) return { label: '< 6mo', slug: 'lt6mo', title: 'Last contributed 1 to 6 months ago' };
+    if (days < 365) return { label: '< 1y', slug: 'lt1y', title: 'Last contributed 6 to 12 months ago' };
+    if (days < 365 * 2) return { label: '< 2y', slug: 'lt2y', title: 'Last contributed 1 to 2 years ago' };
+    return { label: '2y +', slug: '2y', title: 'Last contributed more than 2 years ago' };
   }
 
   function escapeHtml(s) {
@@ -251,6 +251,26 @@
     } catch (e) {
       return iso;
     }
+  }
+
+  /**
+   * Renders a compact homepage card for an app: name, short description, and actions.
+   * The Shuffle button carries data-featured-shuffle so the page can draw another app.
+   */
+  function renderCompactApp(app) {
+    if (!app || typeof app !== 'object') return '';
+    var detailUrl = escapeHtml(getAppUrl(app));
+    var html = '<article class="featured-card-body">';
+    html += '<div class="featured-card-header">' + renderAppLogoSlot(app);
+    html += '<h3 class="featured-card-title"><a href="' + detailUrl + '">' + escapeHtml(app.name || '') + '</a></h3></div>';
+    if (app.description && app.description.trim()) {
+      html += '<p class="featured-card-text">' + escapeHtml(app.description.trim()) + '</p>';
+    }
+    html += '<div class="featured-card-actions">';
+    html += '<a href="' + detailUrl + '" class="btn btn-primary">View details</a>';
+    html += '<button type="button" class="btn btn-secondary" data-featured-shuffle>Shuffle</button>';
+    html += '</div></article>';
+    return html;
   }
 
   /**
@@ -373,6 +393,7 @@
     getUpdatedBand: getUpdatedBand,
     getAppLogoUrl: getAppLogoUrl,
     renderApp: renderApp,
+    renderCompactApp: renderCompactApp,
     COLLECTION_TOOLTIPS: COLLECTION_TOOLTIPS,
     CATEGORY_TOOLTIPS: CATEGORY_TOOLTIPS
   };

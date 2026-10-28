@@ -22,6 +22,8 @@ OUT_DIR = ROOT / "_site"
 INDEX_HTML = ROOT / "index.html"
 COLLECTION_JSON = ROOT / "data" / "collection.json"
 SLUG_REDIRECTS_JSON = ROOT / "data" / "slug_redirects.json"
+START_HERE_JSON = ROOT / "data" / "start_here.json"
+BUILD_START_HERE_PLACEHOLDER = "<!-- BUILD_START_HERE -->"
 APP_LOGO_DIR = ROOT / "images" / "app_logos"
 # Same-stem SVG beats raster when both exist in app_logos/.
 RASTER_LOGO_PRIORITY = {".png": 40, ".jpg": 30, ".jpeg": 30, ".webp": 25, ".gif": 20}
@@ -197,6 +199,37 @@ def load_slug_redirects() -> dict[str, str]:
     return json.loads(SLUG_REDIRECTS_JSON.read_text(encoding="utf-8"))
 
 
+def load_start_here() -> list[str]:
+    """Load the pinned 'Start here' app slugs, in display order."""
+    return json.loads(START_HERE_JSON.read_text(encoding="utf-8"))
+
+
+def validate_start_here(apps: list[dict], slugs: list[str]) -> None:
+    known_slugs = {str(app.get("slug", "")).strip() for app in apps}
+    for slug in slugs:
+        if slug not in known_slugs:
+            raise ValueError(f'Start here slug "{slug}" does not match any app slug')
+    if len(set(slugs)) != len(slugs):
+        raise ValueError("Start here slugs contain duplicates")
+
+
+def render_start_here(apps: list[dict], slugs: list[str]) -> str:
+    by_slug = {app["slug"]: app for app in apps}
+    items = "\n".join(
+        f'          <li><a href="{escape("app/" + slug + "/")}">{escape(by_slug[slug]["name"])}</a></li>'
+        for slug in slugs
+    )
+    return (
+        '<section class="start-here" aria-labelledby="start-here-heading">\n'
+        '          <h2 id="start-here-heading" class="start-here-heading">Start here</h2>\n'
+        '          <p class="section-desc">Not sure where to start? Pick one of these to learn the basics.</p>\n'
+        '          <ul class="start-here-list">\n'
+        f"{items}\n"
+        "          </ul>\n"
+        "        </section>"
+    )
+
+
 def local_app_logo_paths() -> dict[str, str]:
     """slug stem -> site-relative path under images/app_logos/. SVG beats same-stem raster."""
     best: dict[str, tuple[int, str]] = {}
@@ -310,15 +343,17 @@ def validate_slug_redirects(apps: list[dict], slug_redirects: dict[str, str]) ->
 
 def render_slug_redirect_page(site_url: str, old_slug: str, new_slug: str) -> str:
     """Render an HTML redirect page from old_slug to new_slug."""
-    raw_url = absolute_url(site_url, f"/app/{new_slug}/")
-    html_url = escape(raw_url)
-    js_url = json.dumps(raw_url)
+    # Redirect targets are relative so they work on local builds too; the canonical stays absolute for SEO.
+    target_url = f"../{new_slug}/"
+    html_url = escape(target_url)
+    js_url = json.dumps(target_url)
+    canonical_url = escape(absolute_url(site_url, f"/app/{new_slug}/"))
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="refresh" content="0;url={html_url}">
-  <link rel="canonical" href="{html_url}">
+  <link rel="canonical" href="{canonical_url}">
   <title>Redirecting&hellip;</title>
   <script>window.location.replace({js_url});</script>
 </head>
@@ -545,14 +580,21 @@ def home_jsonld(site_url: str, apps: list[dict]) -> dict:
 
 
 def build_homepage(
-    site_url: str, apps: list[dict], css_bundle_hrefs: list[str], logo_paths: dict[str, str]
+    site_url: str,
+    apps: list[dict],
+    css_bundle_hrefs: list[str],
+    logo_paths: dict[str, str],
+    start_here_html: str,
 ) -> None:
     home_html = INDEX_HTML.read_text(encoding="utf-8")
     home_html = inject_app_logo_paths_script(home_html, logo_paths)
     placeholder = "<!-- BUILD_HOME_JSONLD -->"
     if placeholder not in home_html:
         raise ValueError("Homepage JSON-LD placeholder not found in index.html")
+    if BUILD_START_HERE_PLACEHOLDER not in home_html:
+        raise ValueError("Start here placeholder not found in index.html")
     script = "  " + json_script(home_jsonld(site_url, apps)).replace("\n", "\n  ")
+    home_html = home_html.replace(BUILD_START_HERE_PLACEHOLDER, start_here_html)
     rendered = replace_stylesheet_block(home_html.replace(placeholder, script), css_bundle_hrefs)
     (OUT_DIR / "index.html").write_text(rendered, encoding="utf-8")
 
@@ -591,14 +633,14 @@ def updated_band(value: str) -> dict | None:
         return None
     days = (datetime.now(timezone.utc) - then.astimezone(timezone.utc)).total_seconds() / 86400
     if days < 30:
-        return {"label": "< 1mo", "slug": "lt1mo"}
+        return {"label": "< 1mo", "slug": "lt1mo", "title": "Last contributed less than 1 month ago"}
     if days < 30 * 6:
-        return {"label": "< 6mo", "slug": "lt6mo"}
+        return {"label": "< 6mo", "slug": "lt6mo", "title": "Last contributed 1 to 6 months ago"}
     if days < 365:
-        return {"label": "< 1y", "slug": "lt1y"}
+        return {"label": "< 1y", "slug": "lt1y", "title": "Last contributed 6 to 12 months ago"}
     if days < 365 * 2:
-        return {"label": "< 2y", "slug": "lt2y"}
-    return {"label": "2y +", "slug": "2y"}
+        return {"label": "< 2y", "slug": "lt2y", "title": "Last contributed 1 to 2 years ago"}
+    return {"label": "2y +", "slug": "2y", "title": "Last contributed more than 2 years ago"}
 
 
 def title_case(value: str) -> str:
@@ -824,7 +866,15 @@ def render_action_links(app: dict) -> str:
             + escape(label)
             + "</a>"
         )
-    return " ".join(links)
+    primary, resources = links[0], links[1:]
+    html = '<div class="app-detail-links">' + primary
+    if resources:
+        html += (
+            '<div class="app-detail-resources"><span class="label">Resources</span> '
+            + " ".join(resources)
+            + "</div>"
+        )
+    return html + "</div>"
 
 
 def render_app_logo_header_open(app: dict, logo_paths: dict[str, str]) -> str:
@@ -844,7 +894,80 @@ def render_app_logo_header_open(app: dict, logo_paths: dict[str, str]) -> str:
     return '<div class="app-detail-header">' + slot + '<div class="app-detail-title-wrap">'
 
 
-def render_app_content(app: dict, description: str, logo_paths: dict[str, str]) -> str:
+RELATED_APP_COUNT = 4
+
+# Restores the directory search (saved by js/home.js when the app was opened) in the back link.
+BACK_TO_DIRECTORY_SCRIPT = """<script>
+(function () {
+  try {
+    var query = sessionStorage.getItem('vwad-directory-query');
+    var link = document.querySelector('[data-back-to-directory]');
+    if (query && link) link.setAttribute('href', './' + query);
+  } catch (e) {
+    // Storage can be blocked; the link keeps pointing at the plain directory.
+  }
+})();
+</script>"""
+
+
+def render_quick_facts(app: dict) -> str:
+    facts: list[str] = []
+    if app.get("stars") is not None:
+        facts.append('<span class="app-quick-fact">' + render_badge(int(app["stars"])) + "</span>")
+    if app.get("last_contributed"):
+        band = updated_band(app["last_contributed"])
+        pill = (
+            ' <span class="pill pill-updated pill-updated-'
+            + escape(band["slug"])
+            + '" title="'
+            + escape(band["title"])
+            + '">'
+            + escape(band["label"])
+            + "</span>"
+        ) if band else ""
+        facts.append(
+            '<span class="app-quick-fact"><span class="label">Last contribution</span> '
+            + escape(format_date(app["last_contributed"]))
+            + pill
+            + "</span>"
+        )
+    if not facts:
+        return ""
+    return '<div class="app-quick-facts">' + "".join(facts) + "</div>"
+
+
+def find_related_apps(app: dict, apps: list[dict]) -> list[dict]:
+    """Apps sharing the most technology (weight 2) and categories (weight 1) with this one."""
+    techs = set(app.get("technology") or [])
+    cats = set(app.get("categories") or [])
+    scored: list[tuple[int, str, dict]] = []
+    for other in apps:
+        if other["slug"] == app["slug"]:
+            continue
+        score = 2 * len(techs & set(other.get("technology") or [])) + len(
+            cats & set(other.get("categories") or [])
+        )
+        if score:
+            scored.append((-score, other["name"].lower(), other))
+    scored.sort(key=lambda item: item[:2])
+    return [item[2] for item in scored[:RELATED_APP_COUNT]]
+
+
+def render_related_apps(related: list[dict]) -> str:
+    if not related:
+        return ""
+    items = "".join(
+        '<li><a href="' + escape("app/" + other["slug"] + "/") + '">' + escape(other["name"]) + "</a></li>"
+        for other in related
+    )
+    return (
+        '<section class="app-detail-related" aria-labelledby="app-related-heading">'
+        '<h2 id="app-related-heading">Related apps</h2>'
+        '<ul class="app-detail-related-list">' + items + "</ul></section>"
+    )
+
+
+def render_app_content(app: dict, description: str, logo_paths: dict[str, str], related_html: str) -> str:
     rows: list[str] = []
     if app.get("collection"):
         rows.append(
@@ -870,27 +993,7 @@ def render_app_content(app: dict, description: str, logo_paths: dict[str, str]) 
             + escape(app["author"])
             + "</div>"
         )
-    if app.get("stars") is not None:
-        rows.append(
-            '<div class="app-detail-row"><span class="label">Stars</span> '
-            + render_badge(int(app["stars"]))
-            + "</div>"
-        )
-    if app.get("last_contributed"):
-        band = updated_band(app["last_contributed"])
-        pill = (
-            ' <span class="pill pill-updated pill-updated-'
-            + escape(band["slug"])
-            + '">'
-            + escape(band["label"])
-            + "</span>"
-        ) if band else ""
-        rows.append(
-            '<div class="app-detail-row"><span class="label">Last contribution</span> '
-            + escape(format_date(app["last_contributed"]))
-            + pill
-            + "</div>"
-        )
+    quick_facts = render_quick_facts(app)
 
     notes_html = ""
     notes = str(app.get("notes", "") or "").strip()
@@ -914,18 +1017,24 @@ def render_app_content(app: dict, description: str, logo_paths: dict[str, str]) 
         <h1 class="app-detail-title">{name}</h1>
         </div></div>
         <div class="app-detail-description"><p>{description}</p></div>
+        {quick_facts}
         <div class="app-detail-meta">{rows}</div>
-        <div class="app-detail-links">{links}</div>
+        {links}
         {notes}
-        <p class="app-detail-back"><a href="./">← Back to directory</a></p>
+        {related}
+        <p class="app-detail-back"><a href="./" data-back-to-directory>← Back to directory</a></p>
+        {back_script}
       </article>
     </div>""".format(
         header_open=header_open,
         name=escape(app["name"]),
         description=escape(description),
         rows="".join(rows),
+        quick_facts=quick_facts,
         links=render_action_links(app),
         notes=notes_html,
+        related=related_html,
+        back_script=BACK_TO_DIRECTORY_SCRIPT,
     )
 
 
@@ -937,12 +1046,13 @@ def render_app_page(
     description: str,
     css_bundle_hrefs: list[str],
     logo_paths: dict[str, str],
+    related_html: str,
 ) -> str:
     page_title = f'{app["name"]} - OWASP VWAD'
     page_url = app_page_url(site_url, app)
     og_image_url = absolute_url(site_url, OG_IMAGE_PATH)
     structured_data = json_script(application_jsonld(site_url, app, description))
-    main_content = render_app_content(app, description, logo_paths)
+    main_content = render_app_content(app, description, logo_paths, related_html)
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1045,6 +1155,7 @@ def write_app_pages(
                 }
             )
         description = get_description(app, warnings)
+        related_html = render_related_apps(find_related_apps(app, apps))
         page_html = render_app_page(
             site_url,
             body_prefix,
@@ -1053,6 +1164,7 @@ def write_app_pages(
             description,
             css_bundle_hrefs,
             logo_paths,
+            related_html,
         )
         target = OUT_DIR / "app" / app["slug"] / "index.html"
         target.parent.mkdir(parents=True, exist_ok=True)
@@ -1100,6 +1212,9 @@ def build() -> int:
     slug_redirects = load_slug_redirects()
     validate_collection(apps)
     validate_slug_redirects(apps, slug_redirects)
+    start_here_slugs = load_start_here()
+    validate_start_here(apps, start_here_slugs)
+    start_here_html = render_start_here(apps, start_here_slugs)
     logo_paths = local_app_logo_paths()
     reset_output_dir()
     copy_allowlist()
@@ -1108,7 +1223,7 @@ def build() -> int:
     home_bundle_hrefs = [css_bundles["core"], css_bundles["home"]]
     app_bundle_hrefs = [css_bundles["core"], css_bundles["app"]]
     not_found_bundle_hrefs = [css_bundles["core"], css_bundles["404"]]
-    build_homepage(site_url, apps, home_bundle_hrefs, logo_paths)
+    build_homepage(site_url, apps, home_bundle_hrefs, logo_paths, start_here_html)
     write_compatibility_pages(app_bundle_hrefs, not_found_bundle_hrefs, logo_paths)
     warnings = logo_warnings + write_app_pages(site_url, apps, app_bundle_hrefs, logo_paths)
     write_slug_redirect_pages(site_url, slug_redirects)

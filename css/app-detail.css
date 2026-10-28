@@ -149,3 +149,63 @@
 .app-detail-back a:hover {
   text-decoration: underline;
 }
+
+/* Quick facts: stars and last activity, shown above the metadata rows; the strip is omitted when both are missing */
+.app-quick-facts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.app-quick-fact {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.app-quick-fact .label {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* Secondary references, grouped under a labeled row that wraps below the Link button */
+.app-detail-resources {
+  flex-basis: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.app-detail-resources .label {
+  color: var(--text-muted);
+  font-size: 1rem;
+  font-weight: 600;
+  min-width: 7rem;
+}
+
+/* Related apps: shared technology or category with the current app */
+.app-detail-related {
+  margin-top: 2rem;
+}
+
+.app-detail-related h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.25rem;
+  font-family: var(--font-heading);
+}
+
+.app-detail-related-list {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.app-detail-related-list a {
+  color: var(--link);
+}

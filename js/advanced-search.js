@@ -78,6 +78,7 @@
         trigger: document.getElementById('advanced-tech-trigger'),
         panel: document.getElementById('advanced-tech-panel'),
         options: document.getElementById('advanced-tech-options'),
+        filter: document.getElementById('advanced-tech-filter'),
         pills: document.getElementById('advanced-tech-pills'),
         done: searchControls.querySelector('[data-close-panel="technology"]'),
         root: searchControls.querySelector('[data-multi-select="technology"]'),
@@ -140,6 +141,10 @@
         return;
       }
       config.panel.hidden = false;
+      if (config.filter && config.filter.value) {
+        config.filter.value = '';
+        filterOptions(group);
+      }
       config.trigger.setAttribute('aria-expanded', 'true');
       config.root.classList.add('is-open');
       openPanelGroup = group;
@@ -173,7 +178,12 @@
         config.trigger.textContent = values.length + ' selected';
       }
 
-      renderPillButtons(config.pills, values.map(function (value) {
+      renderPillButtons(config.pills, getMultiSelectPills(group));
+    }
+
+    function getMultiSelectPills(group) {
+      var config = multiSelects[group];
+      return currentState()[config.valueKey].map(function (value) {
         return {
           group: config.valueKey,
           value: value,
@@ -181,10 +191,10 @@
           ariaLabel: 'Remove ' + config.labelForValue(value) + ' from ' + group + ' filters',
           pillClass: group === 'categories' ? 'pill-category' : group === 'collection' ? 'pill-collection' : ''
         };
-      }));
+      });
     }
 
-    function renderStarsPills() {
+    function getStarsPills() {
       var state = currentState();
       var pills = [];
       if (state.stars) {
@@ -195,10 +205,10 @@
           ariaLabel: 'Remove GitHub stars filter: ' + Browse.getStarsLabel(state.stars)
         });
       }
-      renderPillButtons(elements.starsPills, pills);
+      return pills;
     }
 
-    function renderYearPills() {
+    function getYearPills() {
       var state = currentState();
       var pills = [];
       if (state.yearFrom) {
@@ -217,7 +227,23 @@
           ariaLabel: 'Remove year to filter: ' + state.yearTo
         });
       }
-      renderPillButtons(elements.yearPills, pills);
+      return pills;
+    }
+
+    function renderStarsPills() {
+      renderPillButtons(elements.starsPills, getStarsPills());
+    }
+
+    function renderYearPills() {
+      renderPillButtons(elements.yearPills, getYearPills());
+    }
+
+    function getActiveFilterPills() {
+      var pills = [];
+      Object.keys(multiSelects).forEach(function (group) {
+        pills = pills.concat(getMultiSelectPills(group));
+      });
+      return pills.concat(getStarsPills(), getYearPills());
     }
 
     function normalizeYearRange(changedField) {
@@ -235,6 +261,7 @@
 
     function syncControls() {
       var state = currentState();
+      normalizeYearRange('yearFrom');
       elements.query.value = state.query;
       elements.stars.value = state.stars;
       elements.yearFrom.value = state.yearFrom;
@@ -311,6 +338,14 @@
         return '<label class="advanced-option"><input type="checkbox" data-multi-option="' + escapeHtml(group) + '" value="' + escapeHtml(value) + '"><span>' + escapeHtml(label) + '</span></label>';
       }).join('');
       renderMultiSelect(group);
+    }
+
+    function filterOptions(group) {
+      var config = multiSelects[group];
+      var query = config.filter.value.trim().toLowerCase();
+      Array.prototype.forEach.call(config.options.querySelectorAll('.advanced-option'), function (option) {
+        option.hidden = !!query && option.textContent.toLowerCase().indexOf(query) === -1;
+      });
     }
 
     function populateYearOptions(values) {
@@ -390,6 +425,15 @@
       if (isActive()) requestSearch();
     });
 
+    multiSelects.technology.filter.addEventListener('input', function () {
+      filterOptions('technology');
+    });
+
+    elements.filterToggle.addEventListener('click', function () {
+      var expanded = elements.grid.classList.toggle('is-expanded');
+      elements.filterToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    });
+
     Object.keys(multiSelects).forEach(function (group) {
       var config = multiSelects[group];
 
@@ -426,12 +470,8 @@
       }
     });
 
-    searchControls.addEventListener('click', function (event) {
-      var pillButton = event.target.closest('.search-filter-pill');
+    function removeFilterPill(group, value) {
       var state = currentState();
-      if (!pillButton) return;
-      var group = pillButton.getAttribute('data-pill-group');
-      var value = pillButton.getAttribute('data-pill-value');
       if (group === 'collection') {
         state.collection = Browse.removeValue(state.collection, value);
         if (!state.collection.length) state.collectionMode = 'or';
@@ -451,6 +491,12 @@
       } else if (group === 'yearTo') {
         state.yearTo = '';
       }
+    }
+
+    searchControls.addEventListener('click', function (event) {
+      var pillButton = event.target.closest('.search-filter-pill');
+      if (!pillButton) return;
+      removeFilterPill(pillButton.getAttribute('data-pill-group'), pillButton.getAttribute('data-pill-value'));
       syncControls();
       if (isActive()) requestSearch();
     });
@@ -475,6 +521,8 @@
     return {
       closeAllPanels: closeAllPanels,
       hasActiveFilters: hasActiveFilters,
+      getActiveFilterPills: getActiveFilterPills,
+      removeFilterPill: removeFilterPill,
       syncControls: syncControls,
       buildFilters: buildFilters,
       applyTableFilter: applyTableFilter,
@@ -482,6 +530,7 @@
     };
   }
 
+  Browse.renderPillButtons = renderPillButtons;
   Browse.createDefaultAdvancedState = createDefaultAdvancedState;
   Browse.createAdvancedController = createAdvancedController;
 })();
