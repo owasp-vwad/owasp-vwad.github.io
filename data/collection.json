@@ -2056,6 +2056,35 @@
 		]
 	},
 	{
+		"url": "https://github.com/CesarBeltran/faultshop",
+		"name": "FaultShop",
+		"slug": "faultshop",
+		"collection": [
+			"offline",
+			"container"
+		],
+		"technology": [
+			"Python",
+			"Flask",
+			"SQLite",
+			"Docker"
+		],
+		"references": [
+			{
+				"name": "docker",
+				"url": "https://hub.docker.com/r/cbeltranh/faultshop"
+			}
+		],
+		"author": "Cesar R. Beltrán-Hernández",
+		"description": "Intentionally vulnerable online store for ethical web hacking practice. Based on the OWASP Top 10:2025 and OWASP API Security Top 10:2023, with 18 documented vulnerabilities (SQLi, XSS, IDOR, SSRF, JWT, CSRF, mass assignment and more), a vulnerable REST API and a built-in MailHog server for password reset attacks.",
+		"notes": "Start with docker compose up -d. FaultShop on http://localhost:5000/, MailHog on http://localhost:8025/. Test users: admin / admin123, carlos / password1. Reset the lab at /setup. Do not expose to public networks.",
+		"badge": "CesarBeltran/faultshop",
+		"categories": [
+			"free-form",
+			"single-player"
+		]
+	},
+	{
 		"url": "http://ffuf.me/",
 		"name": "FFUF.me",
 		"slug": "ffuf-me",
