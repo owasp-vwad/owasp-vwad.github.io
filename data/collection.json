@@ -2104,10 +2104,6 @@
 		],
 		"references": [
 			{
-				"name": "download",
-				"url": "https://github.com/CesarBeltran/faultshop"
-			},
-			{
 				"name": "docker",
 				"url": "https://hub.docker.com/r/cbeltranh/faultshop"
 			}
