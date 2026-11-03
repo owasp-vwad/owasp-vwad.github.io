@@ -26,6 +26,12 @@ jobs:
       with:
         persist-credentials: false
         ref: ${{ github.event.pull_request.base.ref || github.ref }}
+    - name: Set up Python
+      uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0  # v7.1.0
+      with:
+        python-version: '3.14'
+    - name: Install dependencies
+      run: python3 -m pip install -r requirements.txt
     - name: Sparse checkout changed datafiles from PR
       if: github.event_name == 'pull_request'
       run: |
