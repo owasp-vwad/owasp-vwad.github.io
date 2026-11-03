@@ -19,7 +19,7 @@ python3 -m venv .venv
 # 2. Activate the environment
 source .venv/bin/activate
 
-# 3. Install build dependencies (Pillow, for logo resizing) if you haven't previously
+# 3. Install dependencies (Pillow for logo resizing; PyGithub, requests and jsonschema for the workflow scripts) if you haven't previously
 python3 -m pip install -r requirements.txt
 ```
 
@@ -57,7 +57,7 @@ The build resizes raster logos (PNG, JPEG, WebP) in `_site/images/app_logos/` to
 - `data/contributors.json` - Contributor data used by the homepage contributors section.
 - `data/archived_repos.json` - Archive-status data maintained by the stats workflow.
 - `schema.json` - Source validation schema for `data/collection.json`.
-- `requirements.txt` - Python build dependencies (Pillow). Kept current by Dependabot.
+- `requirements.txt` - Python dependencies for the site build (Pillow) and the workflow scripts in `.github/workflows/scripts/` (PyGithub, requests, jsonschema). Shared by all Python workflows. Kept current by Dependabot.
 - `scripts/build_site.py` - Builds `_site/`, pre-renders app pages, resizes raster app logos, injects JSON-LD and inline logo metadata, writes sitemap, flattens CSS into shared and page-specific bundles under `_site/css/build/`, and emits `generated_site_report.json`.
 - `scripts/validate_generated_site.py` - Validates generated app pages, sitemap, canonical tags, JSON-LD, and compatibility redirects.
 - `_site/` - Generated deploy output, including flattened shared and page-specific CSS bundles. Not committed.

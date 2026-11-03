@@ -2,6 +2,10 @@
 
 This directory contains scripts used by GitHub Actions workflows: validation for `data/collection.json`, and automation for stats, contributors, and repository discovery.
 
+## Dependencies
+
+The scripts need Python 3.14 and the packages in the repository root `requirements.txt` (`jsonschema` for `check_schema.py`, `requests` for the stats, contributors and link scripts, `PyGithub` for `scout.py`). Install them with `python3 -m pip install -r requirements.txt` from the repository root, ideally in a virtual environment. Workflows use the same file, and Dependabot keeps it current with a 7 day cooldown.
+
 ## Scripts
 
 ### check_schema.py
