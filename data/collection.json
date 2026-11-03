@@ -770,6 +770,41 @@
 		]
 	},
 	{
+		"url": "https://github.com/sonukapoor/cve-lite-classroom",
+		"name": "CVE Lite Classroom",
+		"slug": "cve-lite-classroom",
+		"collection": [
+			"offline"
+		],
+		"technology": [
+			"JavaScript",
+			"Node.js",
+			"HTML",
+			"CSS"
+		],
+		"references": [
+			{
+				"name": "guide",
+				"url": "https://sonukapoor.github.io/cve-lite-classroom/"
+			},
+			{
+				"name": "download",
+				"url": "https://github.com/sonukapoor/cve-lite-classroom/releases/latest"
+			}
+		],
+		"author": "Sonu Kapoor",
+		"description": "A collection of intentionally vulnerable applications and guided security lessons for students. Includes a browser-only message board for XSS, local Node.js applications for broken access control, security misconfiguration and insecure password storage, and dependency-security exercises. Supplied with student worksheets, runnable reference solutions, teaching plans and grading rubrics.",
+		"notes": "Download and extract a student kit or the repository. The browser-only lesson runs from exercises/04-browser-security-basics/student/index.html without installation. For lessons 05-07, run node server.mjs from the lesson's student directory with Node.js 22+ and visit http://127.0.0.1:3000. Run only one lesson server at a time. Intentionally insecure; use locally for education and do not deploy publicly.",
+		"badge": "sonukapoor/cve-lite-classroom",
+		"stars": 1,
+		"last_contributed": "2026-11-03T13:46:03Z",
+		"categories": [
+			"guided-lessons",
+			"code-review",
+			"single-player"
+		]
+	},
+	{
 		"url": "https://github.com/convisolabs/CVWA",
 		"name": "CVWA - Conviso Vulnerable Web Application",
 		"slug": "cvwa-conviso-vulnerable-web-application",
