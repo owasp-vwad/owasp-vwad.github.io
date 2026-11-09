@@ -49,6 +49,12 @@ Bundled logos for the browse table, featured card, and static app pages are disc
 
 The build resizes raster logos (PNG, JPEG, WebP) in `_site/images/app_logos/` to at most 144px on the longest side, without upscaling. Source files, SVGs, and animated GIFs are not resized. A skipped animated GIF, or a logo that cannot be processed, keeps its original and is reported as a non-blocking warning in the build output, `generated_site_report.json`, and the GitHub Actions job summary.
 
+## Site Branding Images
+
+- `images/logos/vwad-icon-bolt-400.png` - 400x400 avatar (profile picture) for the VWAD GitHub organization and any related GitHub accounts. It is not referenced by the site; upload it manually in the GitHub settings.
+- `images/logos/og-image.png` - 1200x630 social preview card (`og:image` and `twitter:image`).
+- `images/logos/favicon.svg`, `favicon-maskable.svg`, `apple-touch-icon.png` - browser, PWA, and iOS icons.
+
 ## Structure
 
 - `index.html` - Homepage source template. The build injects homepage JSON-LD and replaces `<!-- BUILD_APP_LOGO_PATHS -->` with the logo paths script before writing `_site/index.html`.

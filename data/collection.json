@@ -95,6 +95,34 @@
 		]
 	},
 	{
+		"url": "https://github.com/cerberauth/api-vulns-challenges",
+		"name": "API Vulnerabilities Challenges",
+		"slug": "api-vulns-challenges",
+		"collection": [
+			"online",
+			"offline",
+			"container"
+		],
+		"technology": [
+			"Golang",
+			"NodeJS",
+			"Apollo",
+			"GraphQL"
+		],
+		"description": "A collection of intentionally vulnerable APIs designed to help developers and security professionals practice API security testing. It covers vulnerabilities such as JWT attacks, authentication bypasses, SSRF, HTTP request smuggling, and cache poisoning. Challenges support both vulnerable and fixed implementations.",
+		"notes": "Challenge servers support two execution modes through the --vulnerable flag: --vulnerable=true (default): Runs the intentionally vulnerable implementation. --vulnerable=false: Runs the fixed implementation, allowing users to validate vulnerability detection and remediation. See individual challenge README files for setup instructions and details.",
+		"badge": "cerberauth/api-vulns-challenges",
+		"categories": [
+			"ctf",
+			"code-review",
+			"single-player",
+			"multi-player",
+			"guided-lessons",
+			"free-form",
+			"scanner-test"
+		]
+	},
+	{
 		"url": "https://github.com/API-Security/APISandbox",
 		"name": "APISandbox",
 		"slug": "apisandbox",
