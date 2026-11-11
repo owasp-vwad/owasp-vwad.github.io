@@ -5084,6 +5084,7 @@
 	{
 		"url": "https://github.com/Excession-Labs/web-security-fixtures",
 		"name": "web-security-fixtures",
+		"slug": "web-security-fixtures",
 		"collection": [
 			"offline"
 		],
