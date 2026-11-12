@@ -5082,6 +5082,29 @@
 		"last_contributed": "2021-04-23T14:25:50Z"
 	},
 	{
+		"url": "https://github.com/Excession-Labs/web-security-fixtures",
+		"name": "web-security-fixtures",
+		"slug": "web-security-fixtures",
+		"collection": [
+			"offline"
+		],
+		"categories": [
+			"single-player"
+		],
+		"technology": [
+			"Python"
+		],
+		"references": [
+			{
+				"name": "download",
+				"url": "https://github.com/Excession-Labs/web-security-fixtures"
+			}
+		],
+		"author": "Excession Labs",
+		"description": "Small local fixtures that reproduce 21 common web and API flaws (IDOR, SQL injection, SSRF, CSRF, race conditions and more). Each has a vulnerable mode, a fixed mode, a verifier and a recorded run.",
+		"notes": "Run python3 verify.py --output rerun inside a fixture folder. Servers bind to 127.0.0.1 only; run on your own machine. row-level-security needs local PostgreSQL, graphql-introspection installs graphql-core into a temporary venv, and clickjacking and csrf-samesite have an optional Playwright browser check."
+	},
+	{
 		"url": "https://webgoat.github.io/WebGoat/",
 		"name": "WebGoat",
 		"slug": "webgoat",
