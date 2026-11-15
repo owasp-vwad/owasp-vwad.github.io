@@ -38,7 +38,7 @@
 		"description": "Learn AI/LLM security through vulnerable LLM CTF challenges. Uses Vicuna (LLaMA-derived) locally; no sign-ups or cloud fees. Aligns with OWASP Top 10 for LLM Applications; covers prompt injection, insecure output handling, data leakage, and more.",
 		"notes": "Run locally: ./ai-goat.py --install then ./ai-goat.py --run <challenge>. Optional CTFd at port 8000 (create user after launch). Requires Docker, ~8GB disk for LLM, 16GB RAM (8GB for challenge).",
 		"badge": "dhammon/ai-goat",
-		"stars": 376,
+		"stars": 377,
 		"last_contributed": "2024-08-22T02:33:49Z",
 		"categories": [
 			"ctf",
@@ -59,7 +59,7 @@
 		"author": "t0thkr1s",
 		"description": "Intentionally vulnerable Android application.",
 		"badge": "t0thkr1s/allsafe-android",
-		"stars": 446,
+		"stars": 447,
 		"last_contributed": "2025-09-20T10:47:24Z",
 		"categories": [
 			"free-form",
@@ -87,7 +87,7 @@
 		"notes": "APK from releases page; install on device or emulator (enable Unknown Sources). Covers root/emulator detection, insecure storage, input validation (XSS, SQLi, WebView, QR), unprotected components, certificate pinning, and more.",
 		"author": "satishpatnayak",
 		"badge": "satishpatnayak/AndroGoat",
-		"stars": 412,
+		"stars": 418,
 		"last_contributed": "2025-11-22T05:07:26Z",
 		"categories": [
 			"free-form",
@@ -120,7 +120,9 @@
 			"guided-lessons",
 			"free-form",
 			"scanner-test"
-		]
+		],
+		"stars": 7,
+		"last_contributed": "2026-10-17T15:22:37Z"
 	},
 	{
 		"url": "https://github.com/API-Security/APISandbox",
@@ -140,7 +142,7 @@
 			"ctf",
 			"multi-player"
 		],
-		"stars": 424,
+		"stars": 423,
 		"last_contributed": "2022-03-10T13:12:25Z"
 	},
 	{
@@ -164,7 +166,7 @@
 		],
 		"author": "Arcanum-Sec",
 		"badge": "Arcanum-Sec/ai-sec-resources",
-		"stars": 531,
+		"stars": 535,
 		"last_contributed": "2026-07-03T05:13:35Z",
 		"categories": [
 			"ctf",
@@ -197,7 +199,7 @@
 		"author": "digininja (Robin Wood)",
 		"badge": "digininja/authlab",
 		"stars": 98,
-		"last_contributed": "2023-01-30T09:47:54Z",
+		"last_contributed": "2026-11-13T21:28:17Z",
 		"categories": [
 			"ctf",
 			"single-player"
@@ -303,7 +305,7 @@
 		"author": "@schenlong",
 		"description": "Basileak is an intentionally vulnerable large language model built for prompt injection training, red team education, and CTF-style security research. It is the adversarial target at the core of a prompt-injection training lab.",
 		"badge": "OWASP/Basileak",
-		"stars": 34,
+		"stars": 35,
 		"last_contributed": "2026-08-24T10:03:19Z",
 		"categories": [
 			"ctf",
@@ -637,7 +639,7 @@
 		"description": "Deliberately vulnerable CI/CD environment. 11 challenges covering OWASP Top 10 CI/CD Security Risks; Gitea, Jenkins, GitLab, LocalStack, CTFd. Learn and practice CI/CD security through real pipelines; capture the flags.",
 		"notes": "docker compose up -d; allow ~5 min for setup. CTFd at http://localhost:8000 (alice/alice); Jenkins 8080, Gitea 3000, GitLab 4000.",
 		"badge": "cider-security-research/cicd-goat",
-		"stars": 2334,
+		"stars": 2338,
 		"last_contributed": "2024-07-11T13:31:30Z",
 		"categories": [
 			"ctf",
@@ -674,7 +676,7 @@
 		"description": "Rhino Security Labs' \"Vulnerable by Design\" cloud deployment tool. CTF-style scenarios: create and complete scenarios in AWS (and Azure); explore the environment, identify vulnerabilities, and exploit to the goal. Modular; each scenario can be started, reset, or shut down independently.",
 		"notes": "Do not deploy in production or alongside sensitive resources. Requires Python 3.9+, Terraform, AWS CLI, Azure CLI (for Azure scenarios). Linux/macOS.",
 		"badge": "RhinoSecurityLabs/cloudgoat",
-		"stars": 3777,
+		"stars": 3787,
 		"last_contributed": "2026-10-14T20:57:46Z",
 		"categories": [
 			"ctf",
@@ -742,7 +744,7 @@
 		"author": "OWASP",
 		"description": "crAPI (Completely Ridiculous API) simulates an API-driven, microservice-based web application for vehicle owners. An intentionally vulnerable API focusing on the OWASP Top 10 for APIs for teaching, learning, and practicing API security; challenges are based on real-life vulnerabilities found in APIs of large companies.",
 		"badge": "OWASP/crAPI",
-		"stars": 1628,
+		"stars": 1633,
 		"last_contributed": "2026-09-09T03:43:54Z",
 		"categories": [
 			"free-form",
@@ -824,8 +826,8 @@
 		"description": "A collection of intentionally vulnerable applications and guided security lessons for students. Includes a browser-only message board for XSS, local Node.js applications for broken access control, security misconfiguration and insecure password storage, and dependency-security exercises. Supplied with student worksheets, runnable reference solutions, teaching plans and grading rubrics.",
 		"notes": "Download and extract a student kit or the repository. The browser-only lesson runs from exercises/04-browser-security-basics/student/index.html without installation. For lessons 05-07, run node server.mjs from the lesson's student directory with Node.js 22+ and visit http://127.0.0.1:3000. Run only one lesson server at a time. Intentionally insecure; use locally for education and do not deploy publicly.",
 		"badge": "sonukapoor/cve-lite-classroom",
-		"stars": 2,
-		"last_contributed": "2026-11-07T17:35:05Z",
+		"stars": 3,
+		"last_contributed": "2026-11-10T14:13:04Z",
 		"categories": [
 			"guided-lessons",
 			"code-review",
@@ -924,7 +926,7 @@
 		"notes": "docker-compose up -d. Backend http://localhost:8000, frontend http://localhost:4100, API docs http://localhost:8000/docs. Use API at /api (e.g. via Postman/Burp); collection JSON on project site.",
 		"author": "Checkmarx",
 		"badge": "Checkmarx/capital",
-		"stars": 338,
+		"stars": 339,
 		"last_contributed": "2026-06-10T14:48:11Z",
 		"categories": [
 			"free-form",
@@ -945,7 +947,7 @@
 		"notes": "Python 3.x required. For XXE (local/remote) and blind XPath injection, python-lxml is required; otherwise those challenges are disabled.",
 		"author": "Miroslav Stampar",
 		"badge": "stamparm/DSVW",
-		"stars": 884,
+		"stars": 885,
 		"last_contributed": "2026-08-19T21:27:28Z",
 		"categories": [
 			"free-form",
@@ -1070,7 +1072,7 @@
 		"notes": "Features: sign up, login, profile, transfer, beneficiaries, transaction history, fingerprint/PIN. Vulnerability list in README (spoiler). Backend Dockerized.",
 		"author": "Rewanth Tammana, Akshansh Jaiswal, Hrushikesh Kakade",
 		"badge": "rewanthtammana/Damn-Vulnerable-Bank",
-		"stars": 767,
+		"stars": 769,
 		"last_contributed": "2023-12-13T07:48:44Z",
 		"categories": [
 			"free-form",
@@ -1100,7 +1102,7 @@
 		],
 		"author": "Appsecco",
 		"badge": "appsecco/dvcsharp-api",
-		"stars": 86,
+		"stars": 87,
 		"last_contributed": "2022-12-07T07:14:10Z",
 		"categories": [
 			"free-form",
@@ -1127,7 +1129,7 @@
 		"author": "The Red Guild",
 		"badge": "theredguild/damn-vulnerable-defi",
 		"description": "Perhaps the most sophisticated vulnerable set of Solidity smart contracts ever witnessed, it features flashloans, price oracles, governance, NFTs, DEXs, lending pools, smart contract wallets, timelocks, vaults, meta-transactions, token distributions, upgradeability and more.",
-		"stars": 1385,
+		"stars": 1383,
 		"last_contributed": "2025-03-21T11:25:21Z",
 		"categories": [
 			"free-form",
@@ -1151,7 +1153,7 @@
 		"author": "Nicholas Aleks",
 		"description": "Damn Vulnerable Drone is an intentionally vulnerable drone hacking simulator based on the popular ArduPilot/MAVLink architecture, providing a realistic environment for hands-on drone hacking.",
 		"badge": "nicholasaleks/Damn-Vulnerable-Drone",
-		"stars": 862,
+		"stars": 866,
 		"categories": [
 			"free-form",
 			"single-player"
@@ -1177,7 +1179,7 @@
 		"author": "Najam Ul Saqib (cybersoldier)",
 		"description": "A deliberately insecure ElectronJS application",
 		"badge": "njmulsqb/DVEA",
-		"stars": 22,
+		"stars": 23,
 		"last_contributed": "2026-10-09T13:44:29Z",
 		"categories": [
 			"free-form",
@@ -1228,7 +1230,7 @@
 		],
 		"author": "we45 (Abhay Bhargav)",
 		"badge": "we45/DVFaaS-Damn-Vulnerable-Functions-as-a-Service",
-		"stars": 139,
+		"stars": 140,
 		"last_contributed": "2019-01-23T15:17:54Z",
 		"categories": [
 			"free-form",
@@ -1257,7 +1259,7 @@
 		"description": "Intentionally vulnerable implementation of Facebook's GraphQL technology for learning and practicing GraphQL security. Deliberately weak and insecure; provides a safe environment to attack a GraphQL application. Supports queries, mutations, subscriptions; includes DoS, injection, code execution, authorization bypass, and other scenarios. Beginner and Expert modes.",
 		"notes": "Do not deploy on Internet-facing servers. Default listen: 127.0.0.1. Port 5013.",
 		"badge": "dolevf/Damn-Vulnerable-GraphQL-Application",
-		"stars": 1719,
+		"stars": 1720,
 		"last_contributed": "2025-05-24T16:37:37Z",
 		"categories": [
 			"free-form",
@@ -1315,7 +1317,7 @@
 		"author": "prateekg147",
 		"description": "An iOS application that is damn vulnerable.",
 		"badge": "prateek147/DVIA-v2",
-		"stars": 1132,
+		"stars": 1133,
 		"last_contributed": "2024-03-29T08:01:43Z",
 		"categories": [
 			"free-form",
@@ -1340,7 +1342,7 @@
 		"notes": "Requires Java 1.7+, Maven 3.x, MySQL. Configure database in src/main/webapp/WEB-INF/config.properties; import db/schema.sql.",
 		"author": "Appsecco",
 		"badge": "appsecco/dvja",
-		"stars": 150,
+		"stars": 151,
 		"last_contributed": "2020-05-04T15:30:25Z",
 		"categories": [
 			"free-form",
@@ -1372,7 +1374,7 @@
 		],
 		"author": "Reversec Labs",
 		"badge": "ReversecLabs/damn-vulnerable-llm-agent",
-		"stars": 543,
+		"stars": 548,
 		"last_contributed": "2025-06-25T13:58:42Z",
 		"categories": [
 			"ctf",
@@ -1398,7 +1400,7 @@
 		"description": "Deliberately vulnerable MCP server for learning security vulnerabilities in Model Context Protocol implementations. Contains 10 challenges (easy/medium/hard) covering prompt injection, tool poisoning, excessive permissions, rug pull attacks, tool shadowing, indirect prompt injection, token theft, malicious code execution, and remote access control.",
 		"notes": "Docker: docker build -t dvmcp . && docker run -p 9001-9010:9001-9010 dvmcp. Not stable on Windows without Docker.",
 		"badge": "harishsg993010/damn-vulnerable-MCP-server",
-		"stars": 1365,
+		"stars": 1369,
 		"last_contributed": "2026-11-01T17:05:55Z",
 		"categories": [
 			"guided-lessons",
@@ -1420,7 +1422,7 @@
 			"free-form",
 			"single-player"
 		],
-		"stars": 49,
+		"stars": 50,
 		"last_contributed": "2020-11-15T13:24:21Z"
 	},
 	{
@@ -1525,7 +1527,7 @@
 		"notes": "Different project from isp1r0/DVNA. Docker: docker run -p 9090:9090 appsecco/dvna:sqlite (http://127.0.0.1:9090). Or docker-compose with MySQL; manual setup see docs.",
 		"author": "@appsecco",
 		"badge": "appsecco/dvna",
-		"stars": 781,
+		"stars": 783,
 		"last_contributed": "2023-11-08T12:11:49Z",
 		"categories": [
 			"free-form",
@@ -1547,7 +1549,7 @@
 		"author": "Koen Buyens",
 		"description": "Vulnerable OAuth 2.0 applications to understand the security implications of OAuth 2.0 design and implementation decisions. Covers authorization code, implicit, resource owner password, client credentials, and PKCE; classic web app, SPA, and mobile. MEAN stack; deploy the insecure app and exploit common mistakes.",
 		"badge": "koenbuyens/Vulnerable-OAuth-2.0-Applications",
-		"stars": 332,
+		"stars": 333,
 		"last_contributed": "2018-09-15T17:12:22Z",
 		"categories": [
 			"free-form",
@@ -1571,8 +1573,8 @@
 		"notes": "Docker: http://localhost:8080. Native: Python 3.6.2+, PostgreSQL, Redis; apply migrations and fixtures (see README).",
 		"author": "Oleksandr Kovalchuk",
 		"badge": "anxolerd/dvpwa",
-		"stars": 196,
-		"last_contributed": "2022-11-04T11:57:00Z",
+		"stars": 198,
+		"last_contributed": "2026-11-09T15:53:55Z",
 		"categories": [
 			"free-form",
 			"single-player"
@@ -1602,7 +1604,7 @@
 		"notes": "Do not deploy to public or Internet-facing servers. ./start_game.sh (developers) or ./start_app.sh (hackers). GitHub Codespaces supported.",
 		"author": "theowni",
 		"badge": "theowni/Damn-Vulnerable-Restaurant-API-Game",
-		"stars": 946,
+		"stars": 948,
 		"last_contributed": "2026-07-09T21:14:09Z",
 		"categories": [
 			"ctf",
@@ -1632,7 +1634,7 @@
 		"description": "Intentionally vulnerable API training game: developers fix vulnerabilities interactively; ethical hackers exploit in CTF style (escalate to root). FastAPI, PostgreSQL, Docker; http://localhost:8091 (Swagger /docs, Redoc /redoc). Supports GitHub Codespaces.",
 		"notes": "Do not deploy to public or Internet-facing servers. ./start_game.sh or ./start_app.sh.",
 		"badge": "theowni/Damn-Vulnerable-RESTaurant-API-Game",
-		"stars": 946,
+		"stars": 948,
 		"last_contributed": "2026-07-09T21:14:09Z",
 		"categories": [
 			"ctf",
@@ -1661,7 +1663,7 @@
 		],
 		"author": "Protego Labs",
 		"badge": "OWASP/DVSA",
-		"stars": 547,
+		"stars": 548,
 		"last_contributed": "2023-09-12T11:04:54Z",
 		"categories": [
 			"guided-lessons",
@@ -1716,7 +1718,7 @@
 		"description": "A PHP/MariaDB web application that is damn vulnerable. Aids security professionals to test their skills and tools in a legal environment, helps web developers understand securing web applications, and aids students and teachers to learn about web application security in a controlled environment. Practice common web vulnerabilities with various difficulty levels.",
 		"notes": "Do not deploy to Internet-facing servers. Recommended: run in a VM with NAT networking (e.g. VirtualBox, VMware).",
 		"badge": "ethicalhack3r/DVWA",
-		"stars": 13989,
+		"stars": 14025,
 		"last_contributed": "2026-10-18T17:11:33Z",
 		"categories": [
 			"free-form",
@@ -1793,8 +1795,8 @@
 		"author": "SunSec",
 		"badge": "SunWeb3Sec/DeFiHackLabs",
 		"notes": "Reproduce DeFi hacked incidents using Foundry.",
-		"stars": 6839,
-		"last_contributed": "2026-10-30T03:03:59Z",
+		"stars": 6843,
+		"last_contributed": "2026-11-15T03:01:15Z",
 		"categories": [
 			"free-form",
 			"single-player"
@@ -1824,7 +1826,7 @@
 		"author": "Payatu",
 		"description": "DIVA (Damn Insecure and Vulnerable App) is an intentionally vulnerable Android application designed to help security professionals and developers learn about Android security vulnerabilities.",
 		"badge": "payatu/diva-android",
-		"stars": 1164,
+		"stars": 1168,
 		"last_contributed": "2016-01-15T10:13:59Z",
 		"categories": [
 			"free-form",
@@ -1963,8 +1965,8 @@
 		],
 		"author": "@snoopysecurity",
 		"badge": "snoopysecurity/dvws-node",
-		"stars": 525,
-		"last_contributed": "2026-11-04T21:52:09Z",
+		"stars": 527,
+		"last_contributed": "2026-11-11T00:57:39Z",
 		"categories": [
 			"free-form",
 			"single-player"
@@ -2023,7 +2025,7 @@
 		"author": "OWASP",
 		"description": "AWS EKS Security Lab and activity.",
 		"badge": "OWASP/www-project-eks-goat",
-		"stars": 52,
+		"stars": 53,
 		"last_contributed": "2026-09-30T05:09:29Z",
 		"categories": [
 			"free-form",
@@ -2044,7 +2046,7 @@
 		"author": "Azure Security Team",
 		"description": "A deliberately vulnerable Microsoft Entra ID environment. Learn identity security through hands-on, realistic attack challenges.",
 		"badge": "semperis/EntraGoat",
-		"stars": 1024,
+		"stars": 1030,
 		"last_contributed": "2026-05-06T11:19:09Z",
 		"categories": [
 			"free-form",
@@ -2203,7 +2205,7 @@
 		],
 		"author": "Orange-Cyberdefense",
 		"badge": "Orange-Cyberdefense/GOAD",
-		"stars": 8591,
+		"stars": 8622,
 		"last_contributed": "2026-10-23T22:21:10Z",
 		"categories": [
 			"free-form",
@@ -2777,7 +2779,7 @@
 		"author": "Dinesh Shetty",
 		"description": "Vulnerable Android application for security enthusiasts and developers to learn about Android insecurities. Showcases various security vulnerabilities in Android banking applications.",
 		"badge": "dineshshetty/Android-InsecureBankv2",
-		"stars": 1487,
+		"stars": 1486,
 		"last_contributed": "2019-11-21T15:29:07Z",
 		"categories": [
 			"free-form",
@@ -2851,7 +2853,7 @@
 		"author": "Kubernetes Security Team",
 		"description": "Hands-on lab for Kubernetes infrastructure pentesting",
 		"badge": "raesene/kube_security_lab",
-		"stars": 288,
+		"stars": 289,
 		"last_contributed": "2026-03-19T15:02:59Z",
 		"categories": [
 			"free-form",
@@ -2877,7 +2879,7 @@
 		"author": "Kubernetes Security Team",
 		"description": "Interactive workshop covering Kubernetes security best practices",
 		"badge": "madhuakula/kubernetes-goat",
-		"stars": 5939,
+		"stars": 5954,
 		"last_contributed": "2026-04-16T22:11:11Z",
 		"categories": [
 			"free-form",
@@ -3020,7 +3022,7 @@
 			}
 		],
 		"badge": "rapid7/metasploitable3",
-		"stars": 5777,
+		"stars": 5788,
 		"last_contributed": "2025-02-13T14:49:36Z",
 		"categories": [
 			"free-form",
@@ -3068,7 +3070,7 @@
 		"notes": "Downloads: GitHub OWASP/mastg Crackmes (Android UnCrackable L1–L4, DRM; iOS UnCrackable L1–L2). Overview: https://mas.owasp.org/crackmes/.",
 		"author": "OWASP",
 		"badge": "OWASP/owasp-mstg",
-		"stars": 13320,
+		"stars": 13345,
 		"last_contributed": "2026-11-04T13:15:05Z",
 		"categories": [
 			"free-form",
@@ -3129,7 +3131,7 @@
 		],
 		"description": "OWASP Mutillidae II is a free, open-source, deliberately vulnerable web application providing a target for web-security training. Easy-to-use web hacking environment for labs, security enthusiasts, classrooms, CTF, and vulnerability assessment tools. Contains dozens of vulnerabilities and hints; covers OWASP Top Ten 2007–2017. Installable on LAMP, WAMP, XAMPP; pre-installed on SamuraiWTF and OWASP BWA.",
 		"badge": "webpwnized/mutillidae",
-		"stars": 1537,
+		"stars": 1536,
 		"last_contributed": "2026-09-24T23:04:06Z",
 		"categories": [
 			"free-form",
@@ -3204,7 +3206,7 @@
 			"free-form",
 			"single-player"
 		],
-		"stars": 28,
+		"stars": 29,
 		"last_contributed": "2024-08-12T16:41:55Z"
 	},
 	{
@@ -3228,7 +3230,7 @@
 		"description": "Provides an environment to learn how OWASP Top 10 security risks apply to web applications developed using Node.js and how to effectively address them. Includes a tutorial page and a vulnerable app to exploit and fix.",
 		"notes": "Default accounts: admin/Admin_123; user1/User1_123, user2/User2_123. Requires MongoDB (local or Atlas).",
 		"badge": "OWASP/NodeGoat",
-		"stars": 2085,
+		"stars": 2084,
 		"last_contributed": "2023-06-21T07:23:23Z",
 		"categories": [
 			"guided-lessons",
@@ -3342,7 +3344,7 @@
 		"notes": "Intentionally vulnerable e-commerce application with CTF challenges. Covers OWASP Top 10, API security flaws, and modern frontend attack vectors. Quick setup via npx create-oss-store.",
 		"badge": "kOaDT/oss-oopssec-store",
 		"stars": 56,
-		"last_contributed": "2026-11-02T23:28:26Z"
+		"last_contributed": "2026-11-09T21:34:04Z"
 	},
 	{
 		"url": "https://openvaultbank.com/",
@@ -3406,7 +3408,7 @@
 		"author": "Oversecured Inc",
 		"description": "an iOS app that aggregates all the platform's known and popular security vulnerabilities.",
 		"badge": "oversecured/OversecuredVulnerableiOSApp",
-		"stars": 238,
+		"stars": 239,
 		"last_contributed": "2024-01-10T11:04:41Z",
 		"categories": [
 			"free-form",
@@ -3438,7 +3440,7 @@
 		],
 		"author": "Abhineet Jayaraj (@xploresec)",
 		"badge": "interference-security/DVWS",
-		"stars": 364,
+		"stars": 366,
 		"last_contributed": "2025-12-19T17:00:57Z",
 		"categories": [
 			"free-form",
@@ -3490,8 +3492,8 @@
 		"author": "OWASP",
 		"description": "Probably the most modern and sophisticated insecure web application. For use in security trainings, awareness demos, CTFs and as a guinea pig for security tools. Encompasses vulnerabilities from the entire OWASP Top Ten along with many other security flaws found in real-world applications. Written in Node.js, Express and Angular.",
 		"badge": "juice-shop/juice-shop",
-		"stars": 14392,
-		"last_contributed": "2026-10-23T09:27:35Z",
+		"stars": 14446,
+		"last_contributed": "2026-11-08T18:13:15Z",
 		"categories": [
 			"ctf",
 			"free-form",
@@ -3553,8 +3555,8 @@
 		],
 		"author": "Karan Preet Singh Sasan",
 		"badge": "SasanLabs/VulnerableApp",
-		"stars": 482,
-		"last_contributed": "2026-11-07T09:07:55Z",
+		"stars": 483,
+		"last_contributed": "2026-11-14T20:17:37Z",
 		"categories": [
 			"scanner-test",
 			"single-player"
@@ -3586,7 +3588,7 @@
 		"author": "Karan Preet Singh Sasan",
 		"badge": "SasanLabs/VulnerableApp-facade",
 		"stars": 57,
-		"last_contributed": "2026-11-03T04:04:47Z",
+		"last_contributed": "2026-11-12T22:27:48Z",
 		"categories": [
 			"free-form",
 			"single-player"
@@ -3831,7 +3833,7 @@
 			"guided-lessons",
 			"single-player"
 		],
-		"stars": 78,
+		"stars": 80,
 		"last_contributed": "2026-11-05T11:25:36Z"
 	},
 	{
@@ -3860,7 +3862,7 @@
 		],
 		"author": "Ade Yoseman",
 		"badge": "adeyosemanputra/pygoat",
-		"stars": 353,
+		"stars": 356,
 		"last_contributed": "2026-11-01T14:43:03Z",
 		"categories": [
 			"free-form",
@@ -3880,7 +3882,7 @@
 		],
 		"author": "insp3ctre",
 		"badge": "TheHackerDev/race-the-web",
-		"stars": 638,
+		"stars": 639,
 		"last_contributed": "2019-10-16T19:00:49Z"
 	},
 	{
@@ -3902,7 +3904,7 @@
 		],
 		"author": "OWASP",
 		"badge": "OWASP/railsgoat",
-		"stars": 929,
+		"stars": 930,
 		"last_contributed": "2026-09-08T12:46:31Z",
 		"categories": [
 			"guided-lessons",
@@ -3924,7 +3926,7 @@
 			"free-form",
 			"guided-lessons"
 		],
-		"stars": 91,
+		"stars": 92,
 		"last_contributed": "2020-07-01T17:26:29Z"
 	},
 	{
@@ -4056,7 +4058,7 @@
 		"author": "Globo",
 		"description": "Repository with many intentionally vulnerable web applications. Includes attack narratives and docker options for each app.",
 		"badge": "globocom/secDevLabs",
-		"stars": 980,
+		"stars": 981,
 		"last_contributed": "2024-09-25T19:54:56Z",
 		"categories": [
 			"free-form",
@@ -4076,7 +4078,7 @@
 		"author": "GitHub Security Lab",
 		"description": "A GitHub Security Lab initiative, providing an in-repo learning experience, where learners secure intentionally vulnerable code.",
 		"badge": "skills/secure-code-game",
-		"stars": 2859,
+		"stars": 2861,
 		"last_contributed": "2026-10-27T15:57:38Z",
 		"categories": [
 			"free-form",
@@ -4101,7 +4103,7 @@
 		"notes": "Releases added for each new PoC. Use for detection improvement, TTP research, and discovering additional exploits. Not a single app—multiple PoCs and vulnerable demos.",
 		"author": "DataDog",
 		"badge": "DataDog/security-labs-pocs",
-		"stars": 451,
+		"stars": 453,
 		"last_contributed": "2026-09-14T15:05:04Z",
 		"categories": [
 			"free-form",
@@ -4127,8 +4129,8 @@
 		"author": "OWASP",
 		"description": "Web and mobile application security training platform designed to foster and improve security awareness. Presents security risk concepts in lessons followed by challenges; utilizes the OWASP Top Ten as a challenge test bed. Real vulnerabilities with dampened impact. Supports CTF, Open Floor, and Tournament modes; highly configurable for single user, classroom, or online competition.",
 		"badge": "OWASP/SecurityShepherd",
-		"stars": 1467,
-		"last_contributed": "2026-11-01T19:52:20Z",
+		"stars": 1469,
+		"last_contributed": "2026-11-09T14:16:39Z",
 		"categories": [
 			"ctf",
 			"guided-lessons",
@@ -4220,7 +4222,7 @@
 		"description": "Collection of web pages vulnerable to SQL injection and related flaws. Per-DBMS vulnerable pages, schema and test data, deployment script for a full Linux (Debian/Ubuntu) machine with multiple DBMSs. Part of the SQLmap project.",
 		"notes": "SQLmap Project. deployment.sh deploys a Linux box with DBMSs; conf/, dbs/, libs/, schema/ and per-DBMS directories.",
 		"badge": "sqlmapproject/testenv",
-		"stars": 356,
+		"stars": 357,
 		"last_contributed": "2022-04-14T09:05:57Z",
 		"categories": [
 			"free-form",
@@ -4335,7 +4337,7 @@
 		"author": "HCL/IBM/Watchfire",
 		"notes": "Run only in a sheltered environment (e.g. VM). Log in with jsmith/demo1234 or admin/admin. Hosted demo: altoromutual.com:8080.",
 		"badge": "hclproducts/AltoroJ",
-		"stars": 307,
+		"stars": 308,
 		"last_contributed": "2026-07-27T11:34:21Z",
 		"categories": [
 			"free-form",
@@ -4381,7 +4383,7 @@
 		"notes": "python manage.py runserver (or --insecure for static). Docker: docker build -t tiredful . then docker run -p 8000:8000 tiredful; http://localhost:8000/.",
 		"author": "@payatu",
 		"badge": "payatu/Tiredful-API",
-		"stars": 583,
+		"stars": 584,
 		"last_contributed": "2020-09-07T06:22:06Z",
 		"categories": [
 			"free-form",
@@ -4456,7 +4458,7 @@
 		],
 		"author": "erev0s",
 		"badge": "erev0s/VAmPI",
-		"stars": 1348,
+		"stars": 1352,
 		"last_contributed": "2026-04-07T20:02:39Z",
 		"categories": [
 			"free-form",
@@ -4572,7 +4574,7 @@
 			"SQLite",
 			"Sequelize"
 		],
-		"stars": 45,
+		"stars": 46,
 		"last_contributed": "2024-08-26T22:48:44Z",
 		"categories": [
 			"free-form",
@@ -4625,7 +4627,7 @@
 		],
 		"url": "https://github.com/Commando-X/vuln-bank",
 		"badge": "Commando-X/vuln-bank",
-		"stars": 995,
+		"stars": 999,
 		"last_contributed": "2026-11-04T21:59:36Z",
 		"categories": [
 			"code-review",
@@ -4648,7 +4650,7 @@
 		"notes": "Do not run on main machine or online server; use a VM. Docker: docker-compose up then http://localhost:8080/JavaVulnerableLab/install.jsp (set JDBC to jdbc:mysql://mysql:3306). Or VirtualBox OVA, JAR, or WAR deploy.",
 		"author": "Cyber Security and Privacy Foundation",
 		"badge": "CSPF-Founder/JavaVulnerableLab",
-		"stars": 278,
+		"stars": 279,
 		"last_contributed": "2026-08-02T04:10:34Z",
 		"categories": [
 			"free-form",
@@ -4931,7 +4933,7 @@
 		"author": "Yavuzlar (siberyavuzlar.com)",
 		"description": "A web vulnerability lab project developed by Yavuzlar.",
 		"badge": "Yavuzlar/VulnLab",
-		"stars": 527,
+		"stars": 526,
 		"last_contributed": "2025-02-02T18:40:45Z",
 		"categories": [
 			"free-form",
@@ -5132,8 +5134,8 @@
 		"description": "A deliberately insecure application that allows developers to test vulnerabilities commonly found in Java-based applications that use common and popular open source components. De facto interactive teaching environment for web application security; lessons cover the OWASP Top 10 and more.",
 		"notes": "Default configuration binds to localhost. Disconnect from the Internet while using. For educational use only.",
 		"badge": "WebGoat/WebGoat",
-		"stars": 9464,
-		"last_contributed": "2026-10-29T18:11:32Z",
+		"stars": 9482,
+		"last_contributed": "2026-11-09T07:54:04Z",
 		"categories": [
 			"guided-lessons",
 			"single-player"
@@ -5256,7 +5258,7 @@
 		"author": "Omar Santos",
 		"description": "This is a learning resource created by Omar Santos (@santosomar) for different Cybersecurity training sessions. It includes many intentionally vulnerable applications running in Docker containers and thousands of cybersecurity resources.",
 		"badge": "The-Art-of-Hacking/websploit",
-		"stars": 612,
+		"stars": 617,
 		"last_contributed": "2026-10-12T23:47:58Z",
 		"categories": [
 			"free-form",
@@ -5285,7 +5287,7 @@
 		],
 		"author": "Green Dog (GrrrDog)",
 		"badge": "GrrrDog/weird_proxies",
-		"stars": 1891,
+		"stars": 1892,
 		"last_contributed": "2023-11-04T18:48:02Z",
 		"categories": [
 			"free-form",
@@ -5341,7 +5343,7 @@
 		"description": "OWASP game with real-life examples of how not to store secrets. Each example is a challenge solved with various tools and techniques; solving them helps recognize common mistakes and reflect on secrets management. 60 challenges; examine source code, config files, Docker containers, and cloud deployments to discover intentionally hidden secrets.",
 		"notes": "Heroku demo: wrongsecrets.herokuapp.com. Full experience via Docker; cloud and Kubernetes exercises need advanced setup. CTF/multiplayer support via https://github.com/OWASP/wrongsecrets-ctf-party.",
 		"badge": "OWASP/wrongsecrets",
-		"stars": 1474,
+		"stars": 1479,
 		"last_contributed": "2026-11-02T11:49:50Z",
 		"categories": [
 			"code-review",
@@ -5372,7 +5374,7 @@
 		],
 		"badge": "hahwul/xssmaze",
 		"stars": 40,
-		"last_contributed": "2026-11-01T08:25:12Z",
+		"last_contributed": "2026-11-12T15:39:46Z",
 		"categories": [
 			"scanner-test"
 		]
