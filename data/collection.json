@@ -466,6 +466,27 @@
 		]
 	},
 	{
+		"url": "https://bugbait.io/#/",
+		"name": "BugBait",
+		"slug": "bugbait",
+		"collection": [
+			"online"
+		],
+		"technology": [
+			"PHP",
+			"Nginx"
+		],
+		"description": "BugBait is an intentionally vulnerable web application designed for ethical hackers, penetration testers, security researchers, and students to practise real-world web application security testing. It provides a controlled, hands-on environment to discover, exploit, and understand common security vulnerabilities, including those covered by the OWASP Top 10.",
+		"badge": "blacklock-security/bugbait",
+		"author": "Blacklock Security",
+		"stars": 100,
+		"last_contributed": "2024-10-30T00:00:00Z",
+		"categories": [
+			"free-form",
+			"single-player"
+		]
+	},
+	{
 		"url": "https://github.com/attacker-codeninja/BugGPT",
 		"name": "BugGPT",
 		"slug": "buggpt",
