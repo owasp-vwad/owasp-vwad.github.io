@@ -269,7 +269,15 @@
     if (!apps.length) return renderEmptyState();
     options = options || {};
     var query = (options.query || '').toLowerCase().trim();
+    var seenLetters = {};
     var items = apps.map(function (app) {
+      var first = (app.name || '').trim().charAt(0).toUpperCase();
+      var letter = /[A-Z]/.test(first) ? first : '#';
+      var anchorId = '';
+      if (!seenLetters[letter]) {
+        seenLetters[letter] = true;
+        anchorId = ' id="card-letter-' + (letter === '#' ? 'num' : letter) + '"';
+      }
       var url = window.VWAD && typeof window.VWAD.getAppUrl === 'function' ? window.VWAD.getAppUrl(app) : '#';
       var updatedBand = window.VWAD && window.VWAD.getUpdatedBand ? window.VWAD.getUpdatedBand(app.last_contributed) : null;
       var updatedPill = updatedBand
@@ -277,7 +285,7 @@
         : '';
       var authorMatched = query && app.author && app.author.toLowerCase().indexOf(query) !== -1;
       var tags = renderAppTags(app);
-      return '<li class="app-card">' +
+      return '<li class="app-card"' + anchorId + '>' +
         renderLogoSlot(app) +
         '<div class="app-card-body">' +
         '<a class="app-card-name" href="' + escapeHtml(url) + '">' + escapeHtml(app.name) + '</a>' +
@@ -290,7 +298,14 @@
         (tags.techCatPills ? '<div class="pill-group">' + tags.techCatPills + '</div>' : '') +
         '</div></li>';
     });
-    return '<ul class="app-cards">' + items.join('') + '</ul>';
+    var letters = '#ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map(function (l) {
+      var key = l === '#' ? 'num' : l;
+      return seenLetters[l]
+        ? '<li><button type="button" class="alpha-link" data-letter-target="card-letter-' + key + '" aria-label="Jump to ' + (l === '#' ? 'names starting with a digit or symbol' : l) + '">' + l + '</button></li>'
+        : '<li><span class="alpha-link is-empty" aria-hidden="true">' + l + '</span></li>';
+    }).join('');
+    return '<nav class="alpha-nav" aria-label="Jump to letter"><ul>' + letters + '</ul></nav>' +
+      '<ul class="app-cards">' + items.join('') + '</ul>';
   }
 
   Browse.sortApps = sortApps;

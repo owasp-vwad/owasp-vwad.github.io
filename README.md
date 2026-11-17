@@ -68,10 +68,10 @@ The build resizes raster logos (PNG, JPEG, WebP) in `_site/images/app_logos/` to
 - `scripts/validate_generated_site.py` - Validates generated app pages, sitemap, canonical tags, JSON-LD, and compatibility redirects.
 - `_site/` - Generated deploy output, including flattened shared and page-specific CSS bundles. Not committed.
 - `js/app.js` - Loads collection data, validates explicit slugs, and exposes shared browse/app lookup and search helpers.
-- `js/home.js` - Homepage bootstrap and browse-search orchestration for mode switching, reset behavior, and result rendering.
+- `js/home.js` - Homepage bootstrap and browse-search orchestration for mode switching, reset behavior, result rendering, the mobile card/table view toggle, and desktop keyboard shortcuts.
 - `js/advanced-search.js` - Advanced browse-search controller, including custom multi-select filters, grouped pills, and Advanced-only UI behavior.
 - `js/search-options.js` - Shared option definitions and label helpers used by the browse-search UI.
-- `js/search-table.js` - Browse table rendering, sorting, sticky/scroll behavior, and table interaction helpers.
+- `js/search-table.js` - Browse table and mobile card rendering (including the A-Z jump list), sorting, sticky/scroll behavior, and table interaction helpers.
 - `js/theme.js` - Theme toggle, system-theme syncing, and back-to-top button behavior.
 - `css/base.css` - Shared tokens, dark-theme variables, reset/base element styles, accessibility helpers, and utilities.
 - `css/shell.css` - Shared layout, containers, site header, project header, and common section framing.
@@ -81,9 +81,13 @@ The build resizes raster logos (PNG, JPEG, WebP) in `_site/images/app_logos/` to
 - `css/footer.css` - Active site footer styles.
 - `css/pages/home.css` - Homepage-only framing styles for featured content, browse section layout, and contributors.
 - `css/pages/search.css` - Homepage browse/search controls and advanced search UI.
-- `css/pages/table.css` - Homepage browse-results table, toolbar, and scroll behavior.
+- `css/pages/table.css` - Homepage browse-results table, mobile cards, A-Z jump list, toolbar, and scroll behavior.
 - `css/pages/app.css` - App detail page, breadcrumb, and compatibility-page styles.
 - `css/pages/404.css` - 404 page layout and artwork styles.
+
+## Keyboard Shortcuts
+
+On the homepage (ignored while typing in a field): `?` shows help, `/` focuses the search field, `o`/`l`/`m`/`c`/`p` set the Collection filter to online/offline (localhost)/mobile/container/platform (press again to clear), and `x` resets filters. At 640px wide or less, a Table view/Card view button switches the results layout and an A-Z list jumps through the cards.
 
 ## Automation
 
