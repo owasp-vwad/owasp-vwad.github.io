@@ -174,6 +174,16 @@
     var currentUrl = null;
     // Cards replace the table on small screens; the table stays for wider ones.
     var cardMedia = window.matchMedia('(max-width: 640px)');
+    var viewToggle = document.getElementById('view-toggle');
+    var preferTable = false;
+    try { preferTable = localStorage.getItem('vwad-view') === 'table'; } catch (e) {}
+    function showCards() { return cardMedia.matches && !preferTable; }
+    function syncViewToggle() {
+      if (!viewToggle) return;
+      viewToggle.hidden = !cardMedia.matches;
+      viewToggle.textContent = preferTable ? 'Card view' : 'Table view';
+      viewToggle.setAttribute('aria-pressed', preferTable ? 'true' : 'false');
+    }
     var advancedController = Browse.createAdvancedController({
       searchControls: searchControls,
       elements: elements.advanced,
@@ -478,9 +488,16 @@
         if (countEl) {
           countEl.textContent = 'Showing ' + apps.length + ' of ' + total + ' application' + (total === 1 ? '' : 's');
         }
-        var renderResults = cardMedia.matches ? Browse.renderCards : Browse.renderTable;
+        var renderResults = showCards() ? Browse.renderCards : Browse.renderTable;
         resultsEl.innerHTML = renderResults(sorted, sortState, { query: payload.query });
         resultsEl.setAttribute('aria-busy', 'false');
+        // Move the A-Z list into the sticky toolbar so it stays visible while scrolling.
+        var alphaSlot = document.getElementById('alpha-slot');
+        if (alphaSlot) {
+          alphaSlot.innerHTML = '';
+          var alphaNav = resultsEl.querySelector('.alpha-nav');
+          if (alphaNav) alphaSlot.appendChild(alphaNav);
+        }
         if (tableScrollState) {
           var outer = resultsEl.querySelector('.table-scroll-outer');
           if (outer) Browse.restoreTableScrollState(outer, tableScrollState);
@@ -586,7 +603,68 @@
     });
 
     cardMedia.addEventListener('change', function () {
+      syncViewToggle();
       runSearch();
+    });
+
+    if (viewToggle) {
+      viewToggle.addEventListener('click', function () {
+        preferTable = !preferTable;
+        try { localStorage.setItem('vwad-view', preferTable ? 'table' : 'cards'); } catch (e) {}
+        syncViewToggle();
+        runSearch();
+      });
+    }
+
+    // Desktop keyboard shortcuts (ignored while typing or when a modifier is held).
+    var COLLECTION_KEYS = { o: 'online', l: 'offline', m: 'mobile', c: 'container', p: 'platform' };
+    var hotkeysDialog = document.getElementById('hotkeys-dialog');
+    document.addEventListener('keydown', function (event) {
+      if (event.ctrlKey || event.metaKey || event.altKey || event.defaultPrevented) return;
+      var t = event.target;
+      if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+      if (hotkeysDialog && hotkeysDialog.open) return;
+      var key = event.key;
+      if (key === '?') {
+        if (hotkeysDialog && hotkeysDialog.showModal) { event.preventDefault(); hotkeysDialog.showModal(); }
+      } else if (key === '/') {
+        event.preventDefault();
+        elements[state.activeMode].query.focus({ preventScroll: true });
+        // Bring the "Search type" label just below the sticky site header.
+        var label = document.getElementById('search-type-label');
+        var header = document.querySelector('.site-header, header');
+        if (label) {
+          var headerH = header ? header.getBoundingClientRect().bottom : 0;
+          window.scrollTo({ top: window.pageYOffset + label.getBoundingClientRect().top - Math.max(headerH, 0) - 12, behavior: 'smooth' });
+        }
+      } else if (key.toLowerCase() === 'x') {
+        event.preventDefault();
+        if (hasActiveFilters(state.activeMode)) clearActiveModeFilters();
+      } else if (COLLECTION_KEYS[key.toLowerCase()]) {
+        var value = COLLECTION_KEYS[key.toLowerCase()];
+        event.preventDefault();
+        if (state.activeMode === 'basic') {
+          state.basic.collection = state.basic.collection === value ? '' : value;
+          syncBasicControls();
+        } else {
+          var cur = state.advanced.collection;
+          state.advanced.collection = (cur.length === 1 && cur[0] === value) ? [] : [value];
+          advancedController.syncControls();
+        }
+        runSearch();
+      }
+    });
+
+    syncViewToggle();
+
+    document.getElementById('alpha-slot').addEventListener('click', function (event) {
+      var btn = event.target.closest('.alpha-link[data-letter-target]');
+      if (!btn) return;
+      var target = document.getElementById(btn.getAttribute('data-letter-target'));
+      var toolbar = document.querySelector('.results-toolbar');
+      if (!target) return;
+      var offset = toolbar ? toolbar.getBoundingClientRect().bottom : 0;
+      window.scrollTo({ top: window.pageYOffset + target.getBoundingClientRect().top - offset - 8, behavior: 'smooth' });
     });
 
     window.addEventListener('popstate', function () {

@@ -141,3 +141,66 @@
     animation: none;
   }
 }
+
+/* Keyboard shortcuts hint and help dialog */
+.page-home .hotkey-hint {
+  margin: 0 0 0.75rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+@media (hover: none) {
+  .page-home .hotkey-hint {
+    display: none;
+  }
+}
+
+.page-home kbd,
+.hotkeys-dialog kbd {
+  display: inline-block;
+  min-width: 1.5em;
+  padding: 0.05em 0.4em;
+  font: inherit;
+  font-size: 0.85em;
+  text-align: center;
+  color: var(--text);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 0.3rem;
+  box-shadow: 0 1px 0 var(--border);
+}
+
+.hotkeys-dialog {
+  max-width: 24rem;
+  padding: 1.25rem 1.5rem;
+  color: var(--text);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 0.85rem;
+}
+
+.hotkeys-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.hotkeys-dialog h2 {
+  margin: 0 0 0.75rem;
+}
+
+.hotkeys-list {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem 1rem;
+  margin: 0 0 0.75rem;
+}
+
+.hotkeys-list dt,
+.hotkeys-list dd {
+  margin: 0;
+}
+
+.hotkeys-note {
+  margin: 0 0 1rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
