@@ -55,6 +55,15 @@ body:
       required: false
 
   - type: textarea
+    id: logo
+    attributes:
+      label: Logo
+      description: Link to the app's logo (SVG preferred; PNG acceptable) or attach the file to this field by dragging it in.
+      placeholder: "e.g. https://example.com/logo.svg, or drag and drop an image file here"
+    validations:
+      required: false
+
+  - type: textarea
     id: notes
     attributes:
       label: Notes
