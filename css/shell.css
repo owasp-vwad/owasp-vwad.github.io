@@ -473,6 +473,26 @@
   display: block;
   height: 2.5rem;
   width: auto;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+              filter 0.28s ease;
+}
+
+.header-brand:hover .header-logo-vwad {
+  transform: translateY(-2px) scale(1.07);
+  filter: drop-shadow(0 0 6px rgba(0, 220, 200, 0.8))
+          drop-shadow(0 0 16px rgba(0, 200, 180, 0.6))
+          brightness(1.1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header-logo-vwad {
+    transition: none !important;
+  }
+
+  .header-brand:hover .header-logo-vwad {
+    transform: none !important;
+    filter: brightness(1.1);
+  }
 }
 
 @media (max-width: 450px) {
